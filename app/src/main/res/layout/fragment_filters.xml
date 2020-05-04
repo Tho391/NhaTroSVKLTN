@@ -1,13 +1,458 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.ui.filters.FiltersFragment">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText_address"
+            style="@style/Subtitle2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:background="@drawable/edit_text_background"
+            android:hint="@string/ten_duong"
+            android:padding="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.jaredrummler.materialspinner.MaterialSpinner
+            android:id="@+id/spinner_district"
+            style="@style/Subtitle2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:entries="@array/districts"
+            android:hint="@string/quan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editText_address" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView_rating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:elevation="10dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spinner_district">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView_rating"
+                    style="@style/Headline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/small_margin"
+                    android:text="@string/danh_gia"
+                    android:textColor="@color/primaryColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatRatingBar
+                    android:id="@+id/rating"
+                    style="@style/RatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/small_margin"
+                    android:numStars="5"
+                    android:rating="4.5"
+                    android:theme="@style/RatingBar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/textView_price"
+            style="@style/Subtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:drawableStart="@drawable/price_green"
+            android:drawablePadding="4dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:text="@string/gia_trieu_dong"
+            android:textColor="@color/green"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardView_rating" />
+
+        <TextView
+            android:id="@+id/textView_price_start"
+            style="@style/Subtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/small_margin"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:text="1.0"
+            android:textColor="@color/green"
+            app:layout_constraintEnd_toStartOf="@id/dash1"
+            app:layout_constraintTop_toBottomOf="@id/cardView_rating" />
+
+        <TextView
+            android:id="@+id/dash1"
+            style="@style/Subtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:text="-"
+            android:textColor="@color/green"
+            app:layout_constraintEnd_toEndOf="@id/guideline2"
+            app:layout_constraintStart_toStartOf="@id/guideline2"
+            app:layout_constraintTop_toBottomOf="@id/cardView_rating" />
+
+        <TextView
+            android:id="@+id/textView_price_end"
+            style="@style/Subtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/small_margin"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:text="3.0"
+            android:textColor="@color/green"
+            app:layout_constraintStart_toEndOf="@id/dash1"
+            app:layout_constraintTop_toBottomOf="@id/cardView_rating" />
+
+        <com.jem.rubberpicker.RubberRangePicker
+            android:id="@+id/picker_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:paddingVertical="5dp"
+            app:dampingRatio="0.3"
+            app:defaultThumbInsideColor="#FFF"
+            app:defaultThumbRadius="16dp"
+            app:elasticBehavior="cubic"
+            app:highlightDefaultThumbOnTouchColor="@color/golden"
+            app:highlightTrackColor="@color/green"
+            app:highlightTrackWidth="8dp"
+            app:initialEndValue="30"
+            app:initialStartValue="10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView_price"
+            app:maxValue="100"
+            app:minValue="1"
+            app:normalTrackColor="#AAAAAA"
+            app:normalTrackWidth="4dp"
+            app:stiffness="300"
+            app:stretchRange="24dp" />
+
+        <TextView
+            android:id="@+id/textView_area"
+            style="@style/Subtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:drawableStart="@drawable/area_green"
+            android:drawablePadding="4dp"
+
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:text="@string/dien_tich"
+            android:textColor="@color/green"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/picker_price" />
+
+        <TextView
+            android:id="@+id/textView_area_start"
+            style="@style/Subtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/small_margin"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:text="10"
+            android:textColor="@color/green"
+            app:layout_constraintEnd_toStartOf="@id/dash2"
+            app:layout_constraintTop_toBottomOf="@id/picker_price" />
+
+        <TextView
+            android:id="@+id/dash2"
+            style="@style/Subtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:text="-"
+            android:textColor="@color/green"
+            app:layout_constraintEnd_toEndOf="@id/guideline2"
+            app:layout_constraintStart_toStartOf="@id/guideline2"
+            app:layout_constraintTop_toBottomOf="@id/picker_price" />
+
+        <TextView
+            android:id="@+id/textView_area_end"
+            style="@style/Subtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/small_margin"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:text="30"
+            android:textColor="@color/green"
+            app:layout_constraintStart_toEndOf="@id/dash2"
+            app:layout_constraintTop_toBottomOf="@id/picker_price" />
+
+        <com.jem.rubberpicker.RubberRangePicker
+            android:id="@+id/picker_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:paddingVertical="5dp"
+            app:dampingRatio="0.3"
+            app:defaultThumbInsideColor="#FFF"
+            app:defaultThumbRadius="16dp"
+            app:elasticBehavior="linear"
+            app:highlightDefaultThumbOnTouchColor="@color/golden"
+            app:highlightTrackColor="@color/green"
+            app:highlightTrackWidth="8dp"
+            app:initialEndValue="30"
+            app:initialStartValue="10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView_area"
+            app:maxValue="100"
+            app:minValue="10"
+            app:normalTrackColor="#AAAAAA"
+            app:normalTrackWidth="4dp"
+            app:stiffness="300"
+            app:stretchRange="24dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView_utils"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:elevation="1dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/picker_area">
+
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/grid_utils"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                app:columnCount="3"
+                app:rowCount="5">
+
+                <TextView
+                    android:id="@+id/textView_utils"
+                    style="@style/Headline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/small_margin"
+                    android:text="@string/tien_ich"
+                    android:textAlignment="center"
+                    android:textColor="@color/primaryColor"
+                    app:layout_columnSpan="3"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1" />
+
+                <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
+                    android:id="@+id/image_wifi"
+                    android:layout_width="@dimen/smaller_image"
+                    android:layout_height="@dimen/smaller_image"
+                    android:layout_margin="@dimen/smaller_margin"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1"
+                    app:src_checked="@drawable/wifi_green"
+                    app:src_unchecked="@drawable/wifi_gray" />
+
+                <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
+                    android:id="@+id/image_time"
+                    android:layout_width="@dimen/smaller_image"
+                    android:layout_height="@dimen/smaller_image"
+                    android:layout_margin="@dimen/smaller_margin"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1"
+                    app:src_checked="@drawable/time_green"
+                    app:src_unchecked="@drawable/time_gray" />
+
+                <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
+                    android:id="@+id/image_key"
+                    android:layout_width="@dimen/smaller_image"
+                    android:layout_height="@dimen/smaller_image"
+                    android:layout_margin="@dimen/smaller_margin"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1"
+                    app:src_checked="@drawable/key_green"
+                    app:src_unchecked="@drawable/key_gray" />
+
+                <TextView
+                    android:id="@+id/textView_wifi"
+                    style="@style/Subtitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/wifi"
+                    android:textColor="@color/primaryColor"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1" />
+
+                <TextView
+                    android:id="@+id/textView_time"
+                    style="@style/Subtitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/tu_do"
+                    android:textColor="@color/primaryColor"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1" />
+
+                <TextView
+                    android:id="@+id/textView_key"
+                    style="@style/Subtitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/chung_chu"
+                    android:textColor="@color/primaryColor"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1" />
+
+                <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
+                    android:id="@+id/image_car"
+                    android:layout_width="@dimen/smaller_image"
+                    android:layout_height="@dimen/smaller_image"
+                    android:layout_margin="@dimen/smaller_margin"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1"
+                    app:src_checked="@mipmap/bike_green"
+                    app:src_unchecked="@mipmap/bike_gray" />
+
+                <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
+                    android:id="@+id/image_air"
+                    android:layout_width="@dimen/smaller_image"
+                    android:layout_height="@dimen/smaller_image"
+                    android:layout_margin="@dimen/smaller_margin"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1"
+                    app:src_checked="@mipmap/air_green"
+                    app:src_unchecked="@mipmap/air_gray" />
+
+                <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
+                    android:id="@+id/image_heater"
+                    android:layout_width="@dimen/smaller_image"
+                    android:layout_height="@dimen/smaller_image"
+                    android:layout_margin="@dimen/smaller_margin"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1"
+                    app:src_checked="@mipmap/heater_green"
+                    app:src_unchecked="@mipmap/heater_gray" />
+
+                <TextView
+                    android:id="@+id/textView_car"
+                    style="@style/Subtitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/wifi"
+                    android:textColor="@color/primaryColor"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1" />
+
+                <TextView
+                    android:id="@+id/textView_air"
+                    style="@style/Subtitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/tu_do"
+                    android:textColor="@color/primaryColor"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1" />
+
+                <TextView
+                    android:id="@+id/textView_heater"
+                    style="@style/Subtitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/chung_chu"
+                    android:textColor="@color/primaryColor"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1" />
+            </androidx.gridlayout.widget.GridLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_cancel"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginBottom="56dp"
+            android:text="@string/xoa_loc"
+            android:textColor="@color/green"
+            app:cornerRadius="@dimen/default_radius"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardView_utils"
+            app:strokeColor="@color/green" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_apply"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginBottom="56dp"
+            android:text="@string/ap_dung"
+
+            android:textColor="@color/green"
+            app:cornerRadius="@dimen/default_radius"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/cardView_utils"
+            app:strokeColor="@color/green" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

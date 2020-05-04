@@ -39,7 +39,17 @@ Chỉ cần xách vali vào ở ngay.</string>
     <string name="so_dien_thoai">Số điện thoại</string>
     <string name="gia_phong">Giá phòng (triệu đồng)</string>
     <string name="dien_tich">Diện tích (m<sup>2</sup>)</string>
-    <string name="thong_tin_chi_tiet">Thông tin chi tiết...</string>
+    <string name="thong_tin_chi_tiet">Thông tin chi tiết…</string>
     <string name="thong_tin_co_ban">Thông tin cơ bản</string>
     <string name="dia_chi">Dia chỉ</string>
+    <string name="quan">Quận</string>
+    <string name="ten_duong">Tên đường</string>
+    <string name="danh_gia">Đánh giá</string>
+    <string name="gia_trieu_dong">Giá (triệu đồng)</string>
+    <string name="tien_ich">Tiện ích</string>
+    <string name="ap_dung">Áp dụng</string>
+    <string name="xoa_loc">Xoá lọc</string>
+    <string name="wifi">Wifi</string>
+    <string name="tu_do">Tự do</string>
+    <string name="chung_chu">Chung chủ</string>
 </resources>

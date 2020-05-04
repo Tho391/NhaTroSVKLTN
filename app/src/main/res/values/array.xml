@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="districts">
+        <item>Tất cả</item>
+        <item>Quận 1</item>
+        <item>Quận 2</item>
+        <item>Quận 3</item>
+        <item>Quận 4</item>
+        <item>Quận 5</item>
+        <item>Quận 6</item>
+        <item>Quận 7</item>
+        <item>Quận 8</item>
+        <item>Quận 9</item>
+        <item>Quận 10</item>
+        <item>Quận 11</item>
+        <item>Quận 12</item>
+        <item>Bình Tân</item>
+        <item>Bình Thạnh</item>
+        <item>Gò Vấp</item>
+        <item>Phú Nhuận</item>
+        <item>Tân Bình</item>
+        <item>Tân Phú</item>
+        <item>Thủ Đức</item>
+    </string-array>
+</resources>
