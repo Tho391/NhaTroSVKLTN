@@ -32,7 +32,7 @@
         android:lines="1"
         android:maxWidth="230dp"
         android:text="User"
-        android:textColor="@color/primaryColor"
+        android:textColor="@color/primaryTextColor"
         app:layout_constraintStart_toEndOf="@id/cardView_avatar"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,7 +44,7 @@
         android:layout_margin="@dimen/small_margin"
         android:padding="4dp"
         android:text="Bình luận Bình luận Bình luận Bình luận Bình luận Bình luận Bình luận Bình luận Bình luận Bình luận Bình luận Bình luận Bình luận"
-        android:textColor="@color/primaryColor"
+        android:textColor="@color/primaryTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/cardView_avatar"
@@ -57,11 +57,11 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/small_margin"
         android:lines="1"
-        android:padding="4dp"
         android:maxWidth="100dp"
+        android:padding="4dp"
         android:text="30/04/2020"
+        android:textColor="@color/primaryTextColor"
         app:layout_constraintBottom_toBottomOf="@id/textView_author"
-        android:textColor="@color/primaryColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/textView_author" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/small_margin"
                     android:text="@string/danh_gia"
-                    android:textColor="@color/primaryColor"
+                    android:textColor="@color/primaryTextColor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -103,7 +103,7 @@
             android:paddingHorizontal="10dp"
             android:paddingVertical="5dp"
             android:text="@string/gia_trieu_dong"
-            android:textColor="@color/green"
+            android:textColor="@color/primaryTextColor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardView_rating" />
 
@@ -117,7 +117,7 @@
             android:paddingHorizontal="10dp"
             android:paddingVertical="5dp"
             android:text="1.0"
-            android:textColor="@color/green"
+            android:textColor="@color/primaryTextColor"
             app:layout_constraintEnd_toStartOf="@id/dash1"
             app:layout_constraintTop_toBottomOf="@id/cardView_rating" />
 
@@ -145,7 +145,7 @@
             android:paddingHorizontal="10dp"
             android:paddingVertical="5dp"
             android:text="3.0"
-            android:textColor="@color/green"
+            android:textColor="@color/primaryTextColor"
             app:layout_constraintStart_toEndOf="@id/dash1"
             app:layout_constraintTop_toBottomOf="@id/cardView_rating" />
 
@@ -160,7 +160,7 @@
             app:defaultThumbRadius="16dp"
             app:elasticBehavior="cubic"
             app:highlightDefaultThumbOnTouchColor="@color/golden"
-            app:highlightTrackColor="@color/green"
+            app:highlightTrackColor="@color/secondaryColor"
             app:highlightTrackWidth="8dp"
             app:initialEndValue="30"
             app:initialStartValue="10"
@@ -186,7 +186,7 @@
             android:paddingHorizontal="10dp"
             android:paddingVertical="5dp"
             android:text="@string/dien_tich"
-            android:textColor="@color/green"
+            android:textColor="@color/primaryTextColor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/picker_price" />
 
@@ -200,7 +200,7 @@
             android:paddingHorizontal="10dp"
             android:paddingVertical="5dp"
             android:text="10"
-            android:textColor="@color/green"
+            android:textColor="@color/primaryTextColor"
             app:layout_constraintEnd_toStartOf="@id/dash2"
             app:layout_constraintTop_toBottomOf="@id/picker_price" />
 
@@ -228,7 +228,7 @@
             android:paddingHorizontal="10dp"
             android:paddingVertical="5dp"
             android:text="30"
-            android:textColor="@color/green"
+            android:textColor="@color/primaryTextColor"
             app:layout_constraintStart_toEndOf="@id/dash2"
             app:layout_constraintTop_toBottomOf="@id/picker_price" />
 
@@ -243,7 +243,7 @@
             app:defaultThumbRadius="16dp"
             app:elasticBehavior="linear"
             app:highlightDefaultThumbOnTouchColor="@color/golden"
-            app:highlightTrackColor="@color/green"
+            app:highlightTrackColor="@color/secondaryColor"
             app:highlightTrackWidth="8dp"
             app:initialEndValue="30"
             app:initialStartValue="10"
@@ -285,7 +285,7 @@
                     android:layout_margin="@dimen/small_margin"
                     android:text="@string/tien_ich"
                     android:textAlignment="center"
-                    android:textColor="@color/primaryColor"
+                    android:textColor="@color/primaryTextColor"
                     app:layout_columnSpan="3"
                     app:layout_columnWeight="1"
                     app:layout_rowWeight="1" />
@@ -327,7 +327,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/wifi"
-                    android:textColor="@color/primaryColor"
+                    android:textColor="@color/primaryTextColor"
                     app:layout_columnWeight="1"
                     app:layout_rowWeight="1" />
 
@@ -338,7 +338,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/tu_do"
-                    android:textColor="@color/primaryColor"
+                    android:textColor="@color/primaryTextColor"
                     app:layout_columnWeight="1"
                     app:layout_rowWeight="1" />
 
@@ -349,7 +349,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/chung_chu"
-                    android:textColor="@color/primaryColor"
+                    android:textColor="@color/primaryTextColor"
                     app:layout_columnWeight="1"
                     app:layout_rowWeight="1" />
 
@@ -390,7 +390,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/wifi"
-                    android:textColor="@color/primaryColor"
+                    android:textColor="@color/primaryTextColor"
                     app:layout_columnWeight="1"
                     app:layout_rowWeight="1" />
 
@@ -401,7 +401,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/tu_do"
-                    android:textColor="@color/primaryColor"
+                    android:textColor="@color/primaryTextColor"
                     app:layout_columnWeight="1"
                     app:layout_rowWeight="1" />
 
@@ -412,7 +412,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/chung_chu"
-                    android:textColor="@color/primaryColor"
+                    android:textColor="@color/primaryTextColor"
                     app:layout_columnWeight="1"
                     app:layout_rowWeight="1" />
             </androidx.gridlayout.widget.GridLayout>
@@ -427,13 +427,13 @@
             android:layout_marginTop="@dimen/default_margin"
             android:layout_marginBottom="56dp"
             android:text="@string/xoa_loc"
-            android:textColor="@color/green"
+            android:textColor="@color/secondaryColor"
             app:cornerRadius="@dimen/default_radius"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/guideline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardView_utils"
-            app:strokeColor="@color/green" />
+            app:strokeColor="@color/secondaryColor" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_apply"
@@ -445,13 +445,13 @@
             android:layout_marginBottom="56dp"
             android:text="@string/ap_dung"
 
-            android:textColor="@color/green"
+            android:textColor="@color/secondaryColor"
             app:cornerRadius="@dimen/default_radius"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline"
             app:layout_constraintTop_toBottomOf="@id/cardView_utils"
-            app:strokeColor="@color/green" />
+            app:strokeColor="@color/secondaryColor" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

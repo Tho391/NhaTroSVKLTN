@@ -38,7 +38,7 @@
             android:lines="1"
             android:maxWidth="500dp"
             android:text="@string/dang_nhap"
-            android:textColor="@color/primaryColor"
+            android:textColor="@color/primaryTextColor"
             app:layout_constraintEnd_toEndOf="@id/cardView_image"
             app:layout_constraintStart_toStartOf="@id/cardView_image"
             app:layout_constraintTop_toBottomOf="@id/cardView_image" />
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
             android:text="@string/dang_phong"
-            android:textColor="@color/primaryColor"
+            android:textColor="@color/primaryTextColor"
             app:layout_constraintBottom_toBottomOf="@id/imageView_add"
             app:layout_constraintStart_toEndOf="@id/imageView_add"
             app:layout_constraintTop_toTopOf="@+id/imageView_add" />
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
             android:text="@string/phong_da_dang"
-            android:textColor="@color/primaryColor"
+            android:textColor="@color/primaryTextColor"
             app:layout_constraintBottom_toBottomOf="@id/imageView_manage"
             app:layout_constraintStart_toEndOf="@id/imageView_manage"
             app:layout_constraintTop_toTopOf="@+id/imageView_manage" />
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
             android:text="@string/doi_mat_khau"
-            android:textColor="@color/primaryColor"
+            android:textColor="@color/primaryTextColor"
             app:layout_constraintBottom_toBottomOf="@id/imageView_change_pass"
             app:layout_constraintStart_toEndOf="@id/imageView_change_pass"
             app:layout_constraintTop_toTopOf="@id/imageView_change_pass" />
@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
             android:text="@string/dang_xuat"
-            android:textColor="@color/primaryColor"
+            android:textColor="@color/primaryTextColor"
             app:layout_constraintBottom_toBottomOf="@id/imageView_log_out"
             app:layout_constraintStart_toEndOf="@id/imageView_log_out"
             app:layout_constraintTop_toTopOf="@id/imageView_log_out" />
