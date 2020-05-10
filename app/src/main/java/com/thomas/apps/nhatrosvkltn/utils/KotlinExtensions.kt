@@ -84,19 +84,14 @@ fun View.hideKeyboard() {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(windowToken, 0)
 }
-
-/**
- * Extension method used to display a [Toast] message to the user.
- */
-fun Fragment.TOAST(message: String, duration: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(context, message, duration).show()
-}
-
 /**
  * Extension method used to display a [Toast] message to the user.
  */
 fun Activity.TOAST(message: String, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, message, duration).show()
+}
+fun Fragment.TOAST(message: String, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this.context, message, duration).show()
 }
 
 

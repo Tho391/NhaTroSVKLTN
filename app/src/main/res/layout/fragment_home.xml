@@ -16,116 +16,115 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardView_map"
-                android:layout_width="@dimen/small_image"
-                android:layout_height="@dimen/small_image"
-                android:layout_margin="@dimen/large_margin"
-                android:elevation="4dp"
-                app:cardCornerRadius="20dp"
+                android:id="@+id/cardView_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:elevation="1dp"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageButton
-                    android:id="@+id/imageButton_map"
-                    android:layout_width="@dimen/small_image"
-                    android:layout_height="@dimen/small_image"
-                    android:background="@android:color/transparent"
-                    android:padding="@dimen/smaller_margin"
-                    android:scaleType="fitCenter"
-                    android:src="@mipmap/round_location" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline_top"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.5" />
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/imageButton_map"
+                        android:layout_width="@dimen/small_image"
+                        android:layout_height="@dimen/small_image"
+                        android:layout_marginHorizontal="@dimen/larger_margin"
+                        android:layout_marginVertical="@dimen/smaller_margin"
+                        android:background="@android:color/transparent"
+                        android:padding="@dimen/small_margin"
+                        android:scaleType="fitCenter"
+                        android:src="@mipmap/round_location"
+                        app:layout_constraintEnd_toStartOf="@id/imageButton_search"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/imageButton_search"
+                        android:layout_width="@dimen/small_image"
+                        android:layout_height="@dimen/small_image"
+                        android:layout_marginVertical="@dimen/smaller_margin"
+                        android:background="@android:color/transparent"
+                        android:padding="@dimen/default_margin"
+                        android:scaleType="fitCenter"
+                        android:src="@mipmap/search"
+                        app:layout_constraintEnd_toEndOf="@id/guideline_top"
+                        app:layout_constraintStart_toStartOf="@id/guideline_top"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/imageButton_add_apartment"
+                        android:layout_width="@dimen/small_image"
+                        android:layout_height="@dimen/small_image"
+                        android:layout_marginHorizontal="@dimen/larger_margin"
+                        android:layout_marginVertical="@dimen/smaller_margin"
+                        android:background="@android:color/transparent"
+                        android:padding="@dimen/default_margin"
+                        android:scaleType="fitCenter"
+                        android:src="@mipmap/house_add"
+                        app:layout_constraintStart_toEndOf="@id/imageButton_search"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView_tim_xung_quanh"
+                        style="@style/Subtitle2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/default_margin"
+                        android:layout_marginVertical="@dimen/smaller_margin"
+                        android:gravity="center_horizontal"
+                        android:text="@string/tim_xung_quanh"
+                        android:textColor="@color/primaryTextColor"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/imageButton_map"
+                        app:layout_constraintStart_toStartOf="@id/imageButton_map"
+                        app:layout_constraintTop_toBottomOf="@id/imageButton_map" />
+
+                    <TextView
+                        style="@style/Subtitle2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/default_margin"
+                        android:layout_marginVertical="@dimen/smaller_margin"
+                        android:gravity="center_horizontal"
+                        android:text="@string/tim_nhanh"
+                        android:textColor="@color/primaryTextColor"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/imageButton_search"
+                        app:layout_constraintStart_toStartOf="@id/imageButton_search"
+                        app:layout_constraintTop_toBottomOf="@id/imageButton_search" />
+
+                    <TextView
+                        style="@style/Subtitle2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/default_margin"
+                        android:layout_marginVertical="@dimen/smaller_margin"
+                        android:gravity="center_horizontal"
+                        android:text="@string/dang_phong"
+                        android:textColor="@color/primaryTextColor"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/imageButton_add_apartment"
+                        app:layout_constraintStart_toStartOf="@id/imageButton_add_apartment"
+                        app:layout_constraintTop_toBottomOf="@id/imageButton_add_apartment" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardView_search"
-                android:layout_width="@dimen/small_image"
-                android:layout_height="@dimen/small_image"
-                android:layout_margin="@dimen/large_margin"
-
-                android:elevation="4dp"
-                app:cardCornerRadius="20dp"
-
-
-                app:layout_constraintEnd_toStartOf="@id/cardView_add_apartment"
-                app:layout_constraintStart_toEndOf="@id/cardView_map"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageButton
-                    android:id="@+id/imageButton_search"
-                    android:layout_width="@dimen/small_image"
-                    android:layout_height="@dimen/small_image"
-                    android:background="@android:color/transparent"
-                    android:padding="@dimen/small_margin"
-                    android:scaleType="fitCenter"
-                    android:src="@mipmap/search" />
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardView_add_apartment"
-                android:layout_width="@dimen/small_image"
-                android:layout_height="@dimen/small_image"
-                android:layout_margin="@dimen/large_margin"
-
-                android:elevation="4dp"
-                app:cardCornerRadius="20dp"
-
-
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageButton
-                    android:id="@+id/imageButton_add_apartment"
-                    android:layout_width="@dimen/small_image"
-                    android:layout_height="@dimen/small_image"
-                    android:background="@android:color/transparent"
-                    android:padding="10dp"
-                    android:scaleType="fitCenter"
-                    android:src="@mipmap/house_add" />
-            </com.google.android.material.card.MaterialCardView>
-
             <TextView
-                android:id="@+id/textView_tim_xung_quanh"
-                style="@style/Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/default_margin"
-                android:layout_marginTop="@dimen/small_margin"
-                android:gravity="center_horizontal"
-                android:text="@string/tim_xung_quanh"
-                android:textColor="@color/primaryTextColor"
-                app:layout_constraintEnd_toEndOf="@id/cardView_map"
-                app:layout_constraintStart_toStartOf="@id/cardView_map"
-                app:layout_constraintTop_toBottomOf="@id/cardView_map" />
-
-            <TextView
-                style="@style/Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/default_margin"
-                android:layout_marginTop="@dimen/small_margin"
-                android:gravity="center_horizontal"
-
-                android:text="@string/tim_nhanh"
-                android:textColor="@color/primaryTextColor"
-                app:layout_constraintEnd_toEndOf="@id/cardView_search"
-                app:layout_constraintStart_toStartOf="@id/cardView_search"
-                app:layout_constraintTop_toBottomOf="@id/cardView_search" />
-
-            <TextView
-                style="@style/Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/default_margin"
-                android:layout_marginTop="@dimen/small_margin"
-                android:gravity="center_horizontal"
-
-                android:text="@string/dang_phong"
-                android:textColor="@color/primaryTextColor"
-                app:layout_constraintEnd_toEndOf="@id/cardView_add_apartment"
-                app:layout_constraintStart_toStartOf="@id/cardView_add_apartment"
-                app:layout_constraintTop_toBottomOf="@id/cardView_add_apartment" />
-
-            <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textView_trend"
                 style="@style/Headline6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -133,218 +132,203 @@
                 android:text="@string/xu_huong_tim_kiem"
                 android:textColor="@color/primaryTextColor"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView_tim_xung_quanh" />
+                app:layout_constraintTop_toBottomOf="@id/cardView_top" />
 
-            <androidx.gridlayout.widget.GridLayout
-                android:id="@+id/grid_district"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardView_trend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/default_margin"
-                android:background="@android:color/transparent"
-                app:alignmentMode="alignBounds"
-                app:columnCount="3"
-                app:columnOrderPreserved="false"
+                android:elevation="1dp"
+                app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView2"
-                app:rowCount="4">
+                app:layout_constraintTop_toBottomOf="@id/textView_trend">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="@dimen/small_image"
-                    android:layout_height="@dimen/small_image"
-                    android:layout_margin="@dimen/smaller_margin"
-                    android:adjustViewBounds="true"
-                    android:elevation="4dp"
-                    app:cardCornerRadius="10dp"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                    <androidx.appcompat.widget.AppCompatImageView
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline_trend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.5" />
+
+                    <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/image_district_1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="@dimen/large_image"
+                        android:layout_height="@dimen/large_image"
+                        android:layout_marginHorizontal="@dimen/large_margin"
+                        android:layout_marginVertical="@dimen/default_margin"
                         android:scaleType="centerCrop"
-                        android:src="@mipmap/quan10" />
-                </com.google.android.material.card.MaterialCardView>
+                        android:src="@mipmap/quan10"
+                        app:layout_constraintEnd_toStartOf="@id/image_district_2"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:riv_corner_radius="@dimen/medium_radius" />
 
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="@dimen/small_image"
-                    android:layout_height="@dimen/small_image"
-                    android:layout_margin="@dimen/smaller_margin"
-                    android:adjustViewBounds="true"
-                    android:elevation="4dp"
-
-                    app:cardCornerRadius="10dp"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1">
-
-                    <androidx.appcompat.widget.AppCompatImageView
+                    <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/image_district_2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="@dimen/large_image"
+                        android:layout_height="@dimen/large_image"
+                        android:layout_marginVertical="@dimen/default_margin"
                         android:scaleType="centerCrop"
-                        android:src="@mipmap/quan3" />
-                </com.google.android.material.card.MaterialCardView>
+                        android:src="@mipmap/quan3"
+                        app:layout_constraintEnd_toEndOf="@id/guideline_trend"
+                        app:layout_constraintStart_toStartOf="@id/guideline_trend"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:riv_corner_radius="@dimen/medium_radius" />
 
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="@dimen/small_image"
-                    android:layout_height="@dimen/small_image"
-                    android:layout_margin="@dimen/smaller_margin"
-                    android:adjustViewBounds="true"
-                    android:elevation="4dp"
-
-                    app:cardCornerRadius="10dp"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1">
-
-                    <androidx.appcompat.widget.AppCompatImageView
+                    <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/image_district_3"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="@dimen/large_image"
+                        android:layout_height="@dimen/large_image"
+                        android:layout_marginHorizontal="@dimen/large_margin"
+                        android:layout_marginVertical="@dimen/default_margin"
                         android:scaleType="centerCrop"
-                        android:src="@mipmap/thuduc" />
-                </com.google.android.material.card.MaterialCardView>
+                        android:src="@mipmap/thuduc"
+                        app:layout_constraintStart_toEndOf="@id/image_district_2"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:riv_corner_radius="@dimen/medium_radius" />
 
-                <TextView
-                    android:id="@+id/textView_district1"
+                    <TextView
+                        android:id="@+id/textView_district1"
+                        style="@style/Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/small_margin"
+                        android:gravity="center"
+                        android:text="Quận 10"
+                        android:textColor="@color/primaryTextColor"
+                        android:textStyle="bold"
 
-                    style="@style/Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Quận 10"
-                    android:textColor="@color/primaryTextColor"
-                    android:textStyle="bold"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1" />
+                        app:layout_constraintEnd_toEndOf="@id/image_district_1"
+                        app:layout_constraintStart_toStartOf="@id/image_district_1"
+                        app:layout_constraintTop_toBottomOf="@id/image_district_1" />
 
-                <TextView
-                    android:id="@+id/textView_district2"
-                    style="@style/Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Quận 3"
-                    android:textColor="@color/primaryTextColor"
+                    <TextView
+                        android:id="@+id/textView_district2"
+                        style="@style/Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/small_margin"
+                        android:gravity="center"
+                        android:text="Quận 3"
+                        android:textColor="@color/primaryTextColor"
+                        android:textStyle="bold"
 
-                    android:textStyle="bold"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1" />
+                        app:layout_constraintEnd_toEndOf="@id/image_district_2"
 
-                <TextView
-                    android:id="@+id/textView_district3"
-                    style="@style/Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Thủ Đức"
-                    android:textColor="@color/primaryTextColor"
+                        app:layout_constraintStart_toStartOf="@id/image_district_2"
+                        app:layout_constraintTop_toBottomOf="@id/image_district_2" />
 
-                    android:textStyle="bold"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1" />
+                    <TextView
+                        android:id="@+id/textView_district3"
+                        style="@style/Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/small_margin"
+                        android:gravity="center"
+                        android:text="Thủ Đức"
+                        android:textColor="@color/primaryTextColor"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@id/image_district_3"
+                        app:layout_constraintStart_toStartOf="@id/image_district_3"
+                        app:layout_constraintTop_toBottomOf="@id/image_district_3" />
 
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="@dimen/small_image"
-                    android:layout_height="@dimen/small_image"
-                    android:layout_margin="@dimen/smaller_margin"
-                    android:adjustViewBounds="true"
-                    android:elevation="4dp"
-
-                    app:cardCornerRadius="10dp"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1">
-
-                    <androidx.appcompat.widget.AppCompatImageView
+                    <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/image_district_4"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="@dimen/large_image"
+                        android:layout_height="@dimen/large_image"
+                        android:layout_marginHorizontal="@dimen/large_margin"
+                        android:layout_marginVertical="@dimen/default_margin"
                         android:scaleType="centerCrop"
-                        android:src="@mipmap/quan1" />
-                </com.google.android.material.card.MaterialCardView>
+                        android:src="@mipmap/quan1"
+                        app:layout_constraintEnd_toStartOf="@id/image_district_5"
+                        app:layout_constraintTop_toBottomOf="@id/textView_district3"
+                        app:riv_corner_radius="@dimen/medium_radius" />
 
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="@dimen/small_image"
-                    android:layout_height="@dimen/small_image"
-                    android:layout_margin="@dimen/smaller_margin"
-                    android:adjustViewBounds="true"
-                    android:elevation="4dp"
-
-                    app:cardCornerRadius="10dp"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1">
-
-                    <androidx.appcompat.widget.AppCompatImageView
+                    <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/image_district_5"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="@dimen/large_image"
+                        android:layout_height="@dimen/large_image"
+                        android:layout_marginHorizontal="@dimen/large_margin"
+                        android:layout_marginVertical="@dimen/default_margin"
                         android:scaleType="centerCrop"
-                        android:src="@mipmap/binhthanh" />
-                </com.google.android.material.card.MaterialCardView>
+                        android:src="@mipmap/binhthanh"
+                        app:layout_constraintEnd_toEndOf="@id/guideline_trend"
+                        app:layout_constraintStart_toStartOf="@id/guideline_trend"
+                        app:layout_constraintTop_toBottomOf="@id/textView_district3"
+                        app:riv_corner_radius="@dimen/medium_radius" />
 
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="@dimen/small_image"
-                    android:layout_height="@dimen/small_image"
-                    android:layout_margin="@dimen/smaller_margin"
-                    android:adjustViewBounds="true"
-                    android:elevation="4dp"
-
-                    app:cardCornerRadius="10dp"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1">
-
-                    <androidx.appcompat.widget.AppCompatImageView
+                    <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/image_district_6"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="@dimen/large_image"
+                        android:layout_height="@dimen/large_image"
+                        android:layout_marginHorizontal="@dimen/large_margin"
+                        android:layout_marginVertical="@dimen/default_margin"
                         android:scaleType="centerCrop"
-                        android:src="@mipmap/quan7" />
-                </com.google.android.material.card.MaterialCardView>
+                        android:src="@mipmap/quan7"
+                        app:layout_constraintStart_toEndOf="@id/image_district_5"
+                        app:layout_constraintTop_toBottomOf="@id/textView_district3"
+                        app:riv_corner_radius="@dimen/medium_radius" />
 
-                <TextView
-                    android:id="@+id/textView_district4"
-                    style="@style/Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="12dp"
-                    android:gravity="center"
-                    android:text="Quận 1"
-                    android:textColor="@color/primaryTextColor"
+                    <TextView
+                        android:id="@+id/textView_district4"
+                        style="@style/Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/small_margin"
+                        android:gravity="center"
+                        android:text="Quận 1"
+                        android:textColor="@color/primaryTextColor"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/image_district_4"
+                        app:layout_constraintStart_toStartOf="@id/image_district_4"
+                        app:layout_constraintTop_toBottomOf="@id/image_district_4" />
 
-                    android:textStyle="bold"
-                    app:layout_columnWeight="1"
+                    <TextView
+                        android:id="@+id/textView_district5"
+                        style="@style/Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/small_margin"
+                        android:gravity="center"
+                        android:text="Bình Thạnh"
+                        android:textColor="@color/primaryTextColor"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/image_district_5"
+                        app:layout_constraintStart_toStartOf="@id/image_district_5"
+                        app:layout_constraintTop_toBottomOf="@id/image_district_5"
 
-                    app:layout_rowWeight="1" />
+                        />
 
-                <TextView
-                    android:id="@+id/textView_district5"
-                    style="@style/Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Bình Thạnh"
-                    android:textColor="@color/primaryTextColor"
-                    android:textStyle="bold"
+                    <TextView
+                        android:id="@+id/textView_district6"
+                        style="@style/Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/small_margin"
+                        android:gravity="center"
+                        android:text="Quận 7"
+                        android:textColor="@color/primaryTextColor"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/image_district_6"
+                        app:layout_constraintStart_toStartOf="@id/image_district_6"
+                        app:layout_constraintTop_toBottomOf="@id/image_district_6"
 
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1" />
+                        />
 
-                <TextView
-                    android:id="@+id/textView_district6"
-                    style="@style/Caption"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Quận 7"
-                    android:textColor="@color/primaryTextColor"
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    android:textStyle="bold"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1" />
-            </androidx.gridlayout.widget.GridLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/textView_new"
                 style="@style/Headline6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -352,18 +336,17 @@
                 android:text="@string/phong_moi_dang"
                 android:textColor="@color/primaryTextColor"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/grid_district" />
+                app:layout_constraintTop_toBottomOf="@id/cardView_trend" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_apartments"
-
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/default_margin"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView3" />
+                app:layout_constraintTop_toBottomOf="@id/textView_new" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

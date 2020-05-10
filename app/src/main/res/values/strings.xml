@@ -52,4 +52,8 @@ Chỉ cần xách vali vào ở ngay.</string>
     <string name="wifi">Wifi</string>
     <string name="tu_do">Tự do</string>
     <string name="chung_chu">Chung chủ</string>
+    <string name="sua_phong">Sửa phòng</string>
+    <string name="tim_kiem">Tìm kiếm</string>
+    <string name="trang_chu">Trang chủ</string>
+    <string name="ca_nhan">Cá nhân</string>
 </resources>

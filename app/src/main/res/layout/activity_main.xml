@@ -1,17 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.ui.MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <fragment
-        android:id="@+id/fragment"
-        android:name="com.thomas.apps.nhatrosvkltn.view.ui.home.HomeFragment"
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        tools:context=".view.ui.MainActivity">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/navigation_constraint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.gauravk.bubblenavigation.BubbleNavigationConstraintView
+            android:id="@+id/navigation_constraint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/secondaryLightColor"
+            android:elevation="4dp"
+            android:padding="@dimen/small_margin"
+            app:bnc_mode="spread"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.gauravk.bubblenavigation.BubbleToggleView
+                android:id="@+id/item_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/default_margin"
+                app:bt_active="true"
+                app:bt_colorActive="@color/primaryColor"
+                app:bt_colorInactive="@color/primaryDarkColor"
+                app:bt_padding="@dimen/small_margin"
+                app:bt_shape="@drawable/transition_background_drawable"
+                app:bt_title="@string/trang_chu"
+                app:bt_titlePadding="@dimen/smaller_margin" />
+
+            <com.gauravk.bubblenavigation.BubbleToggleView
+                android:id="@+id/item_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/default_margin"
+                app:bt_colorActive="@color/primaryColor"
+                app:bt_colorInactive="@color/primaryDarkColor"
+                app:bt_icon="@drawable/round_search_black_24"
+                app:bt_padding="@dimen/small_margin"
+                app:bt_shape="@drawable/transition_background_drawable"
+                app:bt_title="@string/tim_kiem"
+                app:bt_titlePadding="@dimen/smaller_margin" />
+
+            <com.gauravk.bubblenavigation.BubbleToggleView
+                android:id="@+id/item_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/default_margin"
+                app:bt_colorActive="@color/primaryColor"
+                app:bt_colorInactive="@color/primaryDarkColor"
+                app:bt_icon="@drawable/person"
+                app:bt_padding="@dimen/small_margin"
+                app:bt_shape="@drawable/transition_background_drawable"
+                app:bt_title="@string/ca_nhan"
+                app:bt_titlePadding="@dimen/smaller_margin" />
+
+        </com.gauravk.bubblenavigation.BubbleNavigationConstraintView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
