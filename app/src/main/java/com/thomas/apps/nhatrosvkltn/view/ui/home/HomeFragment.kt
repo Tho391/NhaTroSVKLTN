@@ -10,6 +10,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.thomas.apps.nhatrosvkltn.R
 import com.thomas.apps.nhatrosvkltn.databinding.FragmentHomeBinding
 import com.thomas.apps.nhatrosvkltn.utils.launchActivity
+import com.thomas.apps.nhatrosvkltn.view.adapter.RecyclerAdapter
 import com.thomas.apps.nhatrosvkltn.view.ui.MainActivity
 import com.thomas.apps.nhatrosvkltn.view.ui.map.MapActivity
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -24,6 +25,8 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
     private lateinit var binding: FragmentHomeBinding
     private lateinit var viewPager: ViewPager2
+
+    private lateinit var recyclerAdapter: RecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
