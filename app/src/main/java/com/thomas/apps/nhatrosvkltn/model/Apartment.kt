@@ -1,7 +1,5 @@
 package com.thomas.apps.nhatrosvkltn.model
 
-import java.util.*
-
 data class Apartment(
     val id: Int,
     var title: String,
@@ -13,7 +11,7 @@ data class Apartment(
     var description: String,
     var ownerName: String,
     var phone: String,
-    var createAt: Date,
+    var createAt: String,
     var price: Long,
     var electric: Long,
     var water: Long,
@@ -25,6 +23,6 @@ data class Apartment(
     var air: Boolean,
     var heater: Boolean,
 
-    var image: Image,
+    var images: List<Image>,
     var user: User
 )

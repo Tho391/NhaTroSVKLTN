@@ -93,6 +93,9 @@ fun Activity.TOAST(message: String, duration: Int = Toast.LENGTH_SHORT) {
 fun Fragment.TOAST(message: String, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this.context, message, duration).show()
 }
+fun Context.TOAST(message: String, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, message, duration).show()
+}
 
 
 /**

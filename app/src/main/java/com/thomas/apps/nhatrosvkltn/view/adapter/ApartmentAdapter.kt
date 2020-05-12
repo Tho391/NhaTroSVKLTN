@@ -1,16 +1,19 @@
 package com.thomas.apps.nhatrosvkltn.view.adapter
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.view.View.OnClickListener
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
+import com.thomas.apps.nhatrosvkltn.R
 import com.thomas.apps.nhatrosvkltn.databinding.ItemApartmentBinding
 import com.thomas.apps.nhatrosvkltn.model.Apartment
+import com.thomas.apps.nhatrosvkltn.utils.TOAST
+import com.thomas.apps.nhatrosvkltn.utils.launchActivity
+import com.thomas.apps.nhatrosvkltn.view.ui.apartmentdetails.ApartmentDetailsActivity
 
-class RecyclerAdapter : ListAdapter<Apartment, RecyclerAdapter.ViewHolder>(ApartmentDC()) {
+class ApartmentAdapter : ListAdapter<Apartment, ApartmentAdapter.ViewHolder>(ApartmentDC()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder.from(parent)
 
@@ -22,6 +25,25 @@ class RecyclerAdapter : ListAdapter<Apartment, RecyclerAdapter.ViewHolder>(Apart
 
         fun bind(item: Apartment) {
             // TODO: Bind the data with View
+            with(binding){
+                textViewTitle.text = item.title
+                textViewAddress.text = item.address
+                textViewRating.text = item.rating.toString()
+                textViewPrice.text = item.price.toString()
+                imageViewApartment.load(item.images.first().url) {
+                    placeholder(R.drawable.image_load)
+                    crossfade(true)
+                    error(R.drawable.image_broken)
+                }
+
+                constraintLayout.setOnClickListener {
+                    it.context.TOAST("apartment id ${item.id} clicked")
+
+                    it.context.launchActivity<ApartmentDetailsActivity> {
+                        putExtra("apartmentId",item.id)
+                    }
+                }
+            }
         }
 
         companion object {
