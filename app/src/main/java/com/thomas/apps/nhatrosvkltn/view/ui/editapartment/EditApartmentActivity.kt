@@ -17,5 +17,16 @@ class EditApartmentActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         viewModel = ViewModelProvider(this).get(EditApartmentViewModel::class.java)
+
+        init()
+    }
+
+    private fun init() {
+        setSupportActionBar(binding.toolBar.toolBar)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

@@ -43,6 +43,12 @@ class ProfileFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         // TODO: Use the ViewModel
 
+        init()
+
+
+    }
+
+    private fun init() {
         binding.textViewLogin.setOnClickListener { requireContext().launchActivity<LoginActivity> {  } }
         binding.textViewAdd.setOnClickListener { requireContext().launchActivity<AddApartmentActivity> {  } }
         binding.textViewManage.setOnClickListener { requireContext().launchActivity<ManageApartmentsActivity> {  } }

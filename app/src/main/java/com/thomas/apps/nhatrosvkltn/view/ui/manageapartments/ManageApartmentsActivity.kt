@@ -18,6 +18,11 @@ class ManageApartmentsActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(ManageApartmentsViewModel::class.java)
 
+        init()
+    }
+
+    private fun init() {
+        setSupportActionBar(binding.toolBar.toolBar)
     }
 
     override fun onSupportNavigateUp(): Boolean {

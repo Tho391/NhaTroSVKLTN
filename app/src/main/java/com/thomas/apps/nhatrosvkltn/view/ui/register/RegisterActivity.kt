@@ -19,9 +19,21 @@ class RegisterActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
 
+        init()
+
+
+    }
+
+    private fun init() {
+        setSupportActionBar(binding.toolBar.toolBar)
         binding.buttonRegister.setOnClickListener {
             launchActivity<LoginActivity> { }
             finish()
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

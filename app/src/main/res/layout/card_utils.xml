@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cardView_utils"
+        app:cardCornerRadius="@dimen/medium_radius">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/backGroundLightColor">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <TextView
+                android:id="@+id/textView_utils"
+                style="@style/Headline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/small"
+                android:text="Tiện ích"
+                android:textAlignment="center"
+                android:textColor="@color/primaryTextColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
+                android:id="@+id/image_wifi"
+                android:layout_width="@dimen/smaller_image"
+                android:layout_height="@dimen/smaller_image"
+                android:layout_margin="@dimen/smaller"
+                app:layout_constraintEnd_toStartOf="@id/image_time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView_utils"
+                app:src_checked="@drawable/wifi_blue"
+                app:src_unchecked="@drawable/wifi_gray" />
+
+            <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
+                android:id="@+id/image_time"
+                android:layout_width="@dimen/smaller_image"
+                android:layout_height="@dimen/smaller_image"
+                android:layout_margin="@dimen/smaller"
+                app:layout_constraintEnd_toEndOf="@id/guideline2"
+                app:layout_constraintStart_toStartOf="@id/guideline2"
+                app:layout_constraintTop_toBottomOf="@id/textView_utils"
+                app:src_checked="@drawable/time_blue"
+                app:src_unchecked="@drawable/time_gray" />
+
+            <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
+                android:id="@+id/image_key"
+                android:layout_width="@dimen/smaller_image"
+                android:layout_height="@dimen/smaller_image"
+                android:layout_margin="@dimen/smaller"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image_time"
+                app:layout_constraintTop_toBottomOf="@id/textView_utils"
+                app:src_checked="@drawable/key_blue"
+                app:src_unchecked="@drawable/key_gray" />
+
+            <TextView
+                android:id="@+id/textView_wifi"
+                style="@style/Subtitle2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/smaller"
+                android:gravity="center"
+                android:padding="@dimen/smaller"
+                android:text="Wifi"
+                android:textColor="@color/primaryTextColor"
+                app:layout_constraintEnd_toEndOf="@id/image_wifi"
+                app:layout_constraintStart_toStartOf="@id/image_wifi"
+                app:layout_constraintTop_toBottomOf="@id/image_wifi" />
+
+            <TextView
+                android:id="@+id/textView_time"
+                style="@style/Subtitle2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/smaller"
+                android:gravity="center"
+                android:padding="@dimen/smaller"
+                android:text="Tự do"
+                android:textColor="@color/primaryTextColor"
+                app:layout_constraintEnd_toEndOf="@id/image_time"
+                app:layout_constraintStart_toStartOf="@id/image_time"
+                app:layout_constraintTop_toBottomOf="@id/image_time" />
+
+            <TextView
+                android:id="@+id/textView_key"
+                style="@style/Subtitle2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/smaller"
+                android:gravity="center"
+                android:padding="@dimen/smaller"
+                android:text="Chung chủ"
+                android:textColor="@color/primaryTextColor"
+                app:layout_columnWeight="1"
+                app:layout_constraintEnd_toEndOf="@id/image_key"
+                app:layout_constraintStart_toStartOf="@id/image_key"
+                app:layout_constraintTop_toBottomOf="@id/image_key"
+                app:layout_rowWeight="1" />
+
+            <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
+                android:id="@+id/image_car"
+                android:layout_width="@dimen/smaller_image"
+                android:layout_height="@dimen/smaller_image"
+                android:layout_margin="@dimen/smaller"
+                app:layout_constraintEnd_toStartOf="@id/image_air"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView_time"
+                app:src_checked="@mipmap/bike_blue"
+                app:src_unchecked="@mipmap/bike_gray" />
+
+            <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
+                android:id="@+id/image_air"
+                android:layout_width="@dimen/smaller_image"
+                android:layout_height="@dimen/smaller_image"
+                android:layout_margin="@dimen/smaller"
+                app:layout_constraintEnd_toEndOf="@id/guideline2"
+                app:layout_constraintStart_toStartOf="@id/guideline2"
+                app:layout_constraintTop_toBottomOf="@id/textView_time"
+                app:src_checked="@mipmap/air_blue"
+                app:src_unchecked="@mipmap/air_gray" />
+
+            <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
+                android:id="@+id/image_heater"
+                android:layout_width="@dimen/smaller_image"
+                android:layout_height="@dimen/smaller_image"
+                android:layout_margin="@dimen/smaller"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image_air"
+                app:layout_constraintTop_toBottomOf="@id/textView_time"
+                app:src_checked="@mipmap/heater_blue"
+                app:src_unchecked="@mipmap/heater_gray" />
+
+            <TextView
+                android:id="@+id/textView_car"
+                style="@style/Subtitle2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/smaller"
+                android:gravity="center"
+                android:padding="@dimen/smaller"
+                android:text="Giữ xe"
+
+                android:textColor="@color/primaryTextColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/image_car"
+                app:layout_constraintStart_toStartOf="@id/image_car"
+                app:layout_constraintTop_toBottomOf="@id/image_car" />
+
+            <TextView
+                android:id="@+id/textView_air"
+                style="@style/Subtitle2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/smaller"
+                android:gravity="center"
+                android:padding="@dimen/smaller"
+                android:text="Điều hoà"
+                android:textColor="@color/primaryTextColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/image_air"
+                app:layout_constraintStart_toStartOf="@id/image_air"
+                app:layout_constraintTop_toBottomOf="@id/image_air" />
+
+            <TextView
+                android:id="@+id/textView_heater"
+                style="@style/Subtitle2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/smaller"
+                android:gravity="center"
+                android:padding="@dimen/smaller"
+                android:text="Nước nóng"
+                android:textColor="@color/primaryTextColor"
+                app:layout_columnWeight="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/image_heater"
+                app:layout_constraintStart_toStartOf="@id/image_heater"
+                app:layout_constraintTop_toBottomOf="@id/image_heater"
+                app:layout_rowWeight="1" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

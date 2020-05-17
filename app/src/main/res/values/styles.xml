@@ -81,7 +81,7 @@
     </style>
 
     <style name="ActionBar" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <item name="android:background">@color/secondaryLightColor</item>
+        <item name="android:background">@color/secondaryColor</item>
     </style>
 
     <style name="RatingBar" parent="Theme.MaterialComponents.Light">

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="default_margin">16dp</dimen>
     <dimen name="app_size">250dp</dimen>
 
-<!--    radius-->
-    <dimen name="default_radius">5dp</dimen>
-    <dimen name="medium_radius">10dp</dimen>
-    <dimen name="large_radius">20dp</dimen>
+    <!--    radius-->
+    <dimen name="default_radius">4dp</dimen>
+    <dimen name="medium_radius">8dp</dimen>
+    <dimen name="large_radius">16dp</dimen>
     <dimen name="round_radius">150dp</dimen>
 
-<!--    image-->
+    <!--    image-->
     <dimen name="smaller_image">50dp</dimen>
     <dimen name="small_image">60dp</dimen>
     <dimen name="large_image">80dp</dimen>
@@ -17,9 +16,10 @@
     <dimen name="wide_image">270dp</dimen>
 
     <!--    margin-->
-    <dimen name="small_margin">10dp</dimen>
-    <dimen name="smaller_margin">5dp</dimen>
-    <dimen name="large_margin">30dp</dimen>
-    <dimen name="larger_margin">50dp</dimen>
+    <dimen name="small">8dp</dimen>
+    <dimen name="smaller">4dp</dimen>
+    <dimen name="default_margin">16dp</dimen>
+    <dimen name="large">30dp</dimen>
+    <dimen name="larger">50dp</dimen>
 
 </resources>

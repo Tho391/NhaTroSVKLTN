@@ -8,6 +8,7 @@ import com.thomas.apps.nhatrosvkltn.model.Image
 import com.thomas.apps.nhatrosvkltn.model.User
 
 class HomeViewModel : ViewModel() {
+
     // TODO: Implement the ViewModel
     private var _apartments = MutableLiveData<List<Apartment>>()
 

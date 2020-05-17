@@ -26,9 +26,9 @@
             android:id="@+id/navigation_constraint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/secondaryLightColor"
+            android:background="@color/secondaryColor"
             android:elevation="4dp"
-            android:padding="@dimen/small_margin"
+            android:padding="@dimen/small"
             app:bnc_mode="spread"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -42,10 +42,10 @@
                 app:bt_active="true"
                 app:bt_colorActive="@color/primaryColor"
                 app:bt_colorInactive="@color/primaryDarkColor"
-                app:bt_padding="@dimen/small_margin"
+                app:bt_padding="@dimen/small"
                 app:bt_shape="@drawable/transition_background_drawable"
                 app:bt_title="@string/trang_chu"
-                app:bt_titlePadding="@dimen/smaller_margin" />
+                app:bt_titlePadding="@dimen/smaller" />
 
             <com.gauravk.bubblenavigation.BubbleToggleView
                 android:id="@+id/item_search"
@@ -55,10 +55,10 @@
                 app:bt_colorActive="@color/primaryColor"
                 app:bt_colorInactive="@color/primaryDarkColor"
                 app:bt_icon="@drawable/round_search_black_24"
-                app:bt_padding="@dimen/small_margin"
+                app:bt_padding="@dimen/small"
                 app:bt_shape="@drawable/transition_background_drawable"
                 app:bt_title="@string/tim_kiem"
-                app:bt_titlePadding="@dimen/smaller_margin" />
+                app:bt_titlePadding="@dimen/smaller" />
 
             <com.gauravk.bubblenavigation.BubbleToggleView
                 android:id="@+id/item_profile"
@@ -68,10 +68,10 @@
                 app:bt_colorActive="@color/primaryColor"
                 app:bt_colorInactive="@color/primaryDarkColor"
                 app:bt_icon="@drawable/person"
-                app:bt_padding="@dimen/small_margin"
+                app:bt_padding="@dimen/small"
                 app:bt_shape="@drawable/transition_background_drawable"
                 app:bt_title="@string/ca_nhan"
-                app:bt_titlePadding="@dimen/smaller_margin" />
+                app:bt_titlePadding="@dimen/smaller" />
 
         </com.gauravk.bubblenavigation.BubbleNavigationConstraintView>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -35,7 +35,11 @@ class FiltersFragment: Fragment() {
 //        viewModel = ViewModelProviders.of(this).get(FiltersViewModel::class.java)
         viewModel = ViewModelProvider(this).get(FiltersViewModel::class.java)
         // TODO: Use the ViewModel
+        init()
+    }
 
+    private fun init() {
+        TODO("Not yet implemented")
     }
 
 }

@@ -19,9 +19,23 @@ class ChangePassActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(ChangePassViewModel::class.java)
 
+        init()
+
+
+    }
+
+    private fun init() {
+
+        setSupportActionBar(binding.toolBar.toolBar)
+
         binding.buttonChangePass.setOnClickListener {
             launchActivity<LoginActivity> { }
             finish()
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

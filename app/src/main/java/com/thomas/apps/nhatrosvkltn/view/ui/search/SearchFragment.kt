@@ -1,5 +1,6 @@
 package com.thomas.apps.nhatrosvkltn.view.ui.search
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.EditorInfo
@@ -207,48 +208,58 @@ class SearchFragment : Fragment() {
         //viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel = activity?.let { ViewModelProvider(it).get(MainViewModel::class.java) }!!
 
-
         // TODO: Use the ViewModel
 
-        binding.recyclerView.adapter = recyclerAdapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        init()
 
-        viewModel.apartments.observe(viewLifecycleOwner, Observer { apartments ->
-            recyclerAdapter.submitList(apartments)
-        })
-        binding.editTextSearch.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH ||
-                actionId == EditorInfo.IME_ACTION_DONE ||
-                event != null &&
-                event.action == KeyEvent.ACTION_DOWN &&
-                event.keyCode == KeyEvent.KEYCODE_ENTER) {
-                if (event == null || !event.isShiftPressed) {
-                    // the user is done typing.
-                    TOAST("Searching...")
-                    hideSoftKeyboard()
-                    true // consume.
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun init() {
+        with(binding){
+            recyclerView.adapter = recyclerAdapter
+            recyclerView.layoutManager = object : LinearLayoutManager(requireContext()) {
+                override fun canScrollVertically(): Boolean {
+                    return false
                 }
             }
-            false // pass on to other listeners.
-        }
-        binding.editTextSearch.setOnTouchListener(object : View.OnTouchListener {
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+            editTextSearch.setOnEditorActionListener { v, actionId, event ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                    actionId == EditorInfo.IME_ACTION_DONE ||
+                    event != null &&
+                    event.action == KeyEvent.ACTION_DOWN &&
+                    event.keyCode == KeyEvent.KEYCODE_ENTER) {
+                    if (event == null || !event.isShiftPressed) {
+                        // the user is done typing.
+                        TOAST("Searching...")
+                        hideSoftKeyboard()
+                        true // consume.
+                    }
+                }
+                false // pass on to other listeners.
+            }
+            editTextSearch.setOnTouchListener { _, event ->
                 val DRAWABLE_LEFT = 0
                 val DRAWABLE_TOP = 1
                 val DRAWABLE_RIGHT = 2
                 val DRAWABLE_BOTTOM = 3
 
                 if (event!!.rawX >=
-                    (binding.editTextSearch.right - binding.editTextSearch.compoundDrawables[DRAWABLE_RIGHT].bounds.width())
+                    (editTextSearch.right - editTextSearch.compoundDrawables[DRAWABLE_RIGHT].bounds.width())
                 ) {
                     hideSoftKeyboard()
                     TOAST("Filter")
                     //filtersFragment.show(childFragmentManager, "dialog filter")
                 }
-                return false
+                false
             }
+        }
 
+
+        viewModel.apartments.observe(viewLifecycleOwner, Observer { apartments ->
+            recyclerAdapter.submitList(apartments)
         })
+
     }
 
 }

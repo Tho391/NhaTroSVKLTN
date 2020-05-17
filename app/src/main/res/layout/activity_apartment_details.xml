@@ -11,26 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraint1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <include
+            android:id="@+id/toolBar"
+            layout="@layout/toolbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/ActionBar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:navigationIcon="?attr/homeAsUpIndicator"
-                app:title="@string/chi_tiet_phong"
-                app:titleTextColor="@color/primaryTextColor" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scroll_view"
@@ -39,7 +25,7 @@
             android:fillViewport="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/constraint1">
+            app:layout_constraintTop_toBottomOf="@id/toolBar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -51,9 +37,9 @@
                     android:id="@+id/cardView_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/small_margin"
+                    android:layout_margin="@dimen/small"
                     android:elevation="4dp"
-                    app:cardCornerRadius="10dp"
+                    app:cardCornerRadius="@dimen/medium_radius"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -61,10 +47,10 @@
                     <ImageView
                         android:id="@+id/imageView_apartment"
                         android:layout_width="match_parent"
-                        android:scaleType="centerCrop"
                         android:layout_height="wrap_content"
                         android:maxHeight="250dp"
                         android:minHeight="200dp"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/image_load" />
 
                 </com.google.android.material.card.MaterialCardView>
@@ -73,10 +59,10 @@
                     android:id="@+id/cardView_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/small_margin"
+                    android:layout_margin="@dimen/small"
                     android:elevation="4dp"
                     app:cardBackgroundColor="@color/backGroundLightColor"
-                    app:cardCornerRadius="10dp"
+                    app:cardCornerRadius="@dimen/medium_radius"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cardView_image">
@@ -90,7 +76,7 @@
                             style="@style/Headline6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/small_margin"
+                            android:layout_margin="@dimen/small"
                             android:lines="1"
                             android:maxWidth="230dp"
                             android:text="Phòng cho thuê"
@@ -104,7 +90,7 @@
                             style="@style/Subtitle1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/small_margin"
+                            android:layout_marginEnd="@dimen/small"
                             android:lines="1"
                             android:maxWidth="100dp"
                             android:text="30/04/2020"
@@ -119,7 +105,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
 
-                            android:layout_margin="@dimen/small_margin"
+                            android:layout_margin="@dimen/small"
                             android:text="Địa chỉ:"
                             android:textColor="@android:color/black"
                             app:layout_constraintStart_toStartOf="parent"
@@ -131,7 +117,7 @@
                             android:layout_width="wrap_content"
 
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/small_margin"
+                            android:layout_margin="@dimen/small"
                             android:lines="1"
                             android:maxWidth="300dp"
                             android:text="1 Võ Văn Ngân"
@@ -144,7 +130,7 @@
                             style="@style/Subtitle1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/small_margin"
+                            android:layout_margin="@dimen/small"
                             android:text="Tên chủ:"
                             android:textColor="@android:color/black"
                             app:layout_constraintStart_toStartOf="parent"
@@ -155,7 +141,7 @@
                             style="@style/Subtitle1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/small_margin"
+                            android:layout_margin="@dimen/small"
                             android:text="Nam"
                             android:textColor="@color/primaryTextColor"
                             app:layout_constraintStart_toEndOf="@id/textView2"
@@ -166,7 +152,7 @@
                             style="@style/Subtitle1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/small_margin"
+                            android:layout_margin="@dimen/small"
                             android:text="Số điện thoại:"
                             android:textColor="@android:color/black"
 
@@ -179,7 +165,7 @@
                             style="@style/Subtitle1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/small_margin"
+                            android:layout_margin="@dimen/small"
                             android:text="0316649852"
                             android:textColor="@color/primaryTextColor"
                             app:layout_constraintStart_toEndOf="@id/textView3"
@@ -191,11 +177,10 @@
                     android:id="@+id/cardView_rating"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/small_margin"
+                    android:layout_margin="@dimen/small"
                     android:elevation="10dp"
                     app:cardBackgroundColor="@color/backGroundLightColor"
-
-                    app:cardCornerRadius="10dp"
+                    app:cardCornerRadius="@dimen/medium_radius"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cardView_info">
@@ -209,7 +194,7 @@
                             style="@style/Headline6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/small_margin"
+                            android:layout_margin="@dimen/small"
                             android:text="Đánh giá"
                             android:textColor="@android:color/black"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -220,10 +205,10 @@
                             android:id="@+id/rating"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/small_margin"
+                            android:layout_margin="@dimen/small"
+                            android:isIndicator="false"
                             android:numStars="5"
                             android:rating="4.5"
-                            android:isIndicator="false"
                             android:stepSize="0.5"
                             android:theme="@style/RatingBar"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -237,10 +222,10 @@
                     android:id="@+id/cardView_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/small_margin"
+                    android:layout_margin="@dimen/small"
                     android:elevation="10dp"
                     app:cardBackgroundColor="@color/backGroundLightColor"
-                    app:cardCornerRadius="10dp"
+                    app:cardCornerRadius="@dimen/medium_radius"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cardView_rating">
@@ -257,7 +242,7 @@
                             android:id="@+id/imageView_price"
                             android:layout_width="@dimen/smaller_image"
                             android:layout_height="@dimen/smaller_image"
-                            android:layout_margin="@dimen/small_margin"
+                            android:layout_margin="@dimen/small"
                             android:src="@mipmap/house_add"
                             app:layout_columnWeight="1"
                             app:layout_rowWeight="1" />
@@ -266,7 +251,7 @@
                             android:id="@+id/imageView_electric"
                             android:layout_width="@dimen/smaller_image"
                             android:layout_height="@dimen/smaller_image"
-                            android:layout_margin="@dimen/small_margin"
+                            android:layout_margin="@dimen/small"
                             android:src="@mipmap/electric"
                             app:layout_columnWeight="1"
                             app:layout_rowWeight="1" />
@@ -275,7 +260,7 @@
                             android:id="@+id/imageView_water"
                             android:layout_width="@dimen/smaller_image"
                             android:layout_height="@dimen/smaller_image"
-                            android:layout_margin="@dimen/small_margin"
+                            android:layout_margin="@dimen/small"
                             android:src="@mipmap/water"
                             app:layout_columnWeight="1"
                             app:layout_rowWeight="1" />
@@ -284,7 +269,7 @@
                             android:id="@+id/imageView_area"
                             android:layout_width="@dimen/smaller_image"
                             android:layout_height="@dimen/smaller_image"
-                            android:layout_margin="@dimen/small_margin"
+                            android:layout_margin="@dimen/small"
                             android:src="@mipmap/area"
                             app:layout_columnWeight="1"
                             app:layout_rowWeight="1" />
@@ -337,172 +322,22 @@
                     </androidx.gridlayout.widget.GridLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.card.MaterialCardView
+                <include
                     android:id="@+id/cardView_utils"
+                    layout="@layout/card_utils"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/small_margin"
+                    android:layout_margin="@dimen/small"
                     android:elevation="10dp"
-                    app:cardBackgroundColor="@color/backGroundLightColor"
-                    app:cardCornerRadius="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cardView_price">
-
-                    <androidx.gridlayout.widget.GridLayout
-                        android:id="@+id/grid_utils"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="4dp"
-                        app:columnCount="3"
-                        app:rowCount="5">
-
-                        <TextView
-                            android:id="@+id/textView_utils"
-                            style="@style/Headline6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/small_margin"
-                            android:text="Tiện ích"
-                            android:textAlignment="center"
-                            android:textColor="@color/primaryTextColor"
-                            app:layout_columnSpan="3"
-                            app:layout_columnWeight="1"
-                            app:layout_rowWeight="1" />
-
-                        <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
-                            android:id="@+id/image_wifi"
-                            android:layout_width="@dimen/smaller_image"
-                            android:layout_height="@dimen/smaller_image"
-                            android:layout_margin="@dimen/smaller_margin"
-                            app:layout_columnWeight="1"
-                            app:layout_rowWeight="1"
-                            app:src_checked="@drawable/wifi_blue"
-                            app:src_unchecked="@drawable/wifi_gray" />
-
-                        <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
-                            android:id="@+id/image_time"
-                            android:layout_width="@dimen/smaller_image"
-                            android:layout_height="@dimen/smaller_image"
-                            android:layout_margin="@dimen/smaller_margin"
-                            app:layout_columnWeight="1"
-                            app:layout_rowWeight="1"
-                            app:src_checked="@drawable/time_blue"
-                            app:src_unchecked="@drawable/time_gray" />
-
-                        <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
-                            android:id="@+id/image_key"
-                            android:layout_width="@dimen/smaller_image"
-                            android:layout_height="@dimen/smaller_image"
-                            android:layout_margin="@dimen/smaller_margin"
-                            app:layout_columnWeight="1"
-                            app:layout_rowWeight="1"
-                            app:src_checked="@drawable/key_blue"
-                            app:src_unchecked="@drawable/key_gray" />
-
-                        <TextView
-                            android:id="@+id/textView_wifi"
-                            style="@style/Subtitle2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Wifi"
-                            android:textColor="@color/primaryColor"
-                            app:layout_columnWeight="1"
-                            app:layout_rowWeight="1" />
-
-                        <TextView
-                            android:id="@+id/textView_time"
-                            style="@style/Subtitle2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Tự do"
-                            android:textColor="@color/primaryColor"
-                            app:layout_columnWeight="1"
-                            app:layout_rowWeight="1" />
-
-                        <TextView
-                            android:id="@+id/textView_key"
-                            style="@style/Subtitle2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Chung chủ"
-                            android:textColor="@color/primaryColor"
-                            app:layout_columnWeight="1"
-                            app:layout_rowWeight="1" />
-
-                        <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
-                            android:id="@+id/image_car"
-                            android:layout_width="@dimen/smaller_image"
-                            android:layout_height="@dimen/smaller_image"
-                            android:layout_margin="@dimen/smaller_margin"
-                            app:layout_columnWeight="1"
-                            app:layout_rowWeight="1"
-                            app:src_checked="@mipmap/bike_blue"
-                            app:src_unchecked="@mipmap/bike_gray" />
-
-                        <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
-                            android:id="@+id/image_air"
-                            android:layout_width="@dimen/smaller_image"
-                            android:layout_height="@dimen/smaller_image"
-                            android:layout_margin="@dimen/smaller_margin"
-                            app:layout_columnWeight="1"
-                            app:layout_rowWeight="1"
-                            app:src_checked="@mipmap/air_blue"
-                            app:src_unchecked="@mipmap/air_gray" />
-
-                        <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
-                            android:id="@+id/image_heater"
-                            android:layout_width="@dimen/smaller_image"
-                            android:layout_height="@dimen/smaller_image"
-                            android:layout_margin="@dimen/smaller_margin"
-                            app:layout_columnWeight="1"
-                            app:layout_rowWeight="1"
-                            app:src_checked="@mipmap/heater_blue"
-                            app:src_unchecked="@mipmap/heater_gray" />
-
-                        <TextView
-                            android:id="@+id/textView_car"
-                            style="@style/Subtitle2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Wifi"
-                            android:textColor="@color/primaryColor"
-                            app:layout_columnWeight="1"
-                            app:layout_rowWeight="1" />
-
-                        <TextView
-                            android:id="@+id/textView_air"
-                            style="@style/Subtitle2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Tự do"
-                            android:textColor="@color/primaryColor"
-                            app:layout_columnWeight="1"
-                            app:layout_rowWeight="1" />
-
-                        <TextView
-                            android:id="@+id/textView_heater"
-                            style="@style/Subtitle2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Chung chủ"
-                            android:textColor="@color/primaryColor"
-                            app:layout_columnWeight="1"
-                            app:layout_rowWeight="1" />
-                    </androidx.gridlayout.widget.GridLayout>
-                </com.google.android.material.card.MaterialCardView>
+                    app:layout_constraintTop_toBottomOf="@id/cardView_price" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardView_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/small_margin"
+                    android:layout_margin="@dimen/small"
                     android:elevation="10dp"
                     app:cardBackgroundColor="@color/backGroundLightColor"
                     app:cardCornerRadius="10dp"
@@ -519,7 +354,7 @@
                             style="@style/Headline6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/small_margin"
+                            android:layout_margin="@dimen/small"
                             android:text="Chi tiết"
                             android:textColor="@color/secondaryColor"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -531,7 +366,7 @@
                             style="@style/Subtitle2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/small_margin"
+                            android:layout_margin="@dimen/small"
                             android:padding="5dp"
                             android:text="@string/sample_details"
                             android:textColor="@android:color/black"
@@ -544,7 +379,7 @@
                             android:id="@+id/edit_comment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/small_margin"
+                            android:layout_margin="@dimen/small"
                             android:drawableEnd="@drawable/send"
                             android:hint="@string/binh_luan"
                             android:imeOptions="actionSend"
@@ -563,8 +398,8 @@
                     android:id="@+id/cardView_comments"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/small_margin"
-                    android:layout_marginTop="@dimen/small_margin"
+                    android:layout_marginHorizontal="@dimen/small"
+                    android:layout_marginTop="@dimen/small"
                     android:layout_marginBottom="56dp"
                     android:elevation="10dp"
                     app:cardBackgroundColor="@color/backGroundLightColor"
@@ -580,15 +415,15 @@
                         android:layout_height="wrap_content" />
                 </com.google.android.material.card.MaterialCardView>
 
-<!--                <view-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="1dp"-->
-<!--                    android:layout_marginHorizontal="@dimen/small_margin"-->
-<!--                    android:layout_marginTop="56dp"-->
-<!--                    android:background="@android:color/darker_gray"-->
-<!--                    app:layout_constraintBottom_toBottomOf="@id/cardView_comments"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent" />-->
+                <!--                <view-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="1dp"-->
+                <!--                    android:layout_marginHorizontal="@dimen/small_margin"-->
+                <!--                    android:layout_marginTop="56dp"-->
+                <!--                    android:background="@android:color/darker_gray"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@id/cardView_comments"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent" />-->
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

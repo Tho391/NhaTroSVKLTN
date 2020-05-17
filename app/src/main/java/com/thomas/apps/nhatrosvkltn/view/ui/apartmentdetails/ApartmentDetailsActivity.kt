@@ -1,14 +1,13 @@
 package com.thomas.apps.nhatrosvkltn.view.ui.apartmentdetails
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.MotionEvent
-import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -38,34 +37,47 @@ class ApartmentDetailsActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(ApartmentDetailsViewModel::class.java)
 
-        setSupportActionBar(binding.toolBar)
-        binding.toolBar.setNavigationOnClickListener {
-            onBackPressed()
-            TOAST("back")
-        }
+        init()
+    }
 
-        binding.editComment.setOnTouchListener(object : View.OnTouchListener {
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+    @SuppressLint("ClickableViewAccessibility")
+    private fun init() {
+        setSupportActionBar(binding.toolBar.toolBar)
+
+        apartmentId = intent.getIntExtra("apartmentId", -1)
+
+        getApartment(apartmentId)
+        getComments(apartmentId)
+
+
+
+        with(binding){
+            editComment.setOnTouchListener { _, event ->
                 val DRAWABLE_LEFT = 0
                 val DRAWABLE_TOP = 1
                 val DRAWABLE_RIGHT = 2
                 val DRAWABLE_BOTTOM = 3
 
                 if (event!!.rawX >=
-                    (binding.editComment.right - binding.editComment.compoundDrawables[DRAWABLE_RIGHT].bounds.width())
+                    (editComment.right - editComment.compoundDrawables[DRAWABLE_RIGHT].bounds.width())
                 ) {
                     TOAST("Send!")
                     edit_comment.setText("", TextView.BufferType.EDITABLE)
                 }
-                return false
+                false
             }
 
-        })
+            //disable toggle image
 
-        apartmentId = intent.getIntExtra("apartmentId", -1)
-
-        getApartment(apartmentId)
-        getComments(apartmentId)
+            with(cardViewUtils){
+                imageWifi.isEnabled = false
+                imageTime.isEnabled = false
+                imageKey.isEnabled = false
+                imageCar.isEnabled = false
+                imageAir.isEnabled = false
+                imageHeater.isEnabled = false
+            }
+        }
 
         viewModel.apartment.observe(this, Observer { apartment ->
             with(binding) {
@@ -81,20 +93,26 @@ class ApartmentDetailsActivity : AppCompatActivity() {
                 textViewWater.text = apartment.water.toString()
                 textViewArea.text = apartment.area.toString()
                 textView_details_content.text = apartment.description
-                if (apartment.wifi) image_wifi.setChecked() else image_wifi.setUnchecked()
-                if (apartment.time) image_time.setChecked() else image_time.setUnchecked()
-                if (apartment.key) image_key.setChecked() else image_key.setUnchecked()
-                if (apartment.parking) image_car.setChecked() else image_car.setUnchecked()
-                if (apartment.air) image_air.setChecked() else image_air.setUnchecked()
-                if (apartment.heater) image_heater.setChecked() else image_heater.setUnchecked()
+
+                with(cardViewUtils) {
+                    if (apartment.wifi) imageWifi.setChecked() else imageWifi.setUnchecked()
+                    if (apartment.time) imageTime.setChecked() else imageTime.setUnchecked()
+                    if (apartment.key) imageKey.setChecked() else imageKey.setUnchecked()
+                    if (apartment.parking) imageCar.setChecked() else imageCar.setUnchecked()
+                    if (apartment.air) imageAir.setChecked() else imageAir.setUnchecked()
+                    if (apartment.heater) imageHeater.setChecked() else imageHeater.setUnchecked()
+                }
+
+                recyclerViewComments.adapter = commentAdapter
+                recyclerViewComments.layoutManager =
+                    LinearLayoutManager(this@ApartmentDetailsActivity)
             }
         })
 
         viewModel.comments.observe(this, Observer { listComments ->
             commentAdapter.submitList(listComments)
         })
-        binding.recyclerViewComments.adapter = commentAdapter
-        binding.recyclerViewComments.layoutManager = LinearLayoutManager(this)
+
     }
 
     private fun getComments(apartmentId: Int) {
@@ -148,5 +166,10 @@ class ApartmentDetailsActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

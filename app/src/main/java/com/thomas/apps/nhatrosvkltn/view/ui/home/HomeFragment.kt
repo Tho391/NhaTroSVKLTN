@@ -51,43 +51,59 @@ class HomeFragment : Fragment() {
         //viewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
         // TODO: Use the ViewModel
 
-        binding.imageButtonMap.setOnClickListener { requireContext().launchActivity<MapActivity> { } }
-        binding.imageButtonSearch.setOnClickListener { viewPager.setCurrentItem(1, true) }
-        binding.imageButtonAddApartment.setOnClickListener { requireContext().launchActivity<AddApartmentActivity> {  } }
-        binding.imageDistrict1.setOnClickListener { onDistrict1() }
-        binding.imageDistrict2.setOnClickListener { onDistrict2() }
-        binding.imageDistrict3.setOnClickListener { onDistrict3() }
-        binding.imageDistrict4.setOnClickListener { onDistrict4() }
-        binding.imageDistrict5.setOnClickListener { onDistrict5() }
-        binding.imageDistrict6.setOnClickListener { onDistrict6() }
+        init()
 
-        binding.recyclerViewApartments.adapter = recyclerAdapter
-        binding.recyclerViewApartments.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    private fun init() {
+        with(binding) {
+            imageButtonMap.setOnClickListener { requireContext().launchActivity<MapActivity> { } }
+            imageButtonSearch.setOnClickListener { viewPager.setCurrentItem(1, true) }
+            imageButtonAddApartment.setOnClickListener { requireContext().launchActivity<AddApartmentActivity> { } }
+            imageDistrict1.setOnClickListener { onDistrict1() }
+            imageDistrict2.setOnClickListener { onDistrict2() }
+            imageDistrict3.setOnClickListener { onDistrict3() }
+            imageDistrict4.setOnClickListener { onDistrict4() }
+            imageDistrict5.setOnClickListener { onDistrict5() }
+            imageDistrict6.setOnClickListener { onDistrict6() }
+
+            imageDistrict1.load(R.mipmap.quan10) {
+                size(100, 100)
+            }
+            imageDistrict2.load(R.mipmap.quan3) {
+                size(100, 100)
+            }
+            imageDistrict3.load(R.mipmap.thuduc) {
+                size(100, 100)
+            }
+            imageDistrict4.load(R.mipmap.quan1) {
+                size(100, 100)
+            }
+            imageDistrict5.load(R.mipmap.binhthanh) {
+                size(100, 100)
+            }
+            imageDistrict6.load(R.mipmap.quan7) {
+                size(100, 100)
+            }
+
+            swipeRefreshLayout.setOnRefreshListener {
+                viewModel.loadApartments()
+            }
+            swipeRefreshLayout.post {
+                viewModel.loadApartments()
+            }
+
+            recyclerViewApartments.adapter = recyclerAdapter
+            recyclerViewApartments.layoutManager = object : LinearLayoutManager(requireContext()) {
+                override fun canScrollVertically(): Boolean {
+                    return false
+                }
+            }
+        }
 
         viewModel.apartments.observe(viewLifecycleOwner, Observer { apartments ->
             recyclerAdapter.submitList(apartments)
         })
-
-        binding.imageDistrict1.load(R.mipmap.quan10) {
-            size(100, 100)
-        }
-        binding.imageDistrict2.load(R.mipmap.quan3) {
-            size(100, 100)
-        }
-        binding.imageDistrict3.load(R.mipmap.thuduc) {
-            size(100, 100)
-        }
-        binding.imageDistrict4.load(R.mipmap.quan1) {
-            size(100, 100)
-        }
-        binding.imageDistrict5.load(R.mipmap.binhthanh) {
-            size(100, 100)
-        }
-        binding.imageDistrict6.load(R.mipmap.quan7) {
-            size(100, 100)
-        }
-
-        //updateUI()
     }
 
     private fun createApartments(): List<Apartment> {

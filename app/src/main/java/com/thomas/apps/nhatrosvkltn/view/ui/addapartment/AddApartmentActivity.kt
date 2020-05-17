@@ -17,6 +17,11 @@ class AddApartmentActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(AddApartmentViewModel::class.java)
 
+        init()
+    }
+
+    private fun init() {
+        setSupportActionBar(binding.toolBar.toolBar)
     }
 
     override fun onSupportNavigateUp(): Boolean {

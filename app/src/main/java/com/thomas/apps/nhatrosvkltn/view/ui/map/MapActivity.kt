@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -37,7 +36,11 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         viewModel = ViewModelProvider(this).get(MapViewModel::class.java)
 
+        init(savedInstanceState)
 
+    }
+
+    private fun init(savedInstanceState: Bundle?) {
         Dexter.withContext(this)
             .withPermissions(
                 Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -77,7 +80,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 val DRAWABLE_BOTTOM = 3
 
                 if (event?.rawX!! <=
-                    (binding.editTextSearch.compoundDrawables[DRAWABLE_LEFT].bounds.width()+ 50)
+                    (binding.editTextSearch.compoundDrawables[DRAWABLE_LEFT].bounds.width() + 50)
                 ) {
                     onBackPressed()
                     return true
@@ -94,7 +97,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             }
 
         })
-
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -107,7 +109,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             MarkerOptions().position(sydney)
                 .title("Marker in Sydney")
         )
-        mMap.animateCamera(CameraUpdateFactory.newLatLng(sydney))
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney,15F))
 
     }
 

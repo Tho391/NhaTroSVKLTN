@@ -1,11 +1,9 @@
 package com.thomas.apps.nhatrosvkltn.view.ui.login
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.thomas.apps.nhatrosvkltn.R
 import com.thomas.apps.nhatrosvkltn.databinding.ActivityLoginBinding
-import com.thomas.apps.nhatrosvkltn.databinding.ActivityMainBinding
 import com.thomas.apps.nhatrosvkltn.utils.launchActivity
 import com.thomas.apps.nhatrosvkltn.view.ui.MainActivity
 import com.thomas.apps.nhatrosvkltn.view.ui.forgetpass.ForgetPassActivity
@@ -23,23 +21,36 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
+        init()
 
-        with(binding){
+
+
+    }
+
+    private fun init() {
+
+        setSupportActionBar(binding.toolBar.toolBar)
+
+        with(binding) {
             buttonLogin.setOnClickListener {
-                launchActivity<MainActivity> {  }
+                launchActivity<MainActivity> { }
                 finish()
             }
-            buttonLoginGoogle.setOnClickListener{
-                launchActivity<MainActivity> {  }
+            buttonLoginGoogle.setOnClickListener {
+                launchActivity<MainActivity> { }
                 finish()
             }
             textForgetPass.setOnClickListener {
-                launchActivity<ForgetPassActivity> {  }
+                launchActivity<ForgetPassActivity> { }
             }
             textRegister.setOnClickListener {
-                launchActivity<RegisterActivity> {  }
+                launchActivity<RegisterActivity> { }
             }
         }
+    }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

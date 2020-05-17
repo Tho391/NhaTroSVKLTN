@@ -18,5 +18,15 @@ class ListImagesActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(ListImageViewModel::class.java)
 
+        init()
+    }
+
+    private fun init() {
+        setSupportActionBar(binding.toolBar.toolBar)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }
