@@ -5,7 +5,7 @@ data class Apartment(
     var title: String,
     var address: String,
     var district: String,
-    var rating: Double,
+    var rating: Float,
     var latitude: Double,
     var longitude: Double,
     var description: String,

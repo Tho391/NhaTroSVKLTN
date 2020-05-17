@@ -1,9 +1,17 @@
 package com.thomas.apps.nhatrosvkltn.view.ui.apartmentdetails
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.MotionEvent
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,7 +21,7 @@ import com.thomas.apps.nhatrosvkltn.databinding.ActivityApartmentDetailsBinding
 import com.thomas.apps.nhatrosvkltn.utils.TOAST
 import com.thomas.apps.nhatrosvkltn.view.adapter.CommentAdapter
 import kotlinx.android.synthetic.main.activity_apartment_details.*
-import kotlin.math.roundToInt
+
 
 class ApartmentDetailsActivity : AppCompatActivity() {
 
@@ -32,9 +40,27 @@ class ApartmentDetailsActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolBar)
         binding.toolBar.setNavigationOnClickListener {
+            onBackPressed()
             TOAST("back")
         }
 
+        binding.editComment.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                val DRAWABLE_LEFT = 0
+                val DRAWABLE_TOP = 1
+                val DRAWABLE_RIGHT = 2
+                val DRAWABLE_BOTTOM = 3
+
+                if (event!!.rawX >=
+                    (binding.editComment.right - binding.editComment.compoundDrawables[DRAWABLE_RIGHT].bounds.width())
+                ) {
+                    TOAST("Send!")
+                    edit_comment.setText("", TextView.BufferType.EDITABLE)
+                }
+                return false
+            }
+
+        })
 
         apartmentId = intent.getIntExtra("apartmentId", -1)
 
@@ -49,12 +75,12 @@ class ApartmentDetailsActivity : AppCompatActivity() {
                 textViewAddress.text = apartment.address
                 textViewName.text = apartment.ownerName
                 textViewPhone.text = apartment.phone
-                rating.numStars = apartment.rating.roundToInt()
+                rating.rating = apartment.rating
                 textViewPrice.text = apartment.price.toString()
                 textViewElectric.text = apartment.electric.toString()
                 textViewWater.text = apartment.water.toString()
                 textViewArea.text = apartment.area.toString()
-                textViewDetails.text = apartment.description
+                textView_details_content.text = apartment.description
                 if (apartment.wifi) image_wifi.setChecked() else image_wifi.setUnchecked()
                 if (apartment.time) image_time.setChecked() else image_time.setUnchecked()
                 if (apartment.key) image_key.setChecked() else image_key.setUnchecked()
@@ -75,12 +101,10 @@ class ApartmentDetailsActivity : AppCompatActivity() {
         viewModel.getComments(apartmentId)
     }
 
-
     private fun getApartment(apartmentId: Int) {
         //TODO("Not yet implemented")
         viewModel.getApartment(apartmentId)
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         //return super.onCreateOptionsMenu(menu)
@@ -91,13 +115,35 @@ class ApartmentDetailsActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         //return super.onOptionsItemSelected(item)
-
         when (item.itemId) {
             R.id.action_call -> {
-                TOAST("call")
+                TOAST("call to " + viewModel.apartment.value?.phone)
+                val intent =
+                    Intent(Intent.ACTION_CALL, Uri.parse("tel:" + viewModel.apartment.value?.phone))
+                if (ActivityCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.CALL_PHONE
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                }
+                startActivity(intent)
             }
             R.id.action_direction -> {
                 TOAST("direction")
+                val lat = viewModel.apartment.value?.latitude
+                val lon = viewModel.apartment.value?.longitude
+                val intent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://www.google.com/maps/search/?api=1&query=$lat,$lon")
+                )
+                startActivity(intent)
             }
         }
 

@@ -5,7 +5,7 @@
     <string name="email">Email</string>
     <string name="mat_khau">Mật khẩu</string>
     <string name="dang_nhap">Đăng nhập</string>
-    <string name="quen_mat_khau">Quên mật khẩu?</string>
+    <string name="quen_mat_khau"><u>Quên mật khẩu?</u></string>
     <string name="hoac">Hoặc</string>
     <string name="chua_co_tai_khoan_dang_ki_ngay"><u>Chưa có tài khoản? Đăng kí ngay</u></string>
     <string name="ten">Tên</string>

@@ -6,23 +6,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.thomas.apps.nhatrosvkltn.R
+import com.thomas.apps.nhatrosvkltn.databinding.FragmentFiltersBinding
 
 
-class FiltersFragment : Fragment() {
+class FiltersFragment: Fragment() {
 
     companion object {
         fun newInstance() =
             FiltersFragment()
     }
 
+    private lateinit var binding: FragmentFiltersBinding
     private lateinit var viewModel: FiltersViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_filters, container, false)
+        binding = FragmentFiltersBinding.inflate(layoutInflater)
+
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

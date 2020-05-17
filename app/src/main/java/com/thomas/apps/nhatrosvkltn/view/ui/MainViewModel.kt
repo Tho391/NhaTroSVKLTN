@@ -1,4 +1,4 @@
-package com.thomas.apps.nhatrosvkltn.view.ui.home
+package com.thomas.apps.nhatrosvkltn.view.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,8 +7,8 @@ import com.thomas.apps.nhatrosvkltn.model.Apartment
 import com.thomas.apps.nhatrosvkltn.model.Image
 import com.thomas.apps.nhatrosvkltn.model.User
 
-class HomeViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class MainViewModel: ViewModel() {
+
     private var _apartments = MutableLiveData<List<Apartment>>()
 
     val apartments: LiveData<List<Apartment>>
@@ -17,42 +17,6 @@ class HomeViewModel : ViewModel() {
     fun loadApartments(){
         //get apartments from api
         _apartments.value = createApartments()
-    }
-
-    fun onDistrict1() {
-
-    }
-
-    fun onDistrict2() {
-        //TODO("Not yet implemented")
-    }
-
-    fun onDistrict3() {
-        //TODO("Not yet implemented")
-    }
-
-    fun onDistrict4() {
-        //TODO("Not yet implemented")
-    }
-
-    fun onDistrict5() {
-        //TODO("Not yet implemented")
-    }
-
-    fun onDistrict6() {
-        //TODO("Not yet implemented")
-    }
-
-    fun onAddApartment() {
-        //TODO("Not yet implemented")
-    }
-
-    fun onSearch() {
-
-    }
-
-    fun onMap() {
-        //TODO("Not yet implemented")
     }
 
     private fun createApartments(): List<Apartment> {

@@ -1,13 +1,28 @@
 package com.thomas.apps.nhatrosvkltn.view.ui.newpass
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.thomas.apps.nhatrosvkltn.R
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.thomas.apps.nhatrosvkltn.databinding.ActivityNewPassBinding
+import com.thomas.apps.nhatrosvkltn.utils.launchActivity
+import com.thomas.apps.nhatrosvkltn.view.ui.login.LoginActivity
 
 class NewPassActivity : AppCompatActivity() {
 
+    private lateinit var viewModel: NewPassViewModel
+    private lateinit var binding: ActivityNewPassBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_new_pass)
+        binding = ActivityNewPassBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        viewModel = ViewModelProvider(this).get(NewPassViewModel::class.java)
+
+
+        binding.buttonChangePass.setOnClickListener {
+            launchActivity<LoginActivity> { }
+            finish()
+        }
     }
 }

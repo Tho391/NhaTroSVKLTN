@@ -7,13 +7,15 @@ import android.view.View
 import com.thomas.apps.nhatrosvkltn.R
 
 
-private const val TAG = "ToggleImageView"
 
-private const val STATE_CHECKED = 1
-private const val STATE_UNCHECKED = 2
 
 class ToggleImageView :
     androidx.appcompat.widget.AppCompatImageView, View.OnClickListener {
+
+    private  val TAG = "ToggleImageView"
+
+    private  val STATE_CHECKED = 1
+    private  val STATE_UNCHECKED = 2
 
     private var mState = STATE_UNCHECKED
     private var mCheckedRes = 0

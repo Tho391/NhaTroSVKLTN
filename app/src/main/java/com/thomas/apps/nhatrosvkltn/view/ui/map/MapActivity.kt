@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -17,17 +19,24 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.thomas.apps.nhatrosvkltn.databinding.ActivityMapBinding
 import com.thomas.apps.nhatrosvkltn.utils.TOAST
+import com.thomas.apps.nhatrosvkltn.utils.hideSoftKeyboard
+import com.thomas.apps.nhatrosvkltn.view.ui.filters.FiltersFragment
 
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
+    private lateinit var viewModel: MapViewModel
     private lateinit var binding: ActivityMapBinding
     private lateinit var mMap: GoogleMap
+    private val filtersFragment by lazy { FiltersFragment() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMapBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        viewModel = ViewModelProvider(this).get(MapViewModel::class.java)
+
 
         Dexter.withContext(this)
             .withPermissions(
@@ -78,6 +87,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                     (binding.editTextSearch.right - binding.editTextSearch.compoundDrawables[DRAWABLE_RIGHT].bounds.width())
                 ) {
                     TOAST("Filter")
+                    hideSoftKeyboard()
+                    //filtersFragment.show(supportFragmentManager, "dialog filter")
                 }
                 return false
             }
