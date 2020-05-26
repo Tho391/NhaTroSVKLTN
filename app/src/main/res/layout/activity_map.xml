@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.ui.map.MapActivity">
+        tools:context=".view.screens.map.MapActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint1"

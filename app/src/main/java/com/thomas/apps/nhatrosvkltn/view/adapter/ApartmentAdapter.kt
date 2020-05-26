@@ -11,7 +11,7 @@ import com.thomas.apps.nhatrosvkltn.databinding.ItemApartmentBinding
 import com.thomas.apps.nhatrosvkltn.model.Apartment
 import com.thomas.apps.nhatrosvkltn.utils.TOAST
 import com.thomas.apps.nhatrosvkltn.utils.launchActivity
-import com.thomas.apps.nhatrosvkltn.view.ui.apartmentdetails.ApartmentDetailsActivity
+import com.thomas.apps.nhatrosvkltn.view.screens.apartmentdetails.ApartmentDetailsActivity
 
 class ApartmentAdapter : ListAdapter<Apartment, ApartmentAdapter.ViewHolder>(ApartmentDC()) {
 

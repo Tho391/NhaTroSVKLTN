@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tool="http://schemas.android.com/tools"
-    tool:context=".view.ui.apartmentdetails.ApartmentDetailsActivity"
+    tool:context=".view.screens.apartmentdetails.ApartmentDetailsActivity"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_direction"

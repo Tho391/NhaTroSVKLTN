@@ -22,55 +22,55 @@
             android:value="@string/api_key" />
 
         <activity
-            android:name=".view.ui.manageapartments.ManageApartmentsActivity"
+            android:name=".view.screens.manageapartments.ManageApartmentsActivity"
             android:screenOrientation="sensorPortrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".view.ui.editapartment.EditApartmentActivity"
+            android:name=".view.screens.editapartment.EditApartmentActivity"
             android:screenOrientation="sensorPortrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".view.ui.addapartment.AddApartmentActivity"
+            android:name=".view.screens.addapartment.AddApartmentActivity"
             android:screenOrientation="sensorPortrait"
             tools:ignore="LockedOrientationActivity">
 
         </activity>
         <activity
-            android:name=".view.ui.map.MapActivity"
+            android:name=".view.screens.map.MapActivity"
             android:screenOrientation="sensorPortrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".view.ui.listimage.ListImagesActivity"
+            android:name=".view.screens.listimage.ListImagesActivity"
             android:screenOrientation="sensorPortrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".view.ui.apartmentdetails.ApartmentDetailsActivity"
+            android:name=".view.screens.apartmentdetails.ApartmentDetailsActivity"
             android:screenOrientation="sensorPortrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".view.ui.newpass.NewPassActivity"
+            android:name=".view.screens.newpass.NewPassActivity"
             android:screenOrientation="sensorPortrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".view.ui.changepass.ChangePassActivity"
+            android:name=".view.screens.changepass.ChangePassActivity"
             android:screenOrientation="sensorPortrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".view.ui.forgetpass.ForgetPassActivity"
+            android:name=".view.screens.forgetpass.ForgetPassActivity"
             android:screenOrientation="sensorPortrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".view.ui.register.RegisterActivity"
+            android:name=".view.screens.register.RegisterActivity"
             android:screenOrientation="sensorPortrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".view.ui.login.LoginActivity"
+            android:name=".view.screens.login.LoginActivity"
             android:screenOrientation="sensorPortrait"
             tools:ignore="LockedOrientationActivity">
 
         </activity>
         <activity
-            android:name=".view.ui.MainActivity"
+            android:name=".view.screens.MainActivity"
             android:screenOrientation="sensorPortrait"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
