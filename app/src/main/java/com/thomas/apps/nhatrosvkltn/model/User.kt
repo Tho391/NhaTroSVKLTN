@@ -1,12 +1,22 @@
 package com.thomas.apps.nhatrosvkltn.model
 
-import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class User(
-    @SerializedName("id")
-    val id: Int,
-    @SerializedName("name")
-    var name: String,
-    @SerializedName("avatar")
-    var avatar: String
-)
+    val id: Int? = null,
+    var firstName: String? = "",
+    val dateOfBirth: String? = "",
+    val address: String? = "",
+    val district: String? = "",
+    val city: String? = "",
+    val phoneNumber: String? = "",
+    val avatar: String? = null,
+    val email: String? = "",
+    val pass: String? = "",
+    val lastName: String? = "",
+    val token: String? = ""
+) : Serializable {
+    fun getName(): String {
+        return "$lastName $firstName"
+    }
+}

@@ -1,52 +1,135 @@
 package com.thomas.apps.nhatrosvkltn.model
 
 import com.google.gson.annotations.SerializedName
+import com.thomas.apps.nhatrosvkltn.model.servermodel.ApartmentResponse
+import java.io.Serializable
+import java.util.*
 
 data class Apartment(
     @SerializedName("id")
-    val id: Int,
+    val id: Int?,
     @SerializedName("title")
-    var title: String,
+    val title: String?,
     @SerializedName("address")
-    var address: String,
+    val address: String?,
     @SerializedName("district")
-    var district: String,
+    val district: String?,
     @SerializedName("rating")
-    var rating: Float,
+    val rating: Float? = 0F,
     @SerializedName("latitude")
-    var latitude: Double,
+    val latitude: Double?,
     @SerializedName("longitude")
-    var longitude: Double,
+    val longitude: Double?,
     @SerializedName("description")
-    var description: String,
+    val description: String?,
     @SerializedName("ownerName")
-    var ownerName: String,
+    val ownerName: String?,
     @SerializedName("phone")
-    var phone: String,
-    @SerializedName("createAt")
-    var createAt: String,
+    val phone: String?,
+    @SerializedName("created_at")
+    val createAt: String?,
     @SerializedName("price")
-    var price: Long,
+    val price: Int? = 0,
     @SerializedName("electric")
-    var electric: Long,
+    val electric: Int? = 0,
     @SerializedName("water")
-    var water: Long,
+    val water: Int? = 0,
     @SerializedName("area")
-    var area: Int,
+    val area: Int? = 0,
     @SerializedName("wifi")
-    var wifi: Boolean,
+    val wifi: Boolean = false,
     @SerializedName("time")
-    var time: Boolean,
+    val time: Boolean = false,
     @SerializedName("key")
-    var key: Boolean,
+    val key: Boolean = false,
     @SerializedName("parking")
-    var parking: Boolean,
+    val parking: Boolean = false,
     @SerializedName("air")
-    var air: Boolean,
+    val air: Boolean = false,
     @SerializedName("heater")
-    var heater: Boolean,
+    val heater: Boolean = false,
     @SerializedName("images")
-    var images: List<Image>,
+    val images: List<Image>,
     @SerializedName("user")
-    var user: User
-)
+    val user: User?
+) : Serializable {
+    constructor(
+        title: String,
+        address: String?,
+        district: String?,
+        latitude: Double,
+        longitude: Double,
+        description: String?,
+        ownerName: String?,
+        phone: String?,
+        price: Long,
+        electric: Int,
+        water: Int,
+        area: Int,
+        wifi: Boolean,
+        time: Boolean,
+        key: Boolean,
+        parking: Boolean,
+        air: Boolean,
+        heater: Boolean,
+        images: List<Image>,
+        user: User
+    )
+            : this(
+        -1,
+        title,
+        address,
+        district,
+        0F,
+        latitude,
+        longitude,
+        description,
+        ownerName,
+        phone,
+        Date().toString(),
+        price.toInt(),
+        electric,
+        water,
+        area,
+        wifi,
+        time,
+        key,
+        parking,
+        air,
+        heater,
+        images,
+        user
+    )
+
+    fun toApartmentResponse(): ApartmentResponse {
+        return ApartmentResponse(
+            id,
+            title,
+            ownerName,
+            phone,
+            address,
+            district,
+            null,
+            latitude,
+            longitude,
+            createAt,
+            0,
+            area,
+            0,
+            0,
+            description,
+            price,
+            if (air) 1 else 0,
+            if (parking) 1 else 0,
+            if (heater) 1 else 0,
+            electric,
+            water,
+            null,
+            images[0].url,
+            rating?.toDouble(),
+            if (wifi) 1 else 0,
+            if (time) 1 else 0,
+            if (key) 1 else 0
+        )
+    }
+}

@@ -14,18 +14,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView"
-        style="@style/Headline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_margin"
-        android:text="@string/nhaTroSinhVien"
-        android:textColor="@color/primaryTextColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolBar" />
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="@dimen/app_size"
@@ -33,9 +21,10 @@
         android:layout_marginTop="@dimen/default_margin"
         android:contentDescription="@string/app_name"
         android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@id/edit_text_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@id/toolBar"
         app:srcCompat="@mipmap/app_icon_foreground" />
 
     <com.google.android.material.textfield.TextInputEditText
@@ -46,10 +35,12 @@
         android:layout_margin="@dimen/small"
         android:background="@drawable/edit_text_background"
         android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:singleLine="true"
         android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@id/edit_text_pass"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/edit_text_pass"
@@ -61,9 +52,10 @@
         android:hint="@string/mat_khau"
         android:inputType="textPassword"
         android:padding="10dp"
+        android:singleLine="true"
+        app:layout_constraintBottom_toTopOf="@id/button_login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_email" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_login"
@@ -73,9 +65,9 @@
         android:layout_margin="@dimen/small"
         android:text="@string/dang_nhap"
         app:cornerRadius="@dimen/default_radius"
+        app:layout_constraintBottom_toTopOf="@id/text_forget_pass"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_pass" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_forget_pass"
@@ -85,22 +77,22 @@
         android:layout_margin="@dimen/small"
         android:text="@string/quen_mat_khau"
         android:textColor="@color/primaryTextColor"
+        app:layout_constraintBottom_toTopOf="@id/text_or"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_login" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_or"
         style="@style/Caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-       android:layout_margin="@dimen/small"
+        android:layout_margin="@dimen/small"
         android:text="@string/hoac"
         android:textColor="@color/primaryTextColor"
         android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@id/button_login_google"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_forget_pass" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/button_login_google"
@@ -109,9 +101,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/small"
         app:buttonSize="wide"
+        app:layout_constraintBottom_toTopOf="@id/text_register"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_or" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_register"
@@ -123,8 +115,18 @@
         android:focusable="true"
         android:text="@string/chua_co_tai_khoan_dang_ki_ngay"
         android:textColor="@color/primaryTextColor"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_login_google" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

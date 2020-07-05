@@ -15,7 +15,6 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.annotation.IntegerRes
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
@@ -211,7 +210,7 @@ inline fun <reified T> SharedPreferences.put(key: String, value: T): T {
         }
     }
 
-    editor.commit()
+    editor.apply()
     return value
 }
 

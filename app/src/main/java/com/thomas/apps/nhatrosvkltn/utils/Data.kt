@@ -71,7 +71,8 @@ class Data {
             1F,
             10.7223275,
             106.7097714,
-            "mo ta 1",
+            "Xin vui lòng liên hệ Mrs Hương - Chương để xem và đặt phòng.\n" +
+                    "Ngay đường Hoàng Diệu 2, giao với đường số 7, cách Vincom Thủ Đức chỉ 5 phút, siêu thị Extra Coop, Coop Mart quận 9. Tiện đi lại các quận Bình Thạnh, Gò Vấp hoặc đi làm ở Bình Dương chỉ 10 phút, gần ĐH Ngân Hàng, ĐH Sư Phạm Thủ Đức, đại học Kinh Tế Luật, khu chế xuất Linh Trung, Khu công nghệ cao Quận 9.",
             "Hà",
             "0345653577",
             "1/1/2020",
@@ -96,7 +97,7 @@ class Data {
             2F,
             10.8199886,
             106.658863,
-            "mo ta 2",
+            "Nhà mặt tiền đường lớn, khu sầm uất, khu dân trí cao nhưng lại rất yên tĩnh để ở. Bạn bè tìm địa chỉ nhà rất dễ dàng",
             "Thịnh",
             "0345653577",
             "1/1/2020",
@@ -121,7 +122,11 @@ class Data {
             3F,
             10.7376658,
             106.6933228,
-            "mo ta 3",
+            "Full nội thất, thoáng mát, sạch sẽ\n" +
+                    "Phòng mới\n" +
+                    "Giá cho thuê 2.800.000-4.500.000 (phòng có 2 phòng ngủ)\n" +
+                    "\n" +
+                    "Đi bộ 3p đến: Điện Máy Xanh, TGDĐ, cơm trưa, cafe Highland, quán ăn nhiều vô số...",
             "Phước",
             "0345653577",
             "1/2/2020",
@@ -146,7 +151,9 @@ class Data {
             4F,
             10.8199886,
             106.658863,
-            "mo ta 4",
+            "- Cách cổng trước Hutech 100m, có thể đi bộ qua ĐH GTVT, ĐH Ngoại Thương.\n" +
+                    "- Ngay khu Hàng Xanh sầm uất, đầy đủ các tiện ích.\n" +
+                    "- Hẻm xe hơi rất lớn, thông ra nhiều tuyến đường D2, D3, D5, XVNT, Đinh Bộ Lĩnh...",
             "Phúc",
             "0121484321",
             "5/5/2020",
@@ -171,7 +178,12 @@ class Data {
             5F,
             10.7376658,
             106.6933228,
-            "mo ta 5",
+            "Phòng mới xây 100% nằm trong tòa nhà 4 tầng 49 phòng chi tiết như sau:\n" +
+                    "\uD83D\uDD30 Có Thang Máy\n" +
+                    "\uD83D\uDD30 Phòng mới xây dạng phòng trọ cao cấp, có gác cao không đụng đầu.\n" +
+                    "\uD83D\uDD30 Diện tích phòng rộng: 20-25 m2\n" +
+                    "\uD83D\uDD30 Phòng thông thoáng, mỗi phòng đều có cửa sổ cực mát, có cửa sổ đón ánh sáng tự nhiên.\n" +
+                    "\uD83D\uDD30Hành lang và khu vực công cộng được vệ sinh hàng ngày nên rất sạch sẽ, thoáng mát.",
             "Kiệt",
             "0345653577",
             "7/6/2020",
@@ -196,7 +208,8 @@ class Data {
             2F,
             10.779269,
             106.6723693,
-            "mo ta 5",
+            "Phòng sạch sẽ, có sân rộng phía trước xung quanh yên tĩnh, Wifi miễn phí, giờ giấc tự do\n" +
+                    "Vị trí gần bến phà qua Gò Vấp, đại học Nguyễn Tất Thành, Vincom Phan Văn Trị, Emart",
             "Tuấn",
             "0125783448",
             "8/9/2020",
@@ -221,7 +234,9 @@ class Data {
             4F,
             10.7727389,
             106.6606732,
-            "mo ta 5",
+            "Thiết kế thông thoáng, nhiều cửa sổ, có kệ bếp, wc riêng\n" +
+                    "Có khu vực bếp\n" +
+                    "Nhà vệ sinh sạch, đẹp\n",
             "Sơn",
             "0254813978",
             "23/1/2020",
@@ -246,7 +261,10 @@ class Data {
             3F,
             10.8199886,
             106.658863,
-            "mo ta 5",
+            "- Khu vực ở ngay chợ tiện mua sắm.\n" +
+                    "- Hướng ra Q1, Q3 và các quận khác rất gần.\n" +
+                    "- Ưu tiên sinh viên, NVVP v. v... một người ở\n" +
+                    "- Có chỗ để xe, ở chung với chủ nên an toàn, để tránh tệ nạn XH nên 10h đóng cửa.",
             "Tùng",
             "0016487887",
             "30/9/2020",
@@ -271,7 +289,12 @@ class Data {
             3.5F,
             10.7915398,
             106.5923849,
-            "mo ta 5",
+            "Phòng đôi có 2 giường\n" +
+                    "Giường nệm máy lạnh\n" +
+                    "Ra vào giờ giấc tự do\n" +
+                    "Điện 3k/kwh\n" +
+                    "Xe 100k/ chiếc\n" +
+                    "Phòng rất rộng",
             "Anh",
             "0327478415",
             "1/4/2020",
@@ -296,7 +319,21 @@ class Data {
             5F,
             10.8036298,
             106.6182534,
-            "mo ta 5",
+            "✔️Phòng mới xây 100% - Có phòng có máy lạnh.\n" +
+                    "\n" +
+                    "✔️Giờ giấc tự do không chung chủ.\n" +
+                    "\n" +
+                    "✔️Có kệ bếp rộng rãi.\n" +
+                    "\n" +
+                    "✔️Bạn bè đến chơi thoải mái.\n" +
+                    "\n" +
+                    "✔️An ninh đảm bảo tuyệt đối, bảo vệ 24/7.\n" +
+                    "\n" +
+                    "✔️Hầm gửi xe quản lý bằng thẻ từ.\n" +
+                    "\n" +
+                    "✔️Wifi cực mạnh, máy giặt, sân phơi đầy nắng.\n" +
+                    "\n" +
+                    "✔️Vệ sinh hàng tuần không gian sống.",
             "Thanh",
             "0158445455",
             "4/7/2020",

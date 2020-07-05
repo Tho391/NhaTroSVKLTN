@@ -18,6 +18,7 @@
         android:elevation="4dp"
         app:cardCornerRadius="10dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -30,7 +31,7 @@
 
     <TextView
         android:id="@+id/textView_title"
-        style="@style/Headline7"
+        style="@style/Subtitle1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/small"
@@ -44,11 +45,12 @@
 
     <TextView
         android:id="@+id/textView_address"
-        style="@style/Subtitle1"
-        android:layout_width="wrap_content"
+        style="@style/Subtitle2"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/small"
-        android:lines="1"
+        android:maxLines="2"
+        app:layout_constraintEnd_toEndOf="parent"
         android:text="1 Võ Văn Ngân, Thủ Đức"
         android:textColor="@color/primaryTextColor"
         app:layout_constraintStart_toEndOf="@+id/cardView_image"
@@ -56,23 +58,24 @@
 
     <TextView
         android:id="@+id/textView15"
-        style="@style/Subtitle1"
+        style="@style/Subtitle2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/small"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:lines="1"
         android:text="Giá phòng:"
         android:textColor="@color/primaryTextColor"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cardView_image"
         app:layout_constraintTop_toBottomOf="@+id/textView_address" />
 
     <TextView
         android:id="@+id/textView_price"
-        style="@style/Subtitle1"
+        style="@style/Subtitle2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/small"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:lines="1"
         android:maxWidth="120dp"
         android:text="3500000 VNĐ"
@@ -82,7 +85,7 @@
 
     <TextView
         android:id="@+id/textView_rating"
-        style="@style/Headline7"
+        style="@style/Subtitle1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/small"

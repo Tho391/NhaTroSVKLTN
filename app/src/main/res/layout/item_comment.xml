@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
@@ -23,18 +24,17 @@
             android:layout_width="@dimen/smaller_image"
             android:layout_height="@dimen/smaller_image"
             android:scaleType="centerCrop"
-            android:src="@drawable/person" />
+            tools:srcCompat="@tools:sample/avatars" />
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/textView_author"
-        style="@style/Headline6"
+        style="@style/Subtitle1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/small"
         android:lines="1"
         android:maxWidth="230dp"
-        android:text="User"
         android:textColor="@color/primaryTextColor"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/cardView_avatar"
@@ -47,7 +47,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/small"
         android:padding="4dp"
-        android:text="Bình luận Bình luận Bình luận Bình luận Bình luận Bình luận Bình luận Bình luận Bình luận Bình luận Bình luận Bình luận Bình luận"
         android:textColor="@color/primaryTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,14 +55,13 @@
 
     <TextView
         android:id="@+id/textView_date"
-        style="@style/Subtitle2"
+        style="@style/Subtitle1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/small"
         android:lines="1"
         android:maxWidth="100dp"
         android:padding="4dp"
-        android:text="30/04/2020"
         android:textColor="@color/primaryTextColor"
         app:layout_constraintBottom_toBottomOf="@id/textView_author"
         app:layout_constraintEnd_toEndOf="parent"

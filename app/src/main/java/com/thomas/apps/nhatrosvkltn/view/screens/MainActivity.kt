@@ -2,16 +2,13 @@ package com.thomas.apps.nhatrosvkltn.view.screens
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
-import com.google.gson.JsonElement
-import com.thomas.apps.nhatrosvkltn.api.ApiResponse
-import com.thomas.apps.nhatrosvkltn.api.Status
+import com.google.android.gms.ads.MobileAds
 import com.thomas.apps.nhatrosvkltn.databinding.ActivityMainBinding
+import com.thomas.apps.nhatrosvkltn.model.FilterModel
 import com.thomas.apps.nhatrosvkltn.utils.DepthPageTransformer
 import com.thomas.apps.nhatrosvkltn.utils.hideSoftKeyboard
 import com.thomas.apps.nhatrosvkltn.view.adapter.ViewPagerFragmentAdapter
@@ -19,11 +16,13 @@ import com.thomas.apps.nhatrosvkltn.view.screens.home.HomeFragment
 import com.thomas.apps.nhatrosvkltn.view.screens.profile.ProfileFragment
 import com.thomas.apps.nhatrosvkltn.view.screens.search.SearchFragment
 
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : AppCompatActivity(), HomeFragment.OnFilterListener {
 
     private lateinit var progressBar: ProgressBar
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
+    private lateinit var viewPagerFragmentAdapter: ViewPagerFragmentAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,12 +31,24 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        init()
+        initAds()
+
+        setupView()
 
     }
 
-    private fun init() {
-        viewModel.loadApartments()
+    private fun initAds() {
+        MobileAds.initialize(this) {
+            Log.i(TAG, it.toString())
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.onDestroy()
+    }
+
+    private fun setupView() {
 
         val fragmentList = arrayListOf(
             HomeFragment.newInstance(),
@@ -48,9 +59,9 @@ class MainActivity : AppCompatActivity() {
             navigationConstraint.setNavigationChangeListener { _, position ->
                 viewPager.setCurrentItem(position, true)
             }
-
+            viewPagerFragmentAdapter = ViewPagerFragmentAdapter(this@MainActivity, fragmentList)
             viewPager.setPageTransformer(DepthPageTransformer())
-            viewPager.adapter = ViewPagerFragmentAdapter(this@MainActivity, fragmentList)
+            viewPager.adapter = viewPagerFragmentAdapter
             viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
 
                 override fun onPageSelected(position: Int) {
@@ -63,33 +74,17 @@ class MainActivity : AppCompatActivity() {
         viewModel.loadApartments()
     }
 
-    /*
-* method to handle response
-* */
-    private fun consumeResponse(apiResponse: ApiResponse) {
-        when (apiResponse.status) {
-            Status.LOADING -> progressBar.visibility = View.VISIBLE
-            Status.SUCCESS -> {
-                progressBar.visibility = View.GONE
-                apiResponse.data?.let { renderSuccessResponse(it) }
-            }
-            Status.ERROR -> {
-                progressBar.visibility = View.GONE
-                Toast.makeText(this, "error string", Toast.LENGTH_SHORT).show()
-            }
-            else -> {
-            }
+    override fun onBackPressed() {
+        when (binding.viewPager.currentItem) {
+            1, 2 -> binding.viewPager.currentItem = 0
+            else -> super.onBackPressed()
         }
     }
 
-    /*
-* method to handle success response
-* */
-    private fun renderSuccessResponse(response: JsonElement) {
-        if (!response.isJsonNull) {
-            Log.d("response=", response.toString())
-        } else {
-            Toast.makeText(this, "error string", Toast.LENGTH_SHORT).show()
-        }
+    override fun onFilter(filterModel: FilterModel) {
+        viewPagerFragmentAdapter.onFilter(filterModel)
     }
+
 }
+
+private const val TAG = "MainAct Tag"

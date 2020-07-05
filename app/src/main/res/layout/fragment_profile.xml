@@ -22,8 +22,8 @@
 
             <ImageView
                 android:id="@+id/imageView_avatar"
-                android:layout_width="@dimen/wide_image"
-                android:layout_height="@dimen/wide_image"
+                android:layout_width="@dimen/round_image"
+                android:layout_height="@dimen/round_image"
                 android:background="@android:color/transparent"
                 android:src="@drawable/person" />
         </com.google.android.material.card.MaterialCardView>
@@ -97,7 +97,7 @@
             android:layout_width="@dimen/smaller_image"
             android:layout_height="@dimen/smaller_image"
             android:layout_margin="@dimen/default_margin"
-            android:padding="4dp"
+            android:padding="@dimen/small"
             android:src="@mipmap/house_add"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView_login" />
@@ -107,7 +107,7 @@
             android:layout_width="@dimen/smaller_image"
             android:layout_height="@dimen/smaller_image"
             android:layout_margin="@dimen/default_margin"
-            android:padding="4dp"
+            android:padding="@dimen/small"
             android:src="@mipmap/house_manage"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageView_add" />
@@ -117,7 +117,7 @@
             android:layout_width="@dimen/smaller_image"
             android:layout_height="@dimen/smaller_image"
             android:layout_margin="@dimen/default_margin"
-            android:padding="@dimen/smaller"
+            android:padding="@dimen/small"
             android:src="@mipmap/lock"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageView_manage" />
@@ -127,8 +127,7 @@
             android:layout_width="@dimen/smaller_image"
             android:layout_height="@dimen/smaller_image"
             android:layout_margin="@dimen/default_margin"
-            android:paddingStart="8dp"
-            android:paddingEnd="0dp"
+            android:padding="@dimen/small"
             android:src="@mipmap/logout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageView_change_pass" />

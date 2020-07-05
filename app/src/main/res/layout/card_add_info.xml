@@ -7,9 +7,9 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/cardView_info"
         app:cardCornerRadius="@dimen/medium_radius">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -71,6 +71,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editText_phone"
                 style="@style/Subtitle2"
+                android:inputType="phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/default_margin"
@@ -85,78 +86,106 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editText_address"
                 style="@style/Subtitle2"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/default_margin"
                 android:layout_marginTop="@dimen/small"
                 android:background="@drawable/edit_text_background"
-                android:drawableEnd="@drawable/location"
                 android:hint="@string/dia_chi"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/editText_phone" />
 
-            <TextView
-                android:id="@+id/textView1"
-                style="@style/Subtitle2"
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/spinner_district"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/default_margin"
-                android:gravity="left"
-                android:lines="1"
-                android:paddingHorizontal="@dimen/small"
-                android:paddingVertical="4dp"
-                android:text="@string/gia_phong"
-                android:textColor="@color/primaryTextColor"
+                android:layout_marginHorizontal="@dimen/default_margin"
+                android:layout_marginVertical="@dimen/small"
+                android:drawSelectorOnTop="true"
                 app:layout_constraintEnd_toEndOf="@id/guideline"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/editText_address" />
+                app:layout_constraintTop_toBottomOf="@id/editText_address"
+                app:ms_background_color="@color/backGroundLightColor" />
 
-            <TextView
-                android:id="@+id/textView2"
-                style="@style/Subtitle2"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_pick_location"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/default_margin"
-                android:gravity="right"
-                android:lines="1"
-                android:paddingHorizontal="@dimen/small"
-                android:paddingVertical="4dp"
-                android:text="@string/dien_tich"
-                android:textColor="@color/primaryTextColor"
+                android:layout_marginHorizontal="@dimen/default_margin"
+                android:layout_marginVertical="@dimen/small"
+                android:text="@string/chon_dia_chi"
+                app:layout_constraintBottom_toBottomOf="@id/spinner_district"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/guideline"
-                app:layout_constraintTop_toBottomOf="@id/editText_address" />
+                app:layout_constraintStart_toEndOf="@id/guideline"
+                app:layout_constraintTop_toTopOf="@id/spinner_district" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editText_price"
                 style="@style/Subtitle2"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/default_margin"
                 android:layout_marginVertical="@dimen/small"
+                android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_background"
-                android:hint="5000000"
+                android:hint="@string/gia_phong"
+                android:inputType="number"
+                android:maxLength="9"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="@id/guideline"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView1" />
+                app:layout_constraintTop_toBottomOf="@id/spinner_district" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editText_area"
                 style="@style/Subtitle2"
                 android:layout_width="0dp"
+                android:layout_marginHorizontal="@dimen/default_margin"
+                android:layout_marginVertical="@dimen/small"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:hint="@string/dien_tich"
+                android:inputType="number"
+                android:maxLength="4"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/guideline"
+                app:layout_constraintTop_toBottomOf="@id/spinner_district" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText_electric"
+                style="@style/Subtitle2"
+                android:layout_width="0dp"
+                android:hint="@string/gia_dien"
+                android:inputType="number"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/default_margin"
                 android:layout_marginVertical="@dimen/small"
                 android:background="@drawable/edit_text_background"
-                android:hint="30"
+                android:maxLength="9"
+                android:padding="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editText_price" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText_water"
+                style="@style/Subtitle2"
+                android:layout_width="0dp"
+                android:hint="@string/gia_nuoc"
+                android:inputType="number"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/default_margin"
+                android:layout_marginVertical="@dimen/small"
+                android:background="@drawable/edit_text_background"
+                android:maxLength="9"
                 android:padding="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/guideline"
-                app:layout_constraintTop_toBottomOf="@id/textView2" />
+                app:layout_constraintTop_toBottomOf="@id/editText_price" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

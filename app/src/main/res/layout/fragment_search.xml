@@ -29,31 +29,31 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editText_search"
-                        style="@style/Subtitle1"
+                    <androidx.appcompat.widget.SearchView
+                        android:id="@+id/searchView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/default_margin"
-                        android:layout_marginTop="@dimen/small"
-                        android:layout_marginBottom="@dimen/small"
+                        android:layout_marginVertical="@dimen/smaller"
                         android:background="@drawable/round_edit_text"
-                        android:drawableEnd="@drawable/filter"
-                        android:drawablePadding="@dimen/default_margin"
-                        android:hint="@string/tim_kiem"
-                        android:imeOptions="actionSearch"
-                        android:maxLines="1"
-                        android:minLines="1"
-                        android:paddingStart="@dimen/default_margin"
-                        android:paddingTop="@dimen/small"
-                        android:paddingEnd="@dimen/default_margin"
-                        android:paddingBottom="@dimen/small"
-                        android:singleLine="true"
+                        android:paddingStart="@dimen/smaller"
+                        android:paddingEnd="@dimen/large"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <ImageButton
+                        android:id="@+id/imageButton_filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/large"
+                        android:background="@android:color/transparent"
+                        android:padding="@dimen/small"
+                        android:src="@drawable/filter"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.recyclerview.widget.RecyclerView

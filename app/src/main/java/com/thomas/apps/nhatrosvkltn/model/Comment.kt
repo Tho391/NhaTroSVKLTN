@@ -1,6 +1,8 @@
 package com.thomas.apps.nhatrosvkltn.model
 
 import com.google.gson.annotations.SerializedName
+import com.thomas.apps.nhatrosvkltn.model.servermodel.CommentResponse
+import java.io.Serializable
 
 data class Comment(
     @SerializedName("id")
@@ -13,5 +15,16 @@ data class Comment(
     var user: User,
 
     @SerializedName("apartment")
-    var apartment: Apartment
-)
+    var apartment: Apartment?
+) : Serializable {
+    fun toCommentResponse(): CommentResponse {
+        return CommentResponse(
+            id,
+            content,
+            user.id,
+            user.getName(),
+            user.avatar,
+            createdAt
+        )
+    }
+}

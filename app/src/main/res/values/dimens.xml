@@ -13,7 +13,10 @@
     <dimen name="small_image">60dp</dimen>
     <dimen name="large_image">80dp</dimen>
     <dimen name="larger_image">130dp</dimen>
+
     <dimen name="wide_image">270dp</dimen>
+    <dimen name="round_image">270dp</dimen>
+    <dimen name="wider_image">500dp</dimen>
 
     <!--    margin-->
     <dimen name="small">8dp</dimen>

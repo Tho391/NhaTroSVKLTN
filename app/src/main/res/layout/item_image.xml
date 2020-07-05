@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxHeight="@dimen/wide_image"
+        android:layout_marginBottom="@dimen/small"
+        android:adjustViewBounds="true"
         android:minHeight="250dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

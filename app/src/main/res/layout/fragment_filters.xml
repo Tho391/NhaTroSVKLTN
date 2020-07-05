@@ -24,12 +24,23 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.75" />
 
+        <ImageView
+            android:id="@+id/image_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small"
+            android:src="@drawable/ic_baseline_close_36"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintTop_toTopOf="parent" />
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editText_address"
             style="@style/Subtitle2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small"
+            android:layout_marginHorizontal="@dimen/small"
+            android:layout_marginVertical="@dimen/larger"
             android:background="@drawable/edit_text_background"
             android:hint="@string/ten_duong"
             android:padding="15dp"
@@ -43,11 +54,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/small"
-            android:entries="@array/districts"
             android:hint="@string/quan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editText_address" />
+            app:layout_constraintTop_toBottomOf="@id/editText_address"
+            app:ms_background_color="@color/backGroundLightColor" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardView_rating"
@@ -62,6 +73,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:background="@android:color/transparent"
                 android:layout_height="wrap_content">
 
                 <TextView
@@ -168,7 +180,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView_price"
             app:maxValue="100"
-            app:minValue="1"
+            app:minValue="10"
             app:normalTrackColor="#AAAAAA"
             app:normalTrackWidth="4dp"
             app:stiffness="300"
@@ -257,201 +269,46 @@
             app:stiffness="300"
             app:stretchRange="24dp" />
 
-        <com.google.android.material.card.MaterialCardView
+        <include
             android:id="@+id/cardView_utils"
+            layout="@layout/card_utils"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/small"
-            android:elevation="1dp"
-            app:cardCornerRadius="10dp"
+            android:elevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/picker_area">
+            app:layout_constraintTop_toBottomOf="@id/picker_area" />
 
-            <androidx.gridlayout.widget.GridLayout
-                android:id="@+id/grid_utils"
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="4dp"
-                app:columnCount="3"
-                app:rowCount="5">
-
-                <TextView
-                    android:id="@+id/textView_utils"
-                    style="@style/Headline6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/small"
-                    android:text="@string/tien_ich"
-                    android:textAlignment="center"
-                    android:textColor="@color/primaryTextColor"
-                    app:layout_columnSpan="3"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1" />
-
-                <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
-                    android:id="@+id/image_wifi"
-                    android:layout_width="@dimen/smaller_image"
-                    android:layout_height="@dimen/smaller_image"
-                    android:layout_margin="@dimen/smaller"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1"
-                    app:src_checked="@drawable/wifi_green"
-                    app:src_unchecked="@drawable/wifi_gray" />
-
-                <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
-                    android:id="@+id/image_time"
-                    android:layout_width="@dimen/smaller_image"
-                    android:layout_height="@dimen/smaller_image"
-                    android:layout_margin="@dimen/smaller"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1"
-                    app:src_checked="@drawable/time_green"
-                    app:src_unchecked="@drawable/time_gray" />
-
-                <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
-                    android:id="@+id/image_key"
-                    android:layout_width="@dimen/smaller_image"
-                    android:layout_height="@dimen/smaller_image"
-                    android:layout_margin="@dimen/smaller"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1"
-                    app:src_checked="@drawable/key_green"
-                    app:src_unchecked="@drawable/key_gray" />
-
-                <TextView
-                    android:id="@+id/textView_wifi"
-                    style="@style/Subtitle2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/wifi"
-                    android:textColor="@color/primaryTextColor"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1" />
-
-                <TextView
-                    android:id="@+id/textView_time"
-                    style="@style/Subtitle2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/tu_do"
-                    android:textColor="@color/primaryTextColor"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1" />
-
-                <TextView
-                    android:id="@+id/textView_key"
-                    style="@style/Subtitle2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/chung_chu"
-                    android:textColor="@color/primaryTextColor"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1" />
-
-                <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
-                    android:id="@+id/image_car"
-                    android:layout_width="@dimen/smaller_image"
-                    android:layout_height="@dimen/smaller_image"
-                    android:layout_margin="@dimen/smaller"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1"
-                    app:src_checked="@mipmap/bike_green"
-                    app:src_unchecked="@mipmap/bike_gray" />
-
-                <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
-                    android:id="@+id/image_air"
-                    android:layout_width="@dimen/smaller_image"
-                    android:layout_height="@dimen/smaller_image"
-                    android:layout_margin="@dimen/smaller"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1"
-                    app:src_checked="@mipmap/air_green"
-                    app:src_unchecked="@mipmap/air_gray" />
-
-                <com.thomas.apps.nhatrosvkltn.utils.ToggleImageView
-                    android:id="@+id/image_heater"
-                    android:layout_width="@dimen/smaller_image"
-                    android:layout_height="@dimen/smaller_image"
-                    android:layout_margin="@dimen/smaller"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1"
-                    app:src_checked="@mipmap/heater_green"
-                    app:src_unchecked="@mipmap/heater_gray" />
-
-                <TextView
-                    android:id="@+id/textView_car"
-                    style="@style/Subtitle2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/wifi"
-                    android:textColor="@color/primaryTextColor"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1" />
-
-                <TextView
-                    android:id="@+id/textView_air"
-                    style="@style/Subtitle2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/tu_do"
-                    android:textColor="@color/primaryTextColor"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1" />
-
-                <TextView
-                    android:id="@+id/textView_heater"
-                    style="@style/Subtitle2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/chung_chu"
-                    android:textColor="@color/primaryTextColor"
-                    app:layout_columnWeight="1"
-                    app:layout_rowWeight="1" />
-            </androidx.gridlayout.widget.GridLayout>
-        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_cancel"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_margin"
             android:layout_marginTop="@dimen/default_margin"
-            android:layout_marginBottom="56dp"
+            android:layout_marginBottom="@dimen/default_margin"
             android:text="@string/xoa_loc"
-            android:textColor="@color/secondaryColor"
             app:cornerRadius="@dimen/default_radius"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/guideline"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardView_utils"
-            app:strokeColor="@color/secondaryColor" />
+            app:layout_constraintTop_toBottomOf="@id/cardView_utils" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_apply"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_margin"
-            android:layout_marginTop="@dimen/default_margin"
-            android:layout_marginBottom="56dp"
+            android:layout_marginVertical="@dimen/default_margin"
             android:text="@string/ap_dung"
-
-            android:textColor="@color/secondaryColor"
             app:cornerRadius="@dimen/default_radius"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline"
-            app:layout_constraintTop_toBottomOf="@id/cardView_utils"
-            app:strokeColor="@color/secondaryColor" />
+            app:layout_constraintTop_toBottomOf="@id/cardView_utils" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

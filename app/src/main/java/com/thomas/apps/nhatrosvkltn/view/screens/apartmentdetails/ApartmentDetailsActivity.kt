@@ -15,11 +15,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.api.load
+import com.google.android.gms.ads.AdRequest
 import com.thomas.apps.nhatrosvkltn.R
 import com.thomas.apps.nhatrosvkltn.databinding.ActivityApartmentDetailsBinding
-import com.thomas.apps.nhatrosvkltn.utils.TOAST
+import com.thomas.apps.nhatrosvkltn.model.Comment
+import com.thomas.apps.nhatrosvkltn.utils.*
 import com.thomas.apps.nhatrosvkltn.view.adapter.CommentAdapter
+import com.thomas.apps.nhatrosvkltn.view.screens.listimage.ListImagesActivity
 import kotlinx.android.synthetic.main.activity_apartment_details.*
+import java.util.*
 
 
 class ApartmentDetailsActivity : AppCompatActivity() {
@@ -28,6 +32,9 @@ class ApartmentDetailsActivity : AppCompatActivity() {
     private lateinit var viewModel: ApartmentDetailsViewModel
     private var apartmentId = -1
     private val commentAdapter by lazy { CommentAdapter() }
+    private var currentTimeRating = System.currentTimeMillis()
+    private var currentTimeComment = System.currentTimeMillis()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,21 +44,30 @@ class ApartmentDetailsActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(ApartmentDetailsViewModel::class.java)
 
+        loadAds()
+
         init()
+    }
+
+    private fun loadAds() {
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.onDestroy()
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun init() {
+        binding.progressBar.hide()
         setSupportActionBar(binding.toolBar.toolBar)
 
         apartmentId = intent.getIntExtra("apartmentId", -1)
 
-        getApartment(apartmentId)
-        getComments(apartmentId)
-
-
-
-        with(binding){
+        with(binding) {
             editComment.setOnTouchListener { _, event ->
                 val DRAWABLE_LEFT = 0
                 val DRAWABLE_TOP = 1
@@ -62,20 +78,57 @@ class ApartmentDetailsActivity : AppCompatActivity() {
                     (editComment.right - editComment.compoundDrawables[DRAWABLE_RIGHT].bounds.width())
                 ) {
                     TOAST("Send!")
-                    edit_comment.setText("", TextView.BufferType.EDITABLE)
+                    editComment.setText("", TextView.BufferType.EDITABLE)
+                    //todo call api send comment
+
+                    val token = getToken(this@ApartmentDetailsActivity)
+                    if (token.isEmpty()) {
+                        //todo request user login
+                    } else
+                        viewModel.sendComment(
+                            token,
+                            Comment(
+                                1,
+                                editComment.text.toString(),
+                                Date().toString(),
+                                Data.user1,
+                                Data.a1
+                            )
+                        )
                 }
                 false
             }
 
             //disable toggle image
 
-            with(cardViewUtils){
+            with(cardViewUtils) {
                 imageWifi.isEnabled = false
                 imageTime.isEnabled = false
                 imageKey.isEnabled = false
                 imageCar.isEnabled = false
                 imageAir.isEnabled = false
                 imageHeater.isEnabled = false
+            }
+
+            swipeRefreshLayout.setOnRefreshListener {
+                getApartment(apartmentId)
+                getComments(apartmentId)
+            }
+            swipeRefreshLayout.post {
+                getApartment(apartmentId)
+                getComments(apartmentId)
+            }
+
+            rating.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+                val time = System.currentTimeMillis()
+                if (time - currentTimeRating > 3000) {
+                    currentTimeRating = time
+                    if (fromUser) {
+                        val user = getUser(this@ApartmentDetailsActivity)
+                        if (user != null && !user.token.isNullOrEmpty() && apartmentId != -1)
+                            viewModel.rating(user.token, apartmentId, rating)
+                    }
+                }
             }
         }
 
@@ -87,12 +140,13 @@ class ApartmentDetailsActivity : AppCompatActivity() {
                 textViewAddress.text = apartment.address
                 textViewName.text = apartment.ownerName
                 textViewPhone.text = apartment.phone
-                rating.rating = apartment.rating
+                textViewRating.text = apartment.rating.toString()
+                //rating.rating = apartment.rating
                 textViewPrice.text = apartment.price.toString()
                 textViewElectric.text = apartment.electric.toString()
                 textViewWater.text = apartment.water.toString()
                 textViewArea.text = apartment.area.toString()
-                textView_details_content.text = apartment.description
+                textViewDetailsContent.text = apartment.description
 
                 with(cardViewUtils) {
                     if (apartment.wifi) imageWifi.setChecked() else imageWifi.setUnchecked()
@@ -103,6 +157,15 @@ class ApartmentDetailsActivity : AppCompatActivity() {
                     if (apartment.heater) imageHeater.setChecked() else imageHeater.setUnchecked()
                 }
 
+                binding.imageViewApartment.setOnClickListener {
+                    //todo pass images object to image activity
+                    launchActivity<ListImagesActivity> {
+//                        putExtra("id", apartment.id)
+                        putExtra("apartmentId", apartment.id)
+
+                    }
+                }
+
                 recyclerViewComments.adapter = commentAdapter
                 recyclerViewComments.layoutManager =
                     LinearLayoutManager(this@ApartmentDetailsActivity)
@@ -111,6 +174,15 @@ class ApartmentDetailsActivity : AppCompatActivity() {
 
         viewModel.comments.observe(this, Observer { listComments ->
             commentAdapter.submitList(listComments)
+        })
+
+        viewModel.isApartmentLoading.observe(this, Observer {
+            swipeRefreshLayout.isRefreshing = it
+        })
+
+        viewModel.isPosting.observe(this, Observer {
+            if (it) binding.progressBar.show()
+            else binding.progressBar.hide()
         })
 
     }
