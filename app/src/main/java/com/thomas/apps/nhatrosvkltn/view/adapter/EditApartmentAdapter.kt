@@ -46,7 +46,7 @@ class EditApartmentAdapter : ListAdapter<Apartment, EditApartmentAdapter.ViewHol
                     it.context.TOAST("apartment id ${item.id} clicked")
 
                     it.context.launchActivity<EditApartmentActivity> {
-                        putExtra(Constant.INTENT_APARTMENT_ID, item.id)
+                        putExtra(Constant.INTENT_APARTMENT, item)
                     }
                 }
             }

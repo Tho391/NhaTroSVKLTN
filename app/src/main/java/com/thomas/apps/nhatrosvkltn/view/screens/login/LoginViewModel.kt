@@ -93,8 +93,8 @@ class LoginViewModel(val application: Application) : ViewModel() {
                     if (loginResponse.data == "Error") {
                         _toastMessage.postValue("Sai tên đăng nhập hoặc mật khẩu. Vui lòng kiểm tra lại")
                     } else {
-                        val user: User = loginResponse.toUser()
-                        saveUser(user)
+                        val userResponse: User = loginResponse.toUser()
+                        saveUser(userResponse)
                         _loginSuccess.postValue(true)
 
                     }

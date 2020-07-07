@@ -134,3 +134,5 @@ fabric.properties
 
 # End of https://www.gitignore.io/api/androidstudio
 /app/src/main/res/values/map_api_key.xml
+/app/src/main/res/values/api_key.xml
+/app/credentials.json

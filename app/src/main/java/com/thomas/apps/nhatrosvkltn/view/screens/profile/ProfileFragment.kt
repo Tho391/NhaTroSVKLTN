@@ -48,7 +48,7 @@ class ProfileFragment : Fragment() {
         updateUI()
     }
 
-    fun updateUI() {
+    private fun updateUI() {
         if (!isLogin) {
             val user = getUser(requireContext())
             with(binding) {

@@ -5,6 +5,7 @@ import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.APARTMENT
 import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.APARTMENTS
 import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.CHANGE_PASS
 import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.COMMENTS
+import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.EDIT_APARTMENT
 import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.EDIT_USER
 import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.IMAGES
 import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.LOGIN
@@ -115,6 +116,12 @@ interface ApiServices {
         @Header("authorization") token: String,
         @Path("id") userId: Int
     ): Observable<List<ApartmentResponse>>
+
+    @POST(EDIT_APARTMENT)
+    fun editApartment(
+        @Header("authorization") token: String,
+        @Body apartmentResponse: ApartmentResponse
+    ): Observable<LoginResponse>
 
     companion object {
         private val logging = HttpLoggingInterceptor().apply {

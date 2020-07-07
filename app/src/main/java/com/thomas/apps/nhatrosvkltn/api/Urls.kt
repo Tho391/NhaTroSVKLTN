@@ -13,8 +13,9 @@ class Urls {
         const val LOGIN = "login"
         const val LOGIN_GOOGLE = "login-google"
         const val REGISTER = "register"
-        const val IMAGES = "/apartments/{id}/image"
+        const val IMAGES = "apartments/{id}/image"
         const val EDIT_USER = "user"
+        const val EDIT_APARTMENT = "apartments/{id}"
         const val CHANGE_PASS = "change-pass"
 
 

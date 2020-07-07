@@ -80,6 +80,8 @@ class Repository {
         apiServices.sendRating(token, apartmentId, rating)
 
     fun getUserApartment(token: String, userId: Int) = apiServices.getUserApartment(token, userId)
+    fun editApartment(token: String, apartmentResponse: ApartmentResponse) =
+        apiServices.editApartment(token, apartmentResponse)
 
 }
 

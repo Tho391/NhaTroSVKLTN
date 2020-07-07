@@ -125,8 +125,8 @@ class ApartmentDetailsActivity : AppCompatActivity() {
                     currentTimeRating = time
                     if (fromUser) {
                         val user = getUser(this@ApartmentDetailsActivity)
-                        if (user != null && !user.token.isNullOrEmpty() && apartmentId != -1)
-                            viewModel.rating(user.token, apartmentId, rating)
+                        if (user != null && user.hasToken() && apartmentId != -1)
+                            viewModel.rating(user.getToken(), apartmentId, rating)
                     }
                 }
             }
@@ -134,7 +134,7 @@ class ApartmentDetailsActivity : AppCompatActivity() {
 
         viewModel.apartment.observe(this, Observer { apartment ->
             with(binding) {
-                imageViewApartment.load(apartment.images.first().url)
+                imageViewApartment.load(apartment.images?.first()?.url)
                 textViewTitle.text = apartment.title
                 textViewDate.text = apartment.createAt
                 textViewAddress.text = apartment.address
@@ -222,8 +222,8 @@ class ApartmentDetailsActivity : AppCompatActivity() {
                     //                                          int[] grantResults)
                     // to handle the case where the user grants the permission. See the documentation
                     // for ActivityCompat#requestPermissions for more details.
+                    startActivity(intent)
                 }
-                startActivity(intent)
             }
             R.id.action_direction -> {
                 TOAST("direction")

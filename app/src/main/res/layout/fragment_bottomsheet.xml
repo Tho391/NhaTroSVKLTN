@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/small"
+    tools:context=".view.screens.map.BottomSheetFragment">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textView_title"
+        style="@style/Headline6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small"
+        android:text="nhà trọ"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textView_rating"
+        style="@style/Subtitle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small"
+        android:text="4.7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_title" />
+
+
+    <androidx.appcompat.widget.AppCompatRatingBar
+        android:id="@+id/ratingBar"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small"
+        app:layout_constraintBottom_toBottomOf="@id/textView_rating"
+        app:layout_constraintStart_toEndOf="@id/textView_rating"
+        app:layout_constraintTop_toTopOf="@id/textView_rating" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/button_direction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small"
+        android:text="@string/chi_duong"
+        android:textColor="@color/primaryColor"
+        app:chipIcon="@drawable/direction"
+        app:layout_constraintEnd_toStartOf="@id/button_call"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_rating" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/button_call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small"
+        android:text="@string/goi"
+        android:textColor="@color/primaryColor"
+        app:chipIcon="@drawable/call"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@id/button_direction"
+        app:layout_constraintTop_toBottomOf="@id/textView_rating" />
+</androidx.constraintlayout.widget.ConstraintLayout>

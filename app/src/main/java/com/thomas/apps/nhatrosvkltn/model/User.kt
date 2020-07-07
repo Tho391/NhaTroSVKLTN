@@ -14,9 +14,12 @@ data class User(
     val email: String? = "",
     val pass: String? = "",
     val lastName: String? = "",
-    val token: String? = ""
+    private val token: String? = ""
 ) : Serializable {
-    fun getName(): String {
-        return "$lastName $firstName"
-    }
+    fun getName(): String = "$lastName $firstName"
+
+    fun getToken(): String = "Bearer $token"
+
+    fun hasToken(): Boolean = !token.isNullOrEmpty()
+    fun getShortToken(): String? = token
 }

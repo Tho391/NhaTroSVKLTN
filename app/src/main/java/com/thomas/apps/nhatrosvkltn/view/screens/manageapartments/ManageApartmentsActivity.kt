@@ -41,10 +41,14 @@ class ManageApartmentsActivity : AppCompatActivity() {
 
             swipeRefreshLayout.setOnRefreshListener {
                 if (currentUser != null)
-                    currentUser!!.token?.let { token ->
-                        currentUser!!.id?.let { id ->
-                            viewModel.getUserApartments(token, id)
+                    if (currentUser!!.hasToken() && currentUser!!.id != null) {
+                        currentUser!!.id?.let {
+                            viewModel.getUserApartments(
+                                currentUser!!.getToken(),
+                                it
+                            )
                         }
+
                     }
             }
 

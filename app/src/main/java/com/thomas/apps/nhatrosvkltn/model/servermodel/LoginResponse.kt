@@ -66,7 +66,7 @@ data class LoginResponse(
     companion object {
         fun from(user: User): LoginResponse {
             return LoginResponse(
-                user.token,
+                user.getShortToken(),
                 user.id,
                 user.email,
                 user.pass,

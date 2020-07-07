@@ -75,7 +75,13 @@ class LoginActivity : AppCompatActivity() {
 
             viewModel.isLogging.observe(
                 this@LoginActivity,
-                Observer { if (it) progressBar.show() else progressBar.hide() })
+                Observer {
+                    if (it) progressBar.show()
+                    else {
+                        progressBar.hide()
+                        mGoogleSignInClient.signOut()
+                    }
+                })
         }
 
         viewModel.toastMessage.observe(this, Observer { TOAST(it) })

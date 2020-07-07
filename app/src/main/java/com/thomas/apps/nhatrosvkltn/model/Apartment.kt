@@ -49,9 +49,9 @@ data class Apartment(
     @SerializedName("heater")
     val heater: Boolean = false,
     @SerializedName("images")
-    val images: List<Image>,
+    val images: List<Image>? = null,
     @SerializedName("user")
-    val user: User?
+    val user: User? = null
 ) : Serializable {
     constructor(
         title: String,
@@ -72,8 +72,8 @@ data class Apartment(
         parking: Boolean,
         air: Boolean,
         heater: Boolean,
-        images: List<Image>,
-        user: User
+        images: List<Image>? = null,
+        user: User? = null
     )
             : this(
         -1,
@@ -125,7 +125,7 @@ data class Apartment(
             electric,
             water,
             null,
-            images[0].url,
+            if (images != null) images[0].url else null,
             rating?.toDouble(),
             if (wifi) 1 else 0,
             if (time) 1 else 0,

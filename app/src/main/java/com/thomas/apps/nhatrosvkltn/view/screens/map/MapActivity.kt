@@ -137,11 +137,19 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, FiltersFragment.OnD
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        mMap!!.setInfoWindowAdapter(CustomInfoWindowAdapter(this))
+        //mMap!!.setInfoWindowAdapter(CustomInfoWindowAdapter(this))
 
-        mMap!!.setOnMarkerClickListener {
-            mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(it.position, 16f))
-            it.showInfoWindow()
+        mMap!!.setOnMarkerClickListener { marker ->
+
+            mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.position, 16f))
+
+            //todo show bottom sheet
+            val apartment = viewModel.apartments.value?.find { it.id == marker.id.toInt() }
+
+            if (apartment != null) {
+                BottomSheetFragment(apartment).show(supportFragmentManager, "${apartment.title}")
+            }
+
             true
         }
 
