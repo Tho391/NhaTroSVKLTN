@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.thomas.apps.nhatrosvkltn.databinding.ActivityChangePassBinding
+import com.thomas.apps.nhatrosvkltn.utils.TOAST
 import com.thomas.apps.nhatrosvkltn.utils.getUser
 
 class ChangePassActivity : AppCompatActivity() {
@@ -36,19 +37,27 @@ class ChangePassActivity : AppCompatActivity() {
 //            launchActivity<LoginActivity> { }
 //            finish()
                 val currentUser = getUser(this@ChangePassActivity)
-                if (currentUser != null && !currentUser.token.isNullOrEmpty() && !currentUser.email.isNullOrEmpty())
+                if (currentUser != null && currentUser.hasToken() && !currentUser.email.isNullOrEmpty())
                     if (validatePass()) {
 
                         val oldPass = editTextPass.editableText.toString()
                         val newPass = editTextNewPass.editableText.toString()
 
-                        viewModel.changePass(currentUser.token, currentUser.email, oldPass, newPass)
+                        viewModel.changePass(
+                            currentUser.getToken(),
+                            currentUser.id!!,
+                            currentUser.email,
+                            oldPass,
+                            newPass
+                        )
                     }
 
             }
             viewModel.isLoading.observe(
                 this@ChangePassActivity,
                 Observer { if (it) progressBar.show() else progressBar.hide() })
+
+            viewModel.message.observe(this@ChangePassActivity, Observer { TOAST(it) })
         }
 
     }

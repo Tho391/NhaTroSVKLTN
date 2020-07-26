@@ -32,22 +32,7 @@ class AddApartmentViewModel : ViewModel() {
         get() = _isPosting
 
     fun postApartment(token: String, file: File, apartment: Apartment) {
-        //todo gọi api request post apartment
         _isPosting.postValue(true)
-
-//        disposables.add(
-//            repository.postApartment(token, apartment.toApartmentResponse())
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe({
-////                    _apartment.postValue(it.data)
-//
-//                    _isPosting.postValue(false)
-//                }, {
-//                    Log.e("lỗi", it?.message.toString())
-//                    _isPosting.postValue(false)
-//                })
-//        )
 
         val requestFile: RequestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
         val body: MultipartBody.Part =
@@ -55,6 +40,8 @@ class AddApartmentViewModel : ViewModel() {
 
         val mediaType = "application/json; charset=utf-8".toMediaType()
         val fileName: RequestBody = file.name.toRequestBody(mediaType)
+
+
 
         disposables.add(
             repository.postApartment(token, fileName, body, apartment.toApartmentResponse())

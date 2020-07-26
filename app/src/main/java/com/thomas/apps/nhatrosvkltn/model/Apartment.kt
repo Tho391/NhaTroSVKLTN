@@ -51,7 +51,9 @@ data class Apartment(
     @SerializedName("images")
     val images: List<Image>? = null,
     @SerializedName("user")
-    val user: User? = null
+    val user: User? = null,
+
+    val districtId: Int = 0
 ) : Serializable {
     constructor(
         title: String,
@@ -129,7 +131,8 @@ data class Apartment(
             rating?.toDouble(),
             if (wifi) 1 else 0,
             if (time) 1 else 0,
-            if (key) 1 else 0
+            if (key) 1 else 0,
+            districtId
         )
     }
 }

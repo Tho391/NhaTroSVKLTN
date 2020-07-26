@@ -9,12 +9,10 @@ import com.thomas.apps.nhatrosvkltn.model.servermodel.Register
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 class RegisterViewModel : ViewModel() {
@@ -39,27 +37,30 @@ class RegisterViewModel : ViewModel() {
     fun register(register: Register, file: File?) {
         _isPosting.value = true
         _message.postValue("Đang đăng kí...")
-        var body: MultipartBody.Part? = null
-        var fileName: RequestBody? = null
+        var upfile: MultipartBody.Part? = null
         if (file != null) {
-            val requestFile: RequestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
-            body = MultipartBody.Part.createFormData("image", file.name, requestFile)
 
-            val mediaType = "application/json; charset=utf-8".toMediaType()
-            fileName = file.name.toRequestBody(mediaType)
+            val requestFile: RequestBody =
+                file.asRequestBody("application/octet-stream".toMediaTypeOrNull())
+            upfile = MultipartBody.Part.createFormData("fileavatar", file.name, requestFile)
+
         }
 
-
-
         disposables.add(
-            repository.register(register, fileName, body)
+            repository.register(register, upfile)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ listApartmentResponse ->
+                .subscribe({ it ->
 
+                    Log.i(TAG, it.data + "")
+
+                    if (it.data == "Da Dang Ky") {
+                        _message.postValue("Email đã đăng kí")
+                    } else {
+                        _message.postValue("Đăng kí thành công.")
+                        _finish.postValue(true)
+                    }
                     _isPosting.postValue(false)
-                    _message.postValue("Đăng kí thành công.")
-                    _finish.postValue(true)
 
                 }, {
                     Log.e("lỗi", it?.message.toString())
@@ -75,3 +76,5 @@ class RegisterViewModel : ViewModel() {
         disposables.dispose()
     }
 }
+
+private const val TAG = "RegisterViewModel"

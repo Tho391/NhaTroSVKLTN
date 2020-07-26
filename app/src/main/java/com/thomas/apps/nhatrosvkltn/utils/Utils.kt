@@ -5,8 +5,14 @@ import android.content.SharedPreferences
 import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore
+import android.provider.OpenableColumns
 import com.google.gson.Gson
 import com.thomas.apps.nhatrosvkltn.model.User
+import org.apache.commons.io.IOUtils
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
 
 
 fun getToken(context: Context): String {
@@ -52,4 +58,33 @@ fun getUser(context: Context): User? {
 
     }
     return user
+}
+
+@Throws(IOException::class)
+fun stream2file(`in`: InputStream?, prefix: String, suffix: String? = null): File? {
+    val tempFile: File = File.createTempFile(prefix, suffix)
+    tempFile.deleteOnExit()
+    FileOutputStream(tempFile).use { out -> IOUtils.copy(`in`, out) }
+    return tempFile
+}
+
+fun getFileName(context: Context, uri: Uri): String? {
+    var result: String? = null
+    if (uri.scheme == "content") {
+        val cursor: Cursor? =
+            context.contentResolver.query(uri, null, null, null, null)
+        cursor.use { it ->
+            if (it != null && it.moveToFirst()) {
+                result = it.getString(it.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+            }
+        }
+    }
+    if (result == null) {
+        result = uri.path
+        val cut = result!!.lastIndexOf('/')
+        if (cut != -1) {
+            result = result?.substring(cut + 1)
+        }
+    }
+    return result
 }

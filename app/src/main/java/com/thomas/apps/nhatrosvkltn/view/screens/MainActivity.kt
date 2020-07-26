@@ -51,9 +51,9 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnFilterListener {
     private fun setupView() {
 
         val fragmentList = arrayListOf(
-            HomeFragment.newInstance(),
-            SearchFragment.newInstance(),
-            ProfileFragment.newInstance()
+            HomeFragment(),
+            SearchFragment(),
+            ProfileFragment()
         )
         with(binding) {
             navigationConstraint.setNavigationChangeListener { _, position ->

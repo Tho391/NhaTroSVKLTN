@@ -6,11 +6,11 @@ import java.io.Serializable
 
 data class Comment(
     @SerializedName("id")
-    val id: Int,
+    val id: Int = 0,
     @SerializedName("content")
-    var content: String,
+    var content: String?,
     @SerializedName("createdAt")
-    var createdAt: String,
+    var createdAt: String?,
     @SerializedName("user")
     var user: User,
 

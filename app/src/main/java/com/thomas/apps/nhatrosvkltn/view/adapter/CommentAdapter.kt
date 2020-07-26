@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
-import coil.size.Scale
 import com.thomas.apps.nhatrosvkltn.R
 import com.thomas.apps.nhatrosvkltn.databinding.ItemCommentBinding
 import com.thomas.apps.nhatrosvkltn.model.Comment
@@ -24,11 +23,9 @@ class CommentAdapter : ListAdapter<Comment, CommentAdapter.ViewHolder>(CommentDC
 
         fun bind(item: Comment) {
             // TODO: Bind the data with View
-            with(binding){
+            with(binding) {
                 imageViewAvatar.load(item.user.avatar) {
                     placeholder(R.drawable.image_load)
-                    crossfade(true)
-                    scale(Scale.FIT)
                     size(100, 100)
                     error(R.drawable.image_broken)
                 }

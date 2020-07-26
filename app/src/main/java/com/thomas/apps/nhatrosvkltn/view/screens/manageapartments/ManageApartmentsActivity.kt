@@ -55,6 +55,23 @@ class ManageApartmentsActivity : AppCompatActivity() {
             viewModel.isLoading.observe(
                 this@ManageApartmentsActivity,
                 Observer { swipeRefreshLayout.isRefreshing = it })
+
+            viewModel.apartments.observe(this@ManageApartmentsActivity, Observer {
+                adapter.submitList(it)
+            })
+
+            swipeRefreshLayout.post {
+                if (currentUser != null)
+                    if (currentUser!!.hasToken() && currentUser!!.id != null) {
+                        currentUser!!.id?.let {
+                            viewModel.getUserApartments(
+                                currentUser!!.getToken(),
+                                it
+                            )
+                        }
+
+                    }
+            }
         }
     }
 

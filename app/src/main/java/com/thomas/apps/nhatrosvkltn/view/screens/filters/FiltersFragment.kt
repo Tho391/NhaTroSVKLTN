@@ -18,7 +18,7 @@ class FiltersFragment(context: Context, themeResId: Int) : Dialog(context, theme
         fun onCancelButtonClick() {}
     }
 
-    private var filterModel = FilterModel()
+    private lateinit var filterModel: FilterModel
     private lateinit var binding: FragmentFiltersBinding
     private lateinit var viewModel: FiltersViewModel
 
@@ -125,18 +125,18 @@ class FiltersFragment(context: Context, themeResId: Int) : Dialog(context, theme
                 with(cardViewUtils) {
                     filterModel = FilterModel(
                         editTextAddress.text.toString(),
-                        districts[spinnerDistrict.selectedIndex],
+                        spinnerDistrict.selectedIndex,
                         rating.rating,
                         pickerPrice.getCurrentStartValue() * 1000000,
                         pickerPrice.getCurrentEndValue() * 1000000,
                         pickerArea.getCurrentStartValue(),
                         pickerArea.getCurrentEndValue(),
-                        imageWifi.isSelected,
-                        imageTime.isSelected,
-                        imageKey.isSelected,
-                        imageCar.isSelected,
-                        imageAir.isSelected,
-                        imageHeater.isSelected
+                        if (imageWifi.isSelected) 1 else 0,
+                        if (imageTime.isSelected) 1 else 0,
+                        if (imageKey.isSelected) 1 else 0,
+                        if (imageCar.isSelected) 1 else 0,
+                        if (imageAir.isSelected) 1 else 0,
+                        if (imageHeater.isSelected) 1 else 0
                     )
                 }
 

@@ -45,6 +45,9 @@ class ListImagesActivity : AppCompatActivity() {
             if (apartmentId != 0)
                 viewModel.getImages(apartmentId)
         }
+        viewModel.isLoading.observe(this, Observer {
+            binding.swipeRefreshLayout.isRefreshing = it
+        })
 
     }
 

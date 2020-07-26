@@ -45,18 +45,25 @@ class UserActivity : AppCompatActivity() {
         }
         binding.buttonConfirm.setOnClickListener {
             val register = getData()
-
-            viewModel.editUser(register)
+            if (currentUser != null)
+                viewModel.editUser(currentUser!!.id!!, register)
         }
 
         with(binding) {
-            editTextLastName.setText(currentUser?.lastName, TextView.BufferType.EDITABLE)
-            editTextName.setText(currentUser?.firstName, TextView.BufferType.EDITABLE)
-            textViewDate.text = currentUser?.dateOfBirth
-            editTextAddress.setText(currentUser?.address, TextView.BufferType.EDITABLE)
-            spinnerDistrict.selectedIndex = districts.indexOf(currentUser?.district)
-            editTextPhone.setText(currentUser?.phoneNumber, TextView.BufferType.EDITABLE)
+            currentUser?.let { user ->
+                editTextLastName.setText(user.lastName, TextView.BufferType.EDITABLE)
+                editTextName.setText(user.firstName, TextView.BufferType.EDITABLE)
+//                textViewDate.text = user.dateOfBirth
 
+                textViewDate.text = SimpleDateFormat(
+                    "yyyy-MM-dd",
+                    Locale.getDefault()
+                ).format(user.dateOfBirth)
+                editTextAddress.setText(user.address, TextView.BufferType.EDITABLE)
+
+                user.districtId.let { spinnerDistrict.selectedIndex = it - 1 }
+                editTextPhone.setText(user.phoneNumber, TextView.BufferType.EDITABLE)
+            }
         }
     }
 
@@ -66,7 +73,7 @@ class UserActivity : AppCompatActivity() {
             binding.editTextLastName.editableText.toString(),
             binding.textViewDate.text.toString(),
             binding.editTextAddress.editableText.toString(),
-            binding.spinnerDistrict.selectedIndex,
+            binding.spinnerDistrict.selectedIndex + 1,
             1,
             binding.editTextPhone.editableText.toString()
         )
@@ -76,7 +83,7 @@ class UserActivity : AppCompatActivity() {
         val datePicker = MaterialDatePicker.Builder.datePicker().build()
         datePicker.show(supportFragmentManager, "datePicker")
         datePicker.addOnPositiveButtonClickListener {
-            val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             binding.textViewDate.text = sdf.format(Date(it))
         }
     }

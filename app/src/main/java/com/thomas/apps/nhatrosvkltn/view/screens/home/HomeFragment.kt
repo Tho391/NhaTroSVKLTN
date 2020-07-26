@@ -30,10 +30,6 @@ import com.thomas.apps.nhatrosvkltn.view.screens.map.MapActivity
 
 class HomeFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = HomeFragment()
-    }
-
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: FragmentHomeBinding
     private lateinit var viewPager: ViewPager2
@@ -74,28 +70,28 @@ class HomeFragment : Fragment() {
             imageDistrict1.setOnClickListener {
                 //viewModel.search("Quận 10")
                 viewPager.setCurrentItem(1, true)
-                onFilterListener.onFilter(FilterModel(district = "Quận 10"))
+                onFilterListener.onFilter(FilterModel(district = 10))
             }
             imageDistrict2.setOnClickListener {
                 viewPager.setCurrentItem(1, true)
-                onFilterListener.onFilter(FilterModel(district = "Quận 3"))
+                onFilterListener.onFilter(FilterModel(district = 3))
 
             }
             imageDistrict3.setOnClickListener {
                 viewPager.setCurrentItem(1, true)
-                onFilterListener.onFilter(FilterModel(district = "Quận Thủ Đức"))
+                onFilterListener.onFilter(FilterModel(district = 13))
             }
             imageDistrict4.setOnClickListener {
                 viewPager.setCurrentItem(1, true)
-                onFilterListener.onFilter(FilterModel(district = "Quận 1"))
+                onFilterListener.onFilter(FilterModel(district = 1))
             }
             imageDistrict5.setOnClickListener {
                 viewPager.setCurrentItem(1, true)
-                onFilterListener.onFilter(FilterModel(district = "Quận Bình Thạnh"))
+                onFilterListener.onFilter(FilterModel(district = 17))
             }
             imageDistrict6.setOnClickListener {
                 viewPager.setCurrentItem(1, true)
-                onFilterListener.onFilter(FilterModel(district = "Quận 7"))
+                onFilterListener.onFilter(FilterModel(district = 7))
             }
 
             imageDistrict1.load(R.mipmap.quan10) {

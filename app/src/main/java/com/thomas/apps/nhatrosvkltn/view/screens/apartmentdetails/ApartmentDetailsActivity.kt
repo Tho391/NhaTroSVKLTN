@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
@@ -18,11 +17,14 @@ import coil.api.load
 import com.google.android.gms.ads.AdRequest
 import com.thomas.apps.nhatrosvkltn.R
 import com.thomas.apps.nhatrosvkltn.databinding.ActivityApartmentDetailsBinding
-import com.thomas.apps.nhatrosvkltn.model.Comment
-import com.thomas.apps.nhatrosvkltn.utils.*
+import com.thomas.apps.nhatrosvkltn.model.servermodel.CommentResponse
+import com.thomas.apps.nhatrosvkltn.utils.TOAST
+import com.thomas.apps.nhatrosvkltn.utils.getUser
+import com.thomas.apps.nhatrosvkltn.utils.launchActivity
 import com.thomas.apps.nhatrosvkltn.view.adapter.CommentAdapter
 import com.thomas.apps.nhatrosvkltn.view.screens.listimage.ListImagesActivity
 import kotlinx.android.synthetic.main.activity_apartment_details.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -68,6 +70,8 @@ class ApartmentDetailsActivity : AppCompatActivity() {
         apartmentId = intent.getIntExtra("apartmentId", -1)
 
         with(binding) {
+
+
             editComment.setOnTouchListener { _, event ->
                 val DRAWABLE_LEFT = 0
                 val DRAWABLE_TOP = 1
@@ -77,30 +81,31 @@ class ApartmentDetailsActivity : AppCompatActivity() {
                 if (event!!.rawX >=
                     (editComment.right - editComment.compoundDrawables[DRAWABLE_RIGHT].bounds.width())
                 ) {
-                    TOAST("Send!")
-                    editComment.setText("", TextView.BufferType.EDITABLE)
-                    //todo call api send comment
-
-                    val token = getToken(this@ApartmentDetailsActivity)
-                    if (token.isEmpty()) {
-                        //todo request user login
-                    } else
-                        viewModel.sendComment(
-                            token,
-                            Comment(
-                                1,
-                                editComment.text.toString(),
-                                Date().toString(),
-                                Data.user1,
-                                Data.a1
+                    val user = getUser(this@ApartmentDetailsActivity)
+                    if (user != null && user.hasToken()
+                        && editComment.text.toString().isNotEmpty()
+                    ) {
+                        val commentResponse = CommentResponse(
+                            idNhatro = this@ApartmentDetailsActivity.apartmentId,
+                            userId = user.id,
+                            content = editComment.text.toString(),
+                            date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(
+                                Date()
                             )
                         )
+                        viewModel.sendComment(
+                            user.getToken(),
+                            commentResponse
+                        )
+                        editComment.text.clear()
+                    }
+
+
                 }
                 false
             }
 
             //disable toggle image
-
             with(cardViewUtils) {
                 imageWifi.isEnabled = false
                 imageTime.isEnabled = false
@@ -126,7 +131,11 @@ class ApartmentDetailsActivity : AppCompatActivity() {
                     if (fromUser) {
                         val user = getUser(this@ApartmentDetailsActivity)
                         if (user != null && user.hasToken() && apartmentId != -1)
-                            viewModel.rating(user.getToken(), apartmentId, rating)
+                            viewModel.rating(
+                                user.getToken(),
+                                apartmentId,
+                                CommentResponse(vote = rating, userId = user.id)
+                            )
                     }
                 }
             }
@@ -185,6 +194,11 @@ class ApartmentDetailsActivity : AppCompatActivity() {
             else binding.progressBar.hide()
         })
 
+        viewModel.postSuccess.observe(this, Observer {
+            TOAST("Sent")
+            if (it) viewModel.getComments(apartmentId)
+        })
+
     }
 
     private fun getComments(apartmentId: Int) {
@@ -213,16 +227,14 @@ class ApartmentDetailsActivity : AppCompatActivity() {
                 if (ActivityCompat.checkSelfPermission(
                         this,
                         Manifest.permission.CALL_PHONE
-                    ) != PackageManager.PERMISSION_GRANTED
+                    ) == PackageManager.PERMISSION_GRANTED
                 ) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
                     startActivity(intent)
+                } else {
+                    ActivityCompat.requestPermissions(
+                        this, arrayOf(Manifest.permission.CALL_PHONE),
+                        PERMISSIONS_REQUEST_CALL
+                    )
                 }
             }
             R.id.action_direction -> {
@@ -244,4 +256,24 @@ class ApartmentDetailsActivity : AppCompatActivity() {
         onBackPressed()
         return true
     }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        //super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        when (requestCode) {
+            PERMISSIONS_REQUEST_CALL -> {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.isNotEmpty() &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED
+                ) {
+                }
+            }
+        }
+    }
 }
+
+private const val PERMISSIONS_REQUEST_CALL: Int = 11

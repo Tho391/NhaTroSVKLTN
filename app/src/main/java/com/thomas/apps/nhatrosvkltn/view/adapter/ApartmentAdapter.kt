@@ -2,8 +2,6 @@ package com.thomas.apps.nhatrosvkltn.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,8 +14,7 @@ import com.thomas.apps.nhatrosvkltn.utils.TOAST
 import com.thomas.apps.nhatrosvkltn.utils.launchActivity
 import com.thomas.apps.nhatrosvkltn.view.screens.apartmentdetails.ApartmentDetailsActivity
 
-class ApartmentAdapter : ListAdapter<Apartment, ApartmentAdapter.ViewHolder>(ApartmentDC()),
-    Filterable {
+class ApartmentAdapter : ListAdapter<Apartment, ApartmentAdapter.ViewHolder>(ApartmentDC()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder.from(parent)
 
@@ -35,17 +32,17 @@ class ApartmentAdapter : ListAdapter<Apartment, ApartmentAdapter.ViewHolder>(Apa
 
                 textViewRating.text = item.rating.toString()
                 textViewPrice.text = item.price.toString()
-                imageViewApartment.load(item.images.first().url) {
+                imageViewApartment.load(item.images?.first()?.url) {
                     placeholder(R.drawable.image_load)
                     crossfade(true)
                     size(100, 100)
                     error(R.drawable.image_broken)
                 }
 
-                constraintLayout.setOnClickListener {
-                    it.context.TOAST("apartment id ${item.id} clicked")
+                root.setOnClickListener {
+                    root.context.TOAST("apartment id ${item.id} clicked")
 
-                    it.context.launchActivity<ApartmentDetailsActivity> {
+                    root.context.launchActivity<ApartmentDetailsActivity> {
                         putExtra(INTENT_APARTMENT_ID, item.id)
                     }
                 }
@@ -69,25 +66,6 @@ class ApartmentAdapter : ListAdapter<Apartment, ApartmentAdapter.ViewHolder>(Apa
 
         override fun areContentsTheSame(oldItem: Apartment, newItem: Apartment): Boolean {
             return oldItem.id == newItem.id
-        }
-    }
-
-    override fun getFilter(): Filter {
-        return object : Filter() {
-            override fun performFiltering(constraint: CharSequence?): FilterResults {
-                //TODO("Not yet implemented")
-
-                val filterResults = FilterResults()
-                filterResults.values = currentList
-                return filterResults
-            }
-
-            @Suppress("UNCHECKED_CAST")
-            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                val filterApartments: List<Apartment> = results?.values as List<Apartment>
-                submitList(filterApartments)
-            }
-
         }
     }
 }

@@ -3,6 +3,7 @@ package com.thomas.apps.nhatrosvkltn.view.screens.register
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +13,8 @@ import com.thomas.apps.nhatrosvkltn.R
 import com.thomas.apps.nhatrosvkltn.databinding.ActivityRegisterBinding
 import com.thomas.apps.nhatrosvkltn.model.servermodel.Register
 import com.thomas.apps.nhatrosvkltn.utils.TOAST
+import com.thomas.apps.nhatrosvkltn.utils.getFileName
+import com.thomas.apps.nhatrosvkltn.utils.stream2file
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -71,8 +74,30 @@ class RegisterActivity : AppCompatActivity() {
             when (requestCode) {
                 CODE_PICK_IMAGE -> {
                     if (data != null) {
-                        avatarFile = File(data.data!!.toString())
-                        binding.imageViewAvatar.load(data.data)
+                        if (data.data != null) {
+                            try {
+
+                                val inputStream = contentResolver.openInputStream(data.data!!)
+                                val fileName = getFileName(this, data.data!!)
+                                if (fileName != null) {
+                                    val prefix = fileName.split(".").first()
+                                    val suffix = "." + fileName.split(".")[1]
+
+                                    val file = stream2file(inputStream, prefix, suffix)
+                                    if (file != null) {
+                                        avatarFile = file
+                                        binding.imageViewAvatar.load(data.data)
+                                    }
+                                }
+
+                            } catch (e: Exception) {
+                                Log.e(TAG, e.message)
+                                TOAST("Lỗi, thử lại sau")
+                            }
+                        }
+                        val tempFile = createTempFile(System.currentTimeMillis().toString(), "")
+
+
                     }
                 }
             }
@@ -85,7 +110,8 @@ class RegisterActivity : AppCompatActivity() {
             Register(
                 editTextName.text.toString(),
                 editTextLastName.text.toString(),
-                textViewDate.text.toString(),
+                if (textViewDate.text.toString().isNotEmpty()
+                ) textViewDate.text.toString() else "",
                 editTextAddress.text.toString(),
                 district,
                 1,
@@ -105,8 +131,10 @@ class RegisterActivity : AppCompatActivity() {
         val datePicker = MaterialDatePicker.Builder.datePicker().build()
         datePicker.show(supportFragmentManager, "datePicker")
         datePicker.addOnPositiveButtonClickListener {
-            val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             binding.textViewDate.text = sdf.format(Date(it))
         }
     }
 }
+
+private const val TAG = "Register Activity Tag"

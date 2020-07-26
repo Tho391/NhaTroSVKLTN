@@ -7,8 +7,8 @@ data class User(
     var firstName: String? = "",
     val dateOfBirth: String? = "",
     val address: String? = "",
-    val district: String? = "",
-    val city: String? = "",
+    val districtId: Int = 1,
+    val cityId: Int = 1,
     val phoneNumber: String? = "",
     val avatar: String? = null,
     val email: String? = "",
@@ -18,7 +18,7 @@ data class User(
 ) : Serializable {
     fun getName(): String = "$lastName $firstName"
 
-    fun getToken(): String = "Bearer $token"
+    fun getToken(): String = "bearer $token"
 
     fun hasToken(): Boolean = !token.isNullOrEmpty()
     fun getShortToken(): String? = token

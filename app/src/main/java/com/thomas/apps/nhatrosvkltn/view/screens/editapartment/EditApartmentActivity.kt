@@ -17,8 +17,7 @@ class EditApartmentActivity : AppCompatActivity() {
 
     private lateinit var viewModel: EditApartmentViewModel
     private lateinit var binding: ActivityEditApartmentBinding
-    private val districts: List<String> =
-        resources.getStringArray(R.array.districts).toList().drop(1)
+    private lateinit var districts: List<String>
     private var adapter = ImageAdapter()
     private var lat = 0.0
     private var lon = 0.0
@@ -34,6 +33,10 @@ class EditApartmentActivity : AppCompatActivity() {
     }
 
     private fun init() {
+
+        districts =
+            resources.getStringArray(R.array.districts).toList().drop(1)
+
         setSupportActionBar(binding.toolBar.toolBar)
 
 

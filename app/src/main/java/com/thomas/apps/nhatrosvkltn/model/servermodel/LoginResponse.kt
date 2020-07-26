@@ -30,12 +30,12 @@ data class LoginResponse(
     @SerializedName("Diachi")
     @Expose
     val address: String? = null,
-    @SerializedName("TenQuan")
+    @SerializedName("idQuan")
     @Expose
-    val district: String? = null,
-    @SerializedName("Tenthanhpho")
+    val districtId: Int? = null,
+    @SerializedName("idThanhpho")
     @Expose
-    val city: String? = null,
+    val cityId: Int = 1,
     @SerializedName("Sdt")
     @Expose
     val phoneNumber: String? = null,
@@ -52,8 +52,8 @@ data class LoginResponse(
             firstName,
             dateOfBirth,
             address,
-            district,
-            city,
+            districtId ?: 1,
+            cityId,
             phoneNumber,
             photo,
             username,
@@ -74,8 +74,8 @@ data class LoginResponse(
                 user.firstName,
                 user.dateOfBirth,
                 user.address,
-                user.district,
-                user.city,
+                user.districtId,
+                user.cityId,
                 user.phoneNumber,
                 user.avatar
             )

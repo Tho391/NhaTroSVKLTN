@@ -16,19 +16,22 @@ class ChangePassViewModel : ViewModel() {
 
     val isLoading: LiveData<Boolean>
         get() = _isLoading
+    val message = MutableLiveData<String>()
 
-    fun changePass(token: String, email: String, oldPass: String, newPass: String) {
+    fun changePass(token: String, userId: Int, email: String, oldPass: String, newPass: String) {
         //call api
         _isLoading.value = true
         disposables.add(
-            repository.changePass(token, email, oldPass, newPass)
+            repository.changePass(token, userId, email, oldPass, newPass)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     _isLoading.postValue(false)
+                    message.postValue("Đổi mật khẩu thành công")
                 }, {
                     Log.e("lỗi", it?.message.toString())
                     _isLoading.postValue(false)
+                    message.postValue("Mật khẩu không đúng!")
                 })
         )
     }

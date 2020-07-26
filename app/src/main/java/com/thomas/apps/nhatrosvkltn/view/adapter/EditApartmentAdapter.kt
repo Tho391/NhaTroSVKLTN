@@ -35,7 +35,7 @@ class EditApartmentAdapter : ListAdapter<Apartment, EditApartmentAdapter.ViewHol
 
                 textViewRating.text = item.rating.toString()
                 textViewPrice.text = item.price.toString()
-                imageViewApartment.load(item.images.first().url) {
+                imageViewApartment.load(item.images?.first()?.url) {
                     placeholder(R.drawable.image_load)
                     crossfade(true)
                     size(100, 100)

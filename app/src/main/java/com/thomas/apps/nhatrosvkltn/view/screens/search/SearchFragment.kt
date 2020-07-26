@@ -24,10 +24,6 @@ import kotlinx.coroutines.*
 class SearchFragment : Fragment(), FiltersFragment.OnDismissListener,
     HomeFragment.OnFilterListener {
 
-    companion object {
-        fun newInstance() = SearchFragment()
-    }
-
     //private lateinit var viewModel: SharedViewModel
     private lateinit var mainViewModel: MainViewModel
     private var viewModel: SearchViewModel? = null
@@ -62,11 +58,7 @@ class SearchFragment : Fragment(), FiltersFragment.OnDismissListener,
 
         with(binding) {
             recyclerView.adapter = recyclerAdapter
-            recyclerView.layoutManager = object : LinearLayoutManager(requireContext()) {
-                override fun canScrollVertically(): Boolean {
-                    return false
-                }
-            }
+            recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
@@ -97,16 +89,14 @@ class SearchFragment : Fragment(), FiltersFragment.OnDismissListener,
             }
 
             swipeRefreshLayout.setOnRefreshListener {
-                //viewModel!!.filter(filterModel)
-                mainViewModel.loadApartments()
+                viewModel?.search(binding.searchView.query.toString())
+//                if (filterModel.isEmpty()) {
+//                    viewModel?.search(binding.searchView.query.toString())
+//                } else {
+//                    viewModel?.filter(filterModel)
+//                }
             }
         }
-
-        mainViewModel.apartments.observe(
-            viewLifecycleOwner,
-            Observer { recyclerAdapter.submitList(it) })
-
-        viewModel!!.setApartments(mainViewModel.apartments.value)
 
         viewModel!!.apartments.observe(viewLifecycleOwner, Observer { apartments ->
             recyclerAdapter.submitList(apartments)
@@ -120,6 +110,8 @@ class SearchFragment : Fragment(), FiltersFragment.OnDismissListener,
         super.onApplyButtonClick(filter)
         //todo áp lọc
         binding.imageButtonFilter.isEnabled = true
+
+        filterModel = filter
 
         viewModel!!.filter(filter)
         binding.searchView.setQuery(filter.address, false)

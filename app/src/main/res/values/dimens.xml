@@ -6,7 +6,7 @@
     <dimen name="default_radius">4dp</dimen>
     <dimen name="medium_radius">8dp</dimen>
     <dimen name="large_radius">16dp</dimen>
-    <dimen name="round_radius">150dp</dimen>
+    <dimen name="round_radius">130dp</dimen>
 
     <!--    image-->
     <dimen name="smaller_image">50dp</dimen>
@@ -15,7 +15,7 @@
     <dimen name="larger_image">130dp</dimen>
 
     <dimen name="wide_image">270dp</dimen>
-    <dimen name="round_image">270dp</dimen>
+    <dimen name="round_image">260dp</dimen>
     <dimen name="wider_image">500dp</dimen>
 
     <!--    margin-->

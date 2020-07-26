@@ -16,7 +16,7 @@ import com.thomas.apps.nhatrosvkltn.model.Image
 import com.thomas.apps.nhatrosvkltn.utils.Data.Companion.images1
 import com.thomas.apps.nhatrosvkltn.utils.Data.Companion.user1
 import com.thomas.apps.nhatrosvkltn.utils.TOAST
-import com.thomas.apps.nhatrosvkltn.utils.getToken
+import com.thomas.apps.nhatrosvkltn.utils.getUser
 import com.thomas.apps.nhatrosvkltn.utils.launchActivity
 import com.thomas.apps.nhatrosvkltn.view.adapter.AddImageAdapter
 import com.thomas.apps.nhatrosvkltn.view.screens.picklocation.PickLocationActivity
@@ -114,14 +114,15 @@ class AddApartmentActivity : AppCompatActivity() {
             R.id.action_pick_location -> {
                 //todo post apartment here
                 val apartment = getData()
-                val token = getToken(this)
-                if (token.isEmpty()) {
-                    //todo request user login
-                } else {
-                    val file = File("s")
-                    viewModel.postApartment(token, file, apartment)
+                val user = getUser(this)
+                if (user != null) {
+                    if (!user.hasToken()) {
+                        //todo request user login
+                    } else {
+                        val file = File(listImage.first().url)
+                        viewModel.postApartment(user.getToken(), file, apartment)
+                    }
                 }
-
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -129,15 +130,15 @@ class AddApartmentActivity : AppCompatActivity() {
     }
 
     private fun getData(): Apartment {
-        val title = binding.cardViewInfo.editTextTitle.toString()
-        val owner = binding.cardViewInfo.editTextName.toString()
-        val phone = binding.cardViewInfo.editTextPhone.toString()
-        val address = binding.cardViewInfo.editTextAddress.toString()
-        val price = binding.cardViewInfo.editTextPrice.toString()
-        val area = binding.cardViewInfo.editTextArea.toString()
+        val title = binding.cardViewInfo.editTextTitle.text.toString()
+        val owner = binding.cardViewInfo.editTextName.text.toString()
+        val phone = binding.cardViewInfo.editTextPhone.text.toString()
+        val address = binding.cardViewInfo.editTextAddress.text.toString()
+        val price = binding.cardViewInfo.editTextPrice.text.toString()
+        val area = binding.cardViewInfo.editTextArea.text.toString()
         val district = binding.cardViewInfo.spinnerDistrict.text.toString()
-        val electric = binding.cardViewInfo.editTextElectric.toString()
-        val water = binding.cardViewInfo.editTextWater.toString()
+        val electric = binding.cardViewInfo.editTextElectric.text.toString()
+        val water = binding.cardViewInfo.editTextWater.text.toString()
 
 
         val wifi = binding.cardViewUtils.imageWifi.getState() == STATE_CHECKED

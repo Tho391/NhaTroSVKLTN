@@ -1,14 +1,14 @@
 package com.thomas.apps.nhatrosvkltn.api
 
+import com.google.gson.Gson
 import com.thomas.apps.nhatrosvkltn.model.FilterModel
 import com.thomas.apps.nhatrosvkltn.model.User
-import com.thomas.apps.nhatrosvkltn.model.servermodel.ApartmentResponse
-import com.thomas.apps.nhatrosvkltn.model.servermodel.CommentResponse
-import com.thomas.apps.nhatrosvkltn.model.servermodel.LoginResponse
-import com.thomas.apps.nhatrosvkltn.model.servermodel.Register
+import com.thomas.apps.nhatrosvkltn.model.servermodel.*
 import io.reactivex.Observable
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class Repository {
     companion object {
@@ -29,9 +29,8 @@ class Repository {
         return apiServices.filterApartments(filterModel)
     }
 
-    fun searchApartments(query: String): Observable<List<ApartmentResponse>> {
-        return apiServices.searchApartments(query)
-    }
+    fun searchApartments(query: String) = apiServices.searchApartments(query)
+
 
     fun postApartment(token: String, apartment: ApartmentResponse): Observable<ApartmentResponse> {
         return apiServices.postApartment(token, apartment)
@@ -43,16 +42,40 @@ class Repository {
         file: MultipartBody.Part,
         apartment: ApartmentResponse
     ): Observable<ApartmentResponse> {
-        return apiServices.postApartment(token, fileName, file, apartment)
+        return apiServices.postApartment(
+            token,
+            fileName,
+            file,
+            apartment.tenchutro!!,
+            apartment.sdt!!,
+            apartment.diachi!!,
+            apartment.idQuan,
+            1,
+            apartment.localX!!,
+            apartment.localY!!,
+            apartment.date!!,
+            apartment.title!!, apartment.dientich!!,
+            apartment.phong!!,
+            apartment.nhavesinh!!,
+            apartment.mota!!,
+            apartment.gia!!,
+            apartment.nuocnong!!,
+            apartment.dien!!,
+            apartment.nuoc!!,
+            apartment.loainha!!,
+            apartment.wifi!!,
+            apartment.time!!,
+            apartment.key!!
+        )
     }
 
     fun getComments(apartmentId: Int): Observable<List<CommentResponse>> {
         return apiServices.getComments(apartmentId)
     }
 
-    fun sendComment(token: String, comment: CommentResponse): Observable<CommentResponse> {
-        return apiServices.sendComment(token, comment)
-    }
+    fun sendComment(token: String, comment: CommentResponse) =
+        apiServices.sendComment(token, comment.idNhatro, comment)
+
 
     fun login(email: String, pass: String): Observable<LoginResponse> {
         return apiServices.login(LoginResponse(username = email, password = pass))
@@ -60,24 +83,41 @@ class Repository {
 
     fun register(
         register: Register,
-        fileName: RequestBody?,
         file: MultipartBody.Part?
     ): Observable<Register> {
-        return apiServices.register(register, fileName, file)
+        val json = Gson().toJson(register)
+//        val mediaType = "application/json; charset=utf-8".toMediaType()
+        val mediaType = "text/plain".toMediaTypeOrNull()
+        val requestBody = json.toRequestBody(mediaType)
+        return apiServices.register(
+            register.firstName?.toRequestBody(mediaType),
+            register.dateOfBirth?.toRequestBody(mediaType),
+            register.address?.toRequestBody(mediaType),
+            register.district.toString().toRequestBody(mediaType),
+            register.city.toString().toRequestBody(mediaType),
+            register.phone?.toRequestBody(mediaType),
+            register.email?.toRequestBody(mediaType),
+            register.pass?.toRequestBody(mediaType),
+            register.lastName?.toRequestBody(mediaType),
+            file
+        )
     }
 
-    fun editUser(register: Register): Observable<Register> = apiServices.editUser(register)
+    fun editUser(userId: Int, register: Register): Observable<Register> =
+        apiServices.editUser(userId, register)
+
     fun changePass(
         token: String,
+        userId: Int,
         email: String,
         oldPass: String,
         newPass: String
-    ): Observable<Register> = apiServices.changePass(token, email, oldPass, newPass)
+    ) = apiServices.changePass(token, userId, ChangePassModel(email, oldPass, newPass))
 
     fun loginWithGoogle(user: User) = apiServices.loginWithGoogle(user)
     fun getImages(apartmentId: Int) = apiServices.getImages(apartmentId)
-    fun sendRating(token: String, apartmentId: Int, rating: Float) =
-        apiServices.sendRating(token, apartmentId, rating)
+    fun sendRating(token: String, apartmentId: Int, commentResponse: CommentResponse) =
+        apiServices.sendRating(token, apartmentId, commentResponse)
 
     fun getUserApartment(token: String, userId: Int) = apiServices.getUserApartment(token, userId)
     fun editApartment(token: String, apartmentResponse: ApartmentResponse) =

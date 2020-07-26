@@ -161,13 +161,25 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, FiltersFragment.OnD
 
 
         mainViewModel.apartments.observe(this, Observer { apartments ->
+            mMap?.clear()
             for (apartment in apartments) {
-                val marker = mMap!!.addMarker(
+                val marker = mMap?.addMarker(
                     MarkerOptions()
                         .position(LatLng(apartment.latitude!!, apartment.longitude!!))
                         .title(apartment.title)
                 )
-                marker.tag = apartment.id
+                marker?.tag = apartment.id
+            }
+
+            mMap?.setOnMarkerClickListener { marker ->
+                apartments.forEach { a ->
+                    if (marker.position == LatLng(a.latitude!!, a.longitude!!)) {
+                        val bottomSheetFragment = BottomSheetFragment(a)
+                        bottomSheetFragment.show(supportFragmentManager, "bottomsheet")
+                    }
+
+                }
+                return@setOnMarkerClickListener false
             }
         })
 
@@ -261,7 +273,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, FiltersFragment.OnD
                 mMap?.isMyLocationEnabled = true
                 mMap?.uiSettings?.isMyLocationButtonEnabled = false
             } else {
-                mMap?.isMyLocationEnabled = false
+                mMap?.isMyLocationEnabled = true
                 mMap?.uiSettings?.isMyLocationButtonEnabled = false
                 lastKnownLocation = null
                 getLocationPermission()

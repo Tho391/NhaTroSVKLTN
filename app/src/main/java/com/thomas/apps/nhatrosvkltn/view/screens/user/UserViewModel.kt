@@ -19,14 +19,15 @@ class UserViewModel : ViewModel() {
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
-    fun editUser(register: Register) {
+    fun editUser(userId: Int, register: Register) {
         _isLoading.value = true
         disposables.add(
-            repository.editUser(register)
+            repository.editUser(userId, register)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ listApartmentResponse ->
+                .subscribe({ it ->
 
+                    Log.i(TAG, it.data + "")
 
                     _isLoading.postValue(false)
                 }, {
@@ -36,3 +37,5 @@ class UserViewModel : ViewModel() {
         )
     }
 }
+
+private const val TAG = "UserViewModel"

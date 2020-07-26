@@ -9,22 +9,34 @@ import java.io.Serializable
 data class CommentResponse(
     @SerializedName("idNhatro")
     @Expose
-    val idNhatro: Int,
+    val idNhatro: Int = 0,
     @SerializedName("Noidung")
     @Expose
-    val noidung: String,
+    val noidung: String? = "",
     @SerializedName("idNguoidung")
     @Expose
-    val idNguoidung: Int?,
+    val idNguoidung: Int? = 0,
     @SerializedName("Ten")
     @Expose
-    val ten: String,
+    val ten: String? = "",
     @SerializedName("photo")
     @Expose
-    val photo: String?,
+    val photo: String? = "",
     @SerializedName("date")
     @Expose
-    val date: String
+    val date: String? = "",
+
+    @SerializedName("content")
+    @Expose
+    val content: String? = "",
+
+    @SerializedName("Userid")
+    @Expose
+    val userId: Int? = 0,
+
+    @SerializedName("Vote")
+    @Expose
+    val vote: Float = 0F
 ) : Serializable {
     fun toComment(): Comment {
         return Comment(

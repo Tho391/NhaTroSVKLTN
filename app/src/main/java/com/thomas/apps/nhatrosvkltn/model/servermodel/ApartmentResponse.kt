@@ -8,85 +8,89 @@ import com.thomas.apps.nhatrosvkltn.model.Image
 data class ApartmentResponse(
     @SerializedName("idNhatro")
     @Expose
-    val idNhatro: Int?,
+    val idNhatro: Int? = 0,
     @SerializedName("Title")
     @Expose
-    val title: String?,
+    val title: String? = "",
     @SerializedName("Tenchutro")
     @Expose
-    val tenchutro: String?,
+    val tenchutro: String? = "",
     @SerializedName("Sdt")
     @Expose
-    val sdt: String?,
+    val sdt: String? = "",
     @SerializedName("Diachi")
     @Expose
-    val diachi: String?,
+    val diachi: String? = "",
     @SerializedName("Tenquan")
     @Expose
-    val tenquan: String?,
+    val tenquan: String? = "",
     @SerializedName("Tenthanhpho")
     @Expose
-    val tenthanhpho: String?,
+    val tenthanhpho: String? = "",
     @SerializedName("LocalX")
     @Expose
-    val localX: Double?,
+    val localX: Double? = 0.0,
     @SerializedName("LocalY")
     @Expose
-    val localY: Double?,
+    val localY: Double? = 0.0,
     @SerializedName("date")
     @Expose
-    val date: String?,
+    val date: String? = "",
     @SerializedName("Sate")
     @Expose
-    val sate: Int?,
+    val sate: Int? = 0,
     @SerializedName("Dientich")
     @Expose
-    val dientich: Int?,
+    val dientich: Int? = 0,
     @SerializedName("Phong")
     @Expose
-    val phong: Int?,
+    val phong: Int? = 0,
     @SerializedName("Nhavesinh")
     @Expose
-    val nhavesinh: Int?,
+    val nhavesinh: Int? = 0,
     @SerializedName("Mota")
     @Expose
-    val mota: String?,
+    val mota: String? = "",
     @SerializedName("Gia")
     @Expose
-    val gia: Int?,
+    val gia: Int? = 0,
     @SerializedName("Maylanh")
     @Expose
-    val maylanh: Int?,
+    val maylanh: Int? = 0,
     @SerializedName("Giuxe")
     @Expose
-    val giuxe: Int?,
+    val giuxe: Int? = 0,
     @SerializedName("Nuocnong")
     @Expose
-    val nuocnong: Int?,
+    val nuocnong: Int? = 0,
     @SerializedName("Dien")
     @Expose
-    val dien: Int?,
+    val dien: Int? = 0,
     @SerializedName("Nuoc")
     @Expose
-    val nuoc: Int?,
+    val nuoc: Int? = 0,
     @SerializedName("Loainha")
     @Expose
-    val loainha: String?,
+    val loainha: String? = "",
     @SerializedName("img")
     @Expose
-    val img: String?,
-    @SerializedName("vote")
+    val img: String? = "",
+    @SerializedName("Vote")
     @Expose
-    val vote: Double?,
+    val vote: Double? = 0.0,
     @SerializedName("wifi")
     @Expose
-    val wifi: Int?,
+    val wifi: Int? = 0,
     @SerializedName("gio")
     @Expose
-    val time: Int?,
+    val time: Int? = 0,
     @SerializedName("chungchu")
     @Expose
-    val key: Int?
+    val key: Int? = 0,
+
+    @SerializedName("idQuan")
+    @Expose
+    val idQuan: Int = 0
 ) {
     fun toApartment(): Apartment {
         return Apartment(
@@ -112,7 +116,8 @@ data class ApartmentResponse(
             maylanh != 0,
             nuocnong != 0,
             listOf(Image(1, img)),
-            null
+            null,
+            idQuan
         )
     }
 }

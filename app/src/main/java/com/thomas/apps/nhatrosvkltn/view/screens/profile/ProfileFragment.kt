@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import coil.api.load
+import coil.size.Scale
 import com.thomas.apps.nhatrosvkltn.R
 import com.thomas.apps.nhatrosvkltn.databinding.FragmentProfileBinding
+import com.thomas.apps.nhatrosvkltn.model.User
 import com.thomas.apps.nhatrosvkltn.utils.Constant.Companion.SHARE_PREFERENCES_KEY
 import com.thomas.apps.nhatrosvkltn.utils.TOAST
 import com.thomas.apps.nhatrosvkltn.utils.clear
@@ -19,17 +21,15 @@ import com.thomas.apps.nhatrosvkltn.view.screens.addapartment.AddApartmentActivi
 import com.thomas.apps.nhatrosvkltn.view.screens.changepass.ChangePassActivity
 import com.thomas.apps.nhatrosvkltn.view.screens.login.LoginActivity
 import com.thomas.apps.nhatrosvkltn.view.screens.manageapartments.ManageApartmentsActivity
+import com.thomas.apps.nhatrosvkltn.view.screens.user.UserActivity
 
 
 class ProfileFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ProfileFragment()
-    }
-
     private lateinit var viewModel: ProfileViewModel
     private lateinit var binding: FragmentProfileBinding
     private var isLogin = false
+    private var user: User? = null
 
 
     override fun onCreateView(
@@ -50,12 +50,14 @@ class ProfileFragment : Fragment() {
 
     private fun updateUI() {
         if (!isLogin) {
-            val user = getUser(requireContext())
+            user = getUser(requireContext())
             with(binding) {
                 if (user != null) {
                     isLogin = true
-                    imageViewAvatar.load(user.avatar)
-                    textViewLogin.text = user.getName()
+                    imageViewAvatar.load(user!!.avatar) {
+                        scale(Scale.FIT)
+                    }
+                    textViewLogin.text = user!!.getName()
                     textViewLogin.isEnabled = false
                 }
             }
@@ -63,12 +65,12 @@ class ProfileFragment : Fragment() {
     }
 
     private fun init() {
-        val user = getUser(requireContext())
+        user = getUser(requireContext())
         with(binding) {
             if (user != null) {
                 isLogin = true
-                imageViewAvatar.load(user.avatar)
-                textViewLogin.text = user.getName()
+                imageViewAvatar.load(user!!.avatar)
+                textViewLogin.text = user!!.getName()
                 textViewLogin.isEnabled = false
             }
 
@@ -91,6 +93,13 @@ class ProfileFragment : Fragment() {
             textViewLogout.setOnClickListener {
                 if (isLogin)
                     logOut()
+            }
+            textViewInfo.setOnClickListener {
+                if (isLogin && user != null)
+                    requireContext().launchActivity<UserActivity> {
+                        putExtra("id", user!!.id)
+                    }
+                else TOAST("Đăng nhập để thực hiện chức năng này")
             }
         }
 

@@ -77,5 +77,6 @@ Chỉ cần xách vali vào ở ngay.</string>
     <string name="ho_chi_minh">Hồ Chí Minh</string>
     <string name="dang_nhap_lai">Lỗi, vui lòng đăng nhập lại</string>
     <string name="direction">Direction</string>
+    <string name="thong_tin_ca_nhan">Thông tin cá nhân</string>
 
 </resources>
