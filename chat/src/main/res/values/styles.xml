@@ -1,0 +1,35 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="colorBackgroundFloating">@color/toolbar_background</item>
+        <item name="tabBackground">@color/colorPrimary</item>
+        <item name="tabIconTint">@color/colorPrimary</item>
+
+        <item name="colorSecondary">@android:color/holo_red_light</item>
+        <item name="colorOnSecondary">@android:color/holo_red_light</item>
+        <item name="colorOnSurface">@android:color/holo_red_light</item>
+
+        <item name="floatingActionButtonStyle">@style/customFloatingActionButton</item>
+    </style>
+
+    <style name="customFloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.App.SmallComponent</item>
+    </style>
+
+    <style name="ThemeOverlay.App.FloatingActionButton" parent="">
+        <item name="colorSecondary">@android:color/holo_red_light</item>
+        <item name="colorOnSecondary">@android:color/holo_blue_dark</item>
+        <item name="colorOnSurface">@android:color/holo_purple</item>
+    </style>
+
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">4dp</item>
+    </style>
+</resources>

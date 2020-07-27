@@ -136,3 +136,4 @@ fabric.properties
 /app/src/main/res/values/map_api_key.xml
 /app/src/main/res/values/api_key.xml
 /app/credentials.json
+/chat/src/main/res/values/api_key.xml

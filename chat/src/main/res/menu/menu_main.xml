@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="@string/search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="always|collapseActionView" />
+
+    <item
+        android:id="@+id/action_new_chat"
+        android:icon="@drawable/ic_baseline_person_add_24"
+        android:title="@string/new_chat"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_contact"
+        android:icon="@drawable/ic_baseline_perm_contact_calendar_24"
+        android:title="@string/contact"
+        app:showAsAction="ifRoom" />
+</menu>
