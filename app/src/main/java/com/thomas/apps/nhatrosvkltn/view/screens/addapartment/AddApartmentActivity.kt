@@ -3,6 +3,7 @@ package com.thomas.apps.nhatrosvkltn.view.screens.addapartment
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -13,14 +14,11 @@ import com.thomas.apps.nhatrosvkltn.R
 import com.thomas.apps.nhatrosvkltn.databinding.ActivityAddApartmentBinding
 import com.thomas.apps.nhatrosvkltn.model.Apartment
 import com.thomas.apps.nhatrosvkltn.model.Image
+import com.thomas.apps.nhatrosvkltn.utils.*
 import com.thomas.apps.nhatrosvkltn.utils.Data.Companion.images1
 import com.thomas.apps.nhatrosvkltn.utils.Data.Companion.user1
-import com.thomas.apps.nhatrosvkltn.utils.TOAST
-import com.thomas.apps.nhatrosvkltn.utils.getUser
-import com.thomas.apps.nhatrosvkltn.utils.launchActivity
 import com.thomas.apps.nhatrosvkltn.view.adapter.AddImageAdapter
 import com.thomas.apps.nhatrosvkltn.view.screens.picklocation.PickLocationActivity
-import java.io.File
 
 
 class AddApartmentActivity : AppCompatActivity() {
@@ -88,10 +86,27 @@ class AddApartmentActivity : AppCompatActivity() {
                         if (data != null) {
                             //val imageUri = getRealPathFromURI(this, data.data!!)
                             val uri = data.dataString
-                            TOAST("$uri ")
+//                            TOAST("$uri ")
+                            try {
 
-                            listImage.add(Image(++imageId, uri))
-                            adapter.submitList(listImage)
+                                val inputStream = contentResolver.openInputStream(data.data!!)
+                                val fileName = getFileName(this, data.data!!)
+                                if (fileName != null) {
+                                    val prefix = fileName.split(".").first()
+                                    val suffix = "." + fileName.split(".")[1]
+
+                                    val file = stream2file(inputStream, prefix, suffix)
+                                    if (file != null) {
+                                        uri?.let {
+                                            listImage.add(Image(++imageId, it, file))
+                                            adapter.submitList(listImage)
+                                        }
+                                    }
+                                }
+                            } catch (e: Exception) {
+                                Log.e(TAG, e.message)
+                                TOAST("Lỗi, thử lại sau")
+                            }
                         }
                     } else TOAST("Tối đa 5 hình")
                 }
@@ -119,8 +134,8 @@ class AddApartmentActivity : AppCompatActivity() {
                     if (!user.hasToken()) {
                         //todo request user login
                     } else {
-                        val file = File(listImage.first().url)
-                        viewModel.postApartment(user.getToken(), file, apartment)
+                        val files = listImage.mapNotNull { it.file }
+                        viewModel.postApartment(user.getToken(), user.id, files, apartment)
                     }
                 }
                 true
@@ -136,7 +151,7 @@ class AddApartmentActivity : AppCompatActivity() {
         val address = binding.cardViewInfo.editTextAddress.text.toString()
         val price = binding.cardViewInfo.editTextPrice.text.toString()
         val area = binding.cardViewInfo.editTextArea.text.toString()
-        val district = binding.cardViewInfo.spinnerDistrict.text.toString()
+        val districtId = binding.cardViewInfo.spinnerDistrict.selectedIndex + 1
         val electric = binding.cardViewInfo.editTextElectric.text.toString()
         val water = binding.cardViewInfo.editTextWater.text.toString()
 
@@ -153,7 +168,6 @@ class AddApartmentActivity : AppCompatActivity() {
         return Apartment(
             title,
             address,
-            district,
             lat,
             lng,
             description,
@@ -170,7 +184,10 @@ class AddApartmentActivity : AppCompatActivity() {
             air,
             heater,
             images1,
-            user1
+            user1,
+            districtId
         )
     }
 }
+
+private const val TAG = "AddApartment"

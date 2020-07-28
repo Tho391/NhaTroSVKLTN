@@ -1,14 +1,14 @@
 package com.thomas.apps.nhatrosvkltn.api
 
-import com.google.gson.Gson
 import com.thomas.apps.nhatrosvkltn.model.FilterModel
 import com.thomas.apps.nhatrosvkltn.model.User
 import com.thomas.apps.nhatrosvkltn.model.servermodel.*
 import io.reactivex.Observable
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.text.SimpleDateFormat
+import java.util.*
 
 class Repository {
     companion object {
@@ -38,34 +38,39 @@ class Repository {
 
     fun postApartment(
         token: String,
-        fileName: RequestBody,
-        file: MultipartBody.Part,
+        userId: Int,
+        file: List<MultipartBody.Part>,
         apartment: ApartmentResponse
     ): Observable<ApartmentResponse> {
+        val mediaType = "text/plain".toMediaTypeOrNull()
         return apiServices.postApartment(
             token,
-            fileName,
+            userId,
             file,
-            apartment.tenchutro!!,
-            apartment.sdt!!,
-            apartment.diachi!!,
-            apartment.idQuan,
-            1,
-            apartment.localX!!,
-            apartment.localY!!,
-            apartment.date!!,
-            apartment.title!!, apartment.dientich!!,
-            apartment.phong!!,
-            apartment.nhavesinh!!,
-            apartment.mota!!,
-            apartment.gia!!,
-            apartment.nuocnong!!,
-            apartment.dien!!,
-            apartment.nuoc!!,
-            apartment.loainha!!,
-            apartment.wifi!!,
-            apartment.time!!,
-            apartment.key!!
+            apartment.tenchutro.toRequestBody(mediaType),
+            apartment.sdt.toRequestBody(mediaType),
+            apartment.diachi.toRequestBody(mediaType),
+            apartment.idQuan.toString().toRequestBody(mediaType),
+            1.toString().toRequestBody(mediaType),
+            apartment.localX.toString().toRequestBody(mediaType),
+            apartment.localY.toString().toRequestBody(mediaType),
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+                .toRequestBody(mediaType),
+            apartment.title.toRequestBody(mediaType),
+            apartment.dientich.toString().toRequestBody(mediaType),
+            apartment.phong.toString().toRequestBody(mediaType),
+            apartment.nhavesinh.toString().toRequestBody(mediaType),
+            apartment.mota.toRequestBody(mediaType),
+            apartment.gia.toString().toRequestBody(mediaType),
+            apartment.nuocnong.toString().toRequestBody(mediaType),
+            apartment.dien.toString().toRequestBody(mediaType),
+            apartment.nuoc.toString().toRequestBody(mediaType),
+            apartment.loainha.toRequestBody(mediaType),
+            apartment.wifi.toString().toRequestBody(mediaType),
+            apartment.time.toString().toRequestBody(mediaType),
+            apartment.key.toString().toRequestBody(mediaType),
+            apartment.maylanh.toString().toRequestBody(mediaType),
+            apartment.giuxe.toString().toRequestBody(mediaType)
         )
     }
 
@@ -85,10 +90,7 @@ class Repository {
         register: Register,
         file: MultipartBody.Part?
     ): Observable<Register> {
-        val json = Gson().toJson(register)
-//        val mediaType = "application/json; charset=utf-8".toMediaType()
         val mediaType = "text/plain".toMediaTypeOrNull()
-        val requestBody = json.toRequestBody(mediaType)
         return apiServices.register(
             register.firstName?.toRequestBody(mediaType),
             register.dateOfBirth?.toRequestBody(mediaType),

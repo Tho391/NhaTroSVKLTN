@@ -70,28 +70,52 @@ class HomeFragment : Fragment() {
             imageDistrict1.setOnClickListener {
                 //viewModel.search("Quận 10")
                 viewPager.setCurrentItem(1, true)
-                onFilterListener.onFilter(FilterModel(district = 10))
+                onFilterListener.onFilter(
+                    FilterModel(
+                        district = 10
+                    )
+                )
             }
             imageDistrict2.setOnClickListener {
                 viewPager.setCurrentItem(1, true)
-                onFilterListener.onFilter(FilterModel(district = 3))
+                onFilterListener.onFilter(
+                    FilterModel(
+                        district = 3
+                    )
+                )
 
             }
             imageDistrict3.setOnClickListener {
                 viewPager.setCurrentItem(1, true)
-                onFilterListener.onFilter(FilterModel(district = 13))
+                onFilterListener.onFilter(
+                    FilterModel(
+                        district = 13
+                    )
+                )
             }
             imageDistrict4.setOnClickListener {
                 viewPager.setCurrentItem(1, true)
-                onFilterListener.onFilter(FilterModel(district = 1))
+                onFilterListener.onFilter(
+                    FilterModel(
+                        district = 1
+                    )
+                )
             }
             imageDistrict5.setOnClickListener {
                 viewPager.setCurrentItem(1, true)
-                onFilterListener.onFilter(FilterModel(district = 17))
+                onFilterListener.onFilter(
+                    FilterModel(
+                        district = 17
+                    )
+                )
             }
             imageDistrict6.setOnClickListener {
                 viewPager.setCurrentItem(1, true)
-                onFilterListener.onFilter(FilterModel(district = 7))
+                onFilterListener.onFilter(
+                    FilterModel(
+                        district = 7
+                    )
+                )
             }
 
             imageDistrict1.load(R.mipmap.quan10) {

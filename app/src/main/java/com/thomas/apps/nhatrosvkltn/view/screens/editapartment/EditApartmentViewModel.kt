@@ -31,8 +31,7 @@ class EditApartmentViewModel : ViewModel() {
             repository.editApartment(token, apartment.toApartmentResponse())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ listApartmentResponse ->
-
+                .subscribe({ apartmentResponse ->
 
                     _isPosting.postValue(false)
                 }, {

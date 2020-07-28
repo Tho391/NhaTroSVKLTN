@@ -10,7 +10,6 @@ import com.thomas.apps.nhatrosvkltn.R
 import com.thomas.apps.nhatrosvkltn.databinding.ItemApartmentBinding
 import com.thomas.apps.nhatrosvkltn.model.Apartment
 import com.thomas.apps.nhatrosvkltn.utils.Constant.Companion.INTENT_APARTMENT_ID
-import com.thomas.apps.nhatrosvkltn.utils.TOAST
 import com.thomas.apps.nhatrosvkltn.utils.launchActivity
 import com.thomas.apps.nhatrosvkltn.view.screens.apartmentdetails.ApartmentDetailsActivity
 
@@ -40,7 +39,7 @@ class ApartmentAdapter : ListAdapter<Apartment, ApartmentAdapter.ViewHolder>(Apa
                 }
 
                 root.setOnClickListener {
-                    root.context.TOAST("apartment id ${item.id} clicked")
+                    //root.context.TOAST("apartment id ${item.id} clicked")
 
                     root.context.launchActivity<ApartmentDetailsActivity> {
                         putExtra(INTENT_APARTMENT_ID, item.id)

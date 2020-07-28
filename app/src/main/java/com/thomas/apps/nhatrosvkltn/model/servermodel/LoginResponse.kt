@@ -8,76 +8,77 @@ import java.io.Serializable
 data class LoginResponse(
     @SerializedName("access_token")
     @Expose
-    val token: String? = null,
+    val token: String = "",
     @SerializedName("idUser")
     @Expose
-    val id: Int? = null,
+    val id: Int = 0,
     @SerializedName("Username")
     @Expose
-    val username: String? = null,
+    val username: String = "",
     @SerializedName("Password")
     @Expose
-    val password: String? = null,
+    val password: String = "",
     @SerializedName("Ho")
     @Expose
-    val lastName: String? = null,
+    val lastName: String = "",
     @SerializedName("Ten")
     @Expose
-    val firstName: String? = null,
+    val firstName: String = "",
     @SerializedName("NgaySinh")
     @Expose
-    val dateOfBirth: String? = null,
+    val dateOfBirth: String = "",
     @SerializedName("Diachi")
     @Expose
-    val address: String? = null,
+    val address: String = "",
     @SerializedName("idQuan")
     @Expose
-    val districtId: Int? = null,
+    val districtId: Int = 0,
     @SerializedName("idThanhpho")
     @Expose
     val cityId: Int = 1,
     @SerializedName("Sdt")
     @Expose
-    val phoneNumber: String? = null,
+    val phoneNumber: String = "",
     @SerializedName("photo")
     @Expose
-    val photo: String? = null,
+    val photo: String = "",
     @SerializedName("data")
     @Expose
     val data: String? = null
 ) : Serializable {
     fun toUser(): User {
         return User(
-            id,
-            firstName,
-            dateOfBirth,
-            address,
-            districtId ?: 1,
-            cityId,
-            phoneNumber,
-            photo,
-            username,
-            password,
-            lastName,
-            token
+            id = id,
+            firstName = firstName,
+            dateOfBirth = dateOfBirth,
+            address = address,
+            districtId = districtId,
+            cityId = cityId,
+            phoneNumber = phoneNumber,
+            avatar = photo,
+            email = username,
+            pass = password,
+            lastName = lastName,
+            token = token
         )
     }
 
     companion object {
         fun from(user: User): LoginResponse {
             return LoginResponse(
-                user.getShortToken(),
-                user.id,
-                user.email,
-                user.pass,
-                user.lastName,
-                user.firstName,
-                user.dateOfBirth,
-                user.address,
-                user.districtId,
-                user.cityId,
-                user.phoneNumber,
-                user.avatar
+                token = user.getShortToken(),
+                id = user.id,
+                username = user.email,
+                password = user.pass,
+                lastName = user.lastName,
+                firstName = user.firstName,
+                dateOfBirth = user.dateOfBirth,
+                address = user.address,
+                districtId = user.districtId,
+                cityId = user.cityId,
+                phoneNumber = user.phoneNumber,
+                photo = user.avatar,
+                data = null
             )
         }
     }

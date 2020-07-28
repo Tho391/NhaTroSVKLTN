@@ -44,6 +44,7 @@ class EditApartmentActivity : AppCompatActivity() {
         binding.cardViewInfo.spinnerDistrict.setItems(districts)
 
         val apartment = intent.getSerializableExtra(Constant.INTENT_APARTMENT) as Apartment
+
         updateUI(apartment)
     }
 
@@ -54,7 +55,7 @@ class EditApartmentActivity : AppCompatActivity() {
                 editTextName.setText(apartment.ownerName)
                 editTextPhone.setText(apartment.phone)
                 editTextAddress.setText(apartment.address)
-                spinnerDistrict.selectedIndex = districts.indexOf(apartment.district)
+                spinnerDistrict.selectedIndex = apartment.districtId - 1
                 editTextPrice.setText(apartment.price.toString())
                 editTextArea.setText(apartment.area.toString())
                 editTextElectric.setText(apartment.electric.toString())
@@ -107,26 +108,30 @@ class EditApartmentActivity : AppCompatActivity() {
     private fun getData(): Apartment {
         return with(binding) {
             Apartment(
-                cardViewInfo.editTextTitle.text.toString(),
-                cardViewInfo.editTextAddress.editableText.toString(),
-                districts[cardViewInfo.spinnerDistrict.selectedIndex],
-                lat,
-                lon,
-                editTextDetailsContent.editableText.toString(),
-                cardViewInfo.editTextName.editableText.toString(),
-                cardViewInfo.editTextPhone.editableText.toString(),
-                cardViewInfo.editTextPrice.toString().toLong(),
-                cardViewInfo.editTextElectric.toString().toInt(),
-                cardViewInfo.editTextWater.editableText.toString().toInt(),
-                cardViewInfo.editTextArea.editableText.toString().toInt(),
-                cardViewUtils.imageWifi.getState() == 1,
-                cardViewUtils.imageTime.getState() == 1,
-                cardViewUtils.imageKey.getState() == 1,
-                cardViewUtils.imageCar.getState() == 1,
-                cardViewUtils.imageAir.getState() == 1,
-                cardViewUtils.imageHeater.getState() == 1,
-                null,
-                null
+                title = cardViewInfo.editTextTitle.text.toString(),
+                address = cardViewInfo.editTextAddress.editableText.toString(),
+                district = districts[cardViewInfo.spinnerDistrict.selectedIndex],
+                latitude = lat,
+                longitude = lon,
+                description = editTextDetailsContent.editableText.toString(),
+                ownerName = cardViewInfo.editTextName.editableText.toString(),
+                phone = cardViewInfo.editTextPhone.editableText.toString(),
+                price = cardViewInfo.editTextPrice.toString().toInt(),
+                electric = cardViewInfo.editTextElectric.toString().toInt(),
+                water = cardViewInfo.editTextWater.editableText.toString().toInt(),
+                area = cardViewInfo.editTextArea.editableText.toString().toInt(),
+                wifi = cardViewUtils.imageWifi.getState() == 1,
+                time = cardViewUtils.imageTime.getState() == 1,
+                key = cardViewUtils.imageKey.getState() == 1,
+                parking = cardViewUtils.imageCar.getState() == 1,
+                air = cardViewUtils.imageAir.getState() == 1,
+                heater = cardViewUtils.imageHeater.getState() == 1,
+                id = 0,
+                images = null,
+                user = null,
+                districtId = cardViewInfo.spinnerDistrict.selectedIndex + 1,
+                rating = 0F,
+                createAt = ""
             )
         }
     }

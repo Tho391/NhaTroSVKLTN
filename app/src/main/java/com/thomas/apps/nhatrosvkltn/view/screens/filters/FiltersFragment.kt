@@ -123,21 +123,22 @@ class FiltersFragment(context: Context, themeResId: Int) : Dialog(context, theme
 
             buttonApply.setOnClickListener {
                 with(cardViewUtils) {
-                    filterModel = FilterModel(
-                        editTextAddress.text.toString(),
-                        spinnerDistrict.selectedIndex,
-                        rating.rating,
-                        pickerPrice.getCurrentStartValue() * 1000000,
-                        pickerPrice.getCurrentEndValue() * 1000000,
-                        pickerArea.getCurrentStartValue(),
-                        pickerArea.getCurrentEndValue(),
-                        if (imageWifi.isSelected) 1 else 0,
-                        if (imageTime.isSelected) 1 else 0,
-                        if (imageKey.isSelected) 1 else 0,
-                        if (imageCar.isSelected) 1 else 0,
-                        if (imageAir.isSelected) 1 else 0,
-                        if (imageHeater.isSelected) 1 else 0
-                    )
+                    filterModel =
+                        FilterModel(
+                            editTextAddress.text.toString(),
+                            spinnerDistrict.selectedIndex,
+                            rating.rating,
+                            pickerPrice.getCurrentStartValue() * 1000000,
+                            pickerPrice.getCurrentEndValue() * 1000000,
+                            pickerArea.getCurrentStartValue(),
+                            pickerArea.getCurrentEndValue(),
+                            if (imageWifi.isSelected) 1 else 0,
+                            if (imageTime.isSelected) 1 else 0,
+                            if (imageKey.isSelected) 1 else 0,
+                            if (imageCar.isSelected) 1 else 0,
+                            if (imageAir.isSelected) 1 else 0,
+                            if (imageHeater.isSelected) 1 else 0
+                        )
                 }
 
                 onDismissListener.onApplyButtonClick(filterModel)

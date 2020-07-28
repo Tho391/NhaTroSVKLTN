@@ -1,6 +1,5 @@
 package com.thomas.apps.nhatrosvkltn.view.screens.apartmentdetails
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -9,7 +8,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +21,7 @@ import com.thomas.apps.nhatrosvkltn.utils.getUser
 import com.thomas.apps.nhatrosvkltn.utils.launchActivity
 import com.thomas.apps.nhatrosvkltn.view.adapter.CommentAdapter
 import com.thomas.apps.nhatrosvkltn.view.screens.listimage.ListImagesActivity
+import com.thomas.quickbloxchat.screen.main.MainActivity
 import kotlinx.android.synthetic.main.activity_apartment_details.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -221,20 +220,34 @@ class ApartmentDetailsActivity : AppCompatActivity() {
         //return super.onOptionsItemSelected(item)
         when (item.itemId) {
             R.id.action_call -> {
-                TOAST("call to " + viewModel.apartment.value?.phone)
-                val intent =
-                    Intent(Intent.ACTION_CALL, Uri.parse("tel:" + viewModel.apartment.value?.phone))
-                if (ActivityCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.CALL_PHONE
-                    ) == PackageManager.PERMISSION_GRANTED
-                ) {
-                    startActivity(intent)
-                } else {
-                    ActivityCompat.requestPermissions(
-                        this, arrayOf(Manifest.permission.CALL_PHONE),
-                        PERMISSIONS_REQUEST_CALL
-                    )
+//                TOAST("call to " + viewModel.apartment.value?.phone)
+//                val intent =
+//                    Intent(Intent.ACTION_CALL, Uri.parse("tel:" + viewModel.apartment.value?.phone))
+//                if (ActivityCompat.checkSelfPermission(
+//                        this,
+//                        Manifest.permission.CALL_PHONE
+//                    ) == PackageManager.PERMISSION_GRANTED
+//                ) {
+//                    startActivity(intent)
+//                } else {
+//                    ActivityCompat.requestPermissions(
+//                        this, arrayOf(Manifest.permission.CALL_PHONE),
+//                        PERMISSIONS_REQUEST_CALL
+//                    )
+//                }
+
+                val userId: Int? = getUser(this)?.id
+                when {
+                    userId != null -> {
+                        val user = userId % 2 + 1
+                        launchActivity<MainActivity> {
+                            putExtra("userId", user)
+                        }
+                    }
+                    userId == null -> {
+                        TOAST("Đăng nhập để thực hiện chức năng này!")
+                    }
+
                 }
             }
             R.id.action_direction -> {
@@ -262,7 +275,7 @@ class ApartmentDetailsActivity : AppCompatActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        //super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         when (requestCode) {
             PERMISSIONS_REQUEST_CALL -> {

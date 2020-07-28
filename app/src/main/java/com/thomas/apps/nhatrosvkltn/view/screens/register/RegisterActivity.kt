@@ -95,7 +95,6 @@ class RegisterActivity : AppCompatActivity() {
                                 TOAST("Lỗi, thử lại sau")
                             }
                         }
-                        val tempFile = createTempFile(System.currentTimeMillis().toString(), "")
 
 
                     }

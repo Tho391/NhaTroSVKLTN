@@ -28,7 +28,8 @@ class SearchFragment : Fragment(), FiltersFragment.OnDismissListener,
     private lateinit var mainViewModel: MainViewModel
     private var viewModel: SearchViewModel? = null
     private lateinit var binding: FragmentSearchBinding
-    private var filterModel = FilterModel()
+    private var filterModel =
+        FilterModel()
     private val recyclerAdapter by lazy { ApartmentAdapter() }
 
     override fun onAttach(context: Context) {
@@ -121,7 +122,8 @@ class SearchFragment : Fragment(), FiltersFragment.OnDismissListener,
         super.onResetFilterButtonClick()
         binding.imageButtonFilter.isEnabled = true
 
-        filterModel = FilterModel()
+        filterModel =
+            FilterModel()
         viewModel!!.search(binding.searchView.query.toString())
     }
 

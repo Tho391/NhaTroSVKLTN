@@ -8,12 +8,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.quickblox.auth.session.QBSettings
 import com.quickblox.chat.QBChatService
 import com.thomas.quickbloxchat.R
 import com.thomas.quickbloxchat.adapter.ChatDialogAdapter
-import com.thomas.quickbloxchat.databinding.ActivityMainBinding
-import com.thomas.quickbloxchat.screen.call.CallFragment
+import com.thomas.quickbloxchat.databinding.ActivityChatDialogsBinding
 import com.thomas.quickbloxchat.screen.chat.ChatActivity
 import com.thomas.quickbloxchat.screen.contact.ContactActivity
 import com.thomas.quickbloxchat.utils.TestData
@@ -22,17 +22,17 @@ import org.jivesoftware.smack.XMPPException
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityChatDialogsBinding
     private lateinit var viewModel: MainViewModel
-    private lateinit var binding: ActivityMainBinding
 
-    private val user = TestData.user2
+    private var user = TestData.user1
     private val pass = TestData.pass
     private val receiverIds = if (user == TestData.user1) TestData.userId2 else TestData.userId1
     private var adapter = ChatDialogAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityChatDialogsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         viewModel =
@@ -52,6 +52,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
+
+        val userId = intent.getIntExtra("userId", 1)
+        when (userId) {
+            1 -> {
+                user = TestData.user1
+            }
+            2 -> {
+                user = TestData.user2
+            }
+        }
+
         with(binding) {
             setSupportActionBar(toolbar)
             if (supportActionBar != null) {
@@ -135,12 +146,12 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.action_contact -> {
-                //todo launch activity contact
-                //launchContactActivity()
-                val fragmentManager = supportFragmentManager
-                val fragmentTransaction = fragmentManager.beginTransaction()
-                fragmentTransaction.add(R.id.fragment_container, CallFragment(qbrtcSession))
-                fragmentTransaction.commit()
+//                //todo launch activity contact
+//                //launchContactActivity()
+//                val fragmentManager = supportFragmentManager
+//                val fragmentTransaction = fragmentManager.beginTransaction()
+//                fragmentTransaction.add(R.id.fragment_container, CallFragment(qbrtcSession))
+//                fragmentTransaction.commit()
                 true
             }
             else -> super.onOptionsItemSelected(item)

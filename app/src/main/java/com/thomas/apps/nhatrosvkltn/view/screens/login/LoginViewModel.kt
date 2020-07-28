@@ -70,18 +70,18 @@ class LoginViewModel(val application: Application) : ViewModel() {
 
     fun loginWithGoogle(account: GoogleSignInAccount) {
         val user = User(
-            null,
-            account.givenName,
-            null,
-            null,
-            1,
-            1,
-            null,
-            account.photoUrl.toString(),
-            account.email,
-            null,
-            account.familyName,
-            null
+            id = 0,
+            firstName = account.displayName ?: "",
+            dateOfBirth = "",
+            address = "",
+            districtId = 0,
+            cityId = 0,
+            phoneNumber = "",
+            avatar = account.photoUrl.toString(),
+            email = account.email ?: "",
+            pass = "",
+            lastName = "",
+            token = account.idToken ?: ""
         )
         _isLogging.value = true
         disposables.add(
@@ -91,7 +91,7 @@ class LoginViewModel(val application: Application) : ViewModel() {
                 .subscribe({ loginResponse ->
                     _isLogging.postValue(false)
                     if (loginResponse.data == "Error") {
-                        _toastMessage.postValue("Sai tên đăng nhập hoặc mật khẩu. Vui lòng kiểm tra lại")
+                        _toastMessage.postValue("Lỗi kết nối. Vui lòng kiểm tra lại")
                     } else {
                         val userResponse: User = loginResponse.toUser()
                         saveUser(userResponse)

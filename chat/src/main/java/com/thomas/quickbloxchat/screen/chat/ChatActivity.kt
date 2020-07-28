@@ -5,9 +5,11 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.quickblox.chat.QBChatService
 import com.quickblox.chat.model.QBChatMessage
 import com.quickblox.ui.kit.chatmessage.adapter.QBMessagesAdapter
@@ -20,6 +22,9 @@ import com.quickblox.videochat.webrtc.callbacks.QBRTCSessionEventsCallback
 import com.thomas.quickbloxchat.R
 import com.thomas.quickbloxchat.databinding.ActivityChatBinding
 import com.thomas.quickbloxchat.screen.call.CallFragment
+import com.thomas.quickbloxchat.utils.Utils
+import org.apache.commons.io.FileUtils
+import java.io.File
 
 class ChatActivity : AppCompatActivity(),
     QBRTCSessionEventsCallback, QBRTCClientSessionCallbacks {
@@ -78,7 +83,7 @@ class ChatActivity : AppCompatActivity(),
                     Toast.makeText(this@ChatActivity, "$it", Toast.LENGTH_SHORT)
                         .show()
                     val fileName = Utils.queryName(contentResolver, uri)
-                    fileName.let {
+                    fileName?.let {
                         val tempFile =
                             File.createTempFile(it.split(".")[0], "." + it.split(".")[1])
                         val inputStream = contentResolver.openInputStream(uri)

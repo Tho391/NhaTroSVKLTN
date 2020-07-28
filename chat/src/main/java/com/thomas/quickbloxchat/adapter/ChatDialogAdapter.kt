@@ -1,5 +1,6 @@
 package com.thomas.quickbloxchat.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.thomas.quickbloxchat.databinding.ItemChatDialogBinding
 import com.thomas.quickbloxchat.model.ChatDialog
+import com.thomas.quickbloxchat.screen.chat.ChatActivity
 
 class ChatDialogAdapter :
     ListAdapter<ChatDialog, ChatDialogAdapter.ChatDialogViewHolder>(DiffCallback) {

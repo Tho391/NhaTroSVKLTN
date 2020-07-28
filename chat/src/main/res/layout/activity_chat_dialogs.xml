@@ -6,14 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".screen.main.MainActivity">
 
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorBackgroundFloating"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/chat" />
+        android:theme="@style/ActionBar"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:title="@string/tin_nhan"
+        app:titleTextColor="@color/primaryTextColor" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeContainer"
@@ -28,9 +29,9 @@
             android:layout_height="match_parent" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <!--    <FrameLayout-->
+    <!--        android:id="@+id/fragment_container"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

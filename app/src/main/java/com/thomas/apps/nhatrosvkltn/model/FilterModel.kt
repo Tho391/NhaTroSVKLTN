@@ -10,12 +10,12 @@ data class FilterModel(
     @SerializedName("maxprice") var priceEnd: Int = 10000000,
     @SerializedName("minarea") var areaStart: Int = 0,
     @SerializedName("maxarea") var areaEnd: Int = 100,
-    @SerializedName("wifi") var wifi: Int = 1,
-    @SerializedName("gio") var time: Int = 1,
-    @SerializedName("chungchu") var key: Int = 1,
-    @SerializedName("giuxe") var car: Int = 1,
-    @SerializedName("maylanh") var air: Int = 1,
-    @SerializedName("nuocnong") var heater: Int = 1
+    @SerializedName("wifi") var wifi: Int? = null,
+    @SerializedName("gio") var time: Int? = null,
+    @SerializedName("chungchu") var key: Int? = null,
+    @SerializedName("giuxe") var car: Int? = null,
+    @SerializedName("maylanh") var air: Int? = null,
+    @SerializedName("nuocnong") var heater: Int? = null
 ) {
     private fun resetFilter() {
 

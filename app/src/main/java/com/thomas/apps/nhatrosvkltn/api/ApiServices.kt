@@ -15,6 +15,7 @@ import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.LOGIN_GOOGLE
 import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.RATING
 import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.REGISTER
 import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.SEARCH
+import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.UP_APARTMENT
 import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.USER_APARTMENTS
 import com.thomas.apps.nhatrosvkltn.model.FilterModel
 import com.thomas.apps.nhatrosvkltn.model.User
@@ -63,32 +64,34 @@ interface ApiServices {
     ): Observable<ApartmentResponse>
 
     @Multipart
-    @POST(APARTMENTS)
+    @POST(UP_APARTMENT)
     fun postApartment(
         @Header("authorization") token: String,
-        @Part("fileName") fileName: RequestBody,
-        @Part image: MultipartBody.Part,
-        @Part("Tenchutro") owner: String,
-        @Part("Sdt") phone: String,
-        @Part("Diachi") address: String,
-        @Part("idQuan") district: Int,
-        @Part("idThanhpho") city: Int = 1,
-        @Part("LocalX") latitude: Double,
-        @Part("LocalY") longitude: Double,
-        @Part("Date") date: String,
-        @Part("Title") title: String,
-        @Part("Dientich") area: Int,
-        @Part("Phong") room: Int,
-        @Part("Nhavesinh") toilet: Int,
-        @Part("Mota") description: String,
-        @Part("Gia") price: Int,
-        @Part("Nuocnong") heater: Int,
-        @Part("Dien") electric: Int,
-        @Part("Nuoc") water: Int,
-        @Part("Loainha") type: String,
-        @Part("wifi") wifi: Int,
-        @Part("gio") time: Int,
-        @Part("chungchu") key: Int
+        @Path("userId") userId: Int,
+        @Part image: List<MultipartBody.Part>,
+        @Part("Tenchutro") owner: RequestBody?,
+        @Part("Sdt") phone: RequestBody?,
+        @Part("Diachi") address: RequestBody?,
+        @Part("idQuan") districtId: RequestBody?,
+        @Part("idThanhpho") cityId: RequestBody?,
+        @Part("LocalX") latitude: RequestBody?,
+        @Part("LocalY") longitude: RequestBody?,
+        @Part("Date") date: RequestBody?,
+        @Part("Title") title: RequestBody?,
+        @Part("Dientich") area: RequestBody?,
+        @Part("Phong") room: RequestBody?,
+        @Part("Nhavesinh") toilet: RequestBody?,
+        @Part("Mota") description: RequestBody?,
+        @Part("Gia") price: RequestBody?,
+        @Part("Nuocnong") heater: RequestBody?,
+        @Part("Dien") electric: RequestBody?,
+        @Part("Nuoc") water: RequestBody?,
+        @Part("Loainha") type: RequestBody?,
+        @Part("wifi") wifi: RequestBody?,
+        @Part("gio") time: RequestBody?,
+        @Part("chungchu") key: RequestBody?,
+        @Part("Maylanh") air: RequestBody?,
+        @Part("Giuxe") parking: RequestBody?
     ): Observable<ApartmentResponse>
 
     //todo add apartment id as query
@@ -159,7 +162,7 @@ interface ApiServices {
     fun editApartment(
         @Header("authorization") token: String,
         @Body apartmentResponse: ApartmentResponse
-    ): Observable<LoginResponse>
+    ): Observable<ApartmentResponse>
 
     companion object {
         private val logging = HttpLoggingInterceptor().apply {

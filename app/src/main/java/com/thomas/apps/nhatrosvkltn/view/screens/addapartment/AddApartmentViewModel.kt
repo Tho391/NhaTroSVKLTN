@@ -9,12 +9,10 @@ import com.thomas.apps.nhatrosvkltn.model.Apartment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 class AddApartmentViewModel : ViewModel() {
@@ -31,25 +29,27 @@ class AddApartmentViewModel : ViewModel() {
     val isPosting: LiveData<Boolean>
         get() = _isPosting
 
-    fun postApartment(token: String, file: File, apartment: Apartment) {
+    fun postApartment(token: String, userId: Int, files: List<File>, apartment: Apartment) {
         _isPosting.postValue(true)
 
-        val requestFile: RequestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
-        val body: MultipartBody.Part =
-            MultipartBody.Part.createFormData("image", file.name, requestFile)
+        val requestFiles = ArrayList<MultipartBody.Part>()
 
-        val mediaType = "application/json; charset=utf-8".toMediaType()
-        val fileName: RequestBody = file.name.toRequestBody(mediaType)
-
-
-
+        files.forEach { file ->
+            val requestFile: RequestBody =
+                file.asRequestBody("application/octet-stream".toMediaTypeOrNull())
+            requestFiles.add(
+                MultipartBody.Part.createFormData(
+                    "files",
+                    file.name,
+                    requestFile
+                )
+            )
+        }
         disposables.add(
-            repository.postApartment(token, fileName, body, apartment.toApartmentResponse())
+            repository.postApartment(token, userId, requestFiles, apartment.toApartmentResponse())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-//                    _apartment.postValue(it.data)
-
                     _isPosting.postValue(false)
                 }, {
                     Log.e("lỗi", it?.message.toString())

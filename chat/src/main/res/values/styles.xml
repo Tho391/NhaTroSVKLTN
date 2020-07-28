@@ -15,6 +15,9 @@
         <item name="colorOnSurface">@android:color/holo_red_light</item>
 
         <item name="floatingActionButtonStyle">@style/customFloatingActionButton</item>
+
+        <item name="android:actionBarTheme">@style/ActionBar</item>
+
     </style>
 
     <style name="customFloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
@@ -31,5 +34,9 @@
     <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">4dp</item>
+    </style>
+
+    <style name="ActionBar" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="android:background">@color/secondaryColor</item>
     </style>
 </resources>
