@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
+import coil.size.Scale
 import com.thomas.apps.nhatrosvkltn.R
 import com.thomas.apps.nhatrosvkltn.databinding.ItemApartmentBinding
 import com.thomas.apps.nhatrosvkltn.model.Apartment
@@ -34,6 +35,7 @@ class ApartmentAdapter : ListAdapter<Apartment, ApartmentAdapter.ViewHolder>(Apa
                 imageViewApartment.load(item.images?.first()?.url) {
                     placeholder(R.drawable.image_load)
                     crossfade(true)
+                    scale(Scale.FIT)
                     size(100, 100)
                     error(R.drawable.image_broken)
                 }

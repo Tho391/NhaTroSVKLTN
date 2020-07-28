@@ -3,9 +3,9 @@ package com.thomas.apps.nhatrosvkltn.model
 import com.google.gson.annotations.SerializedName
 
 data class FilterModel(
-    @SerializedName("adrress") var address: String? = "",
-    @SerializedName("quan") var district: Int = 0,
-    @SerializedName("rating") var rating: Float = 5F,
+    @SerializedName("address") var address: String = "",
+    @SerializedName("idQuan") var districtId: Int = 0,
+    @SerializedName("rating") var rating: Float = 0F,
     @SerializedName("minprice") var priceStart: Int = 0,
     @SerializedName("maxprice") var priceEnd: Int = 10000000,
     @SerializedName("minarea") var areaStart: Int = 0,
@@ -22,7 +22,7 @@ data class FilterModel(
     }
 
     fun isEmpty() =
-        district != 0 &&
+        districtId != 0 &&
                 rating != 0F &&
                 priceStart != 0 &&
                 priceEnd != 0 &&

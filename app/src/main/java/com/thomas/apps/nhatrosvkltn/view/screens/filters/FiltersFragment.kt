@@ -120,19 +120,19 @@ class FiltersFragment(context: Context, themeResId: Int) : Dialog(context, theme
                 with(cardViewUtils) {
                     filterModel =
                         FilterModel(
-                            editTextAddress.text.toString(),
-                            spinnerDistrict.selectedIndex,
-                            rating.rating,
-                            pickerPrice.getCurrentStartValue() * 1000000,
-                            pickerPrice.getCurrentEndValue() * 1000000,
-                            pickerArea.getCurrentStartValue(),
-                            pickerArea.getCurrentEndValue(),
-                            if (imageWifi.isSelected) 1 else 0,
-                            if (imageTime.isSelected) 1 else 0,
-                            if (imageKey.isSelected) 1 else 0,
-                            if (imageCar.isSelected) 1 else 0,
-                            if (imageAir.isSelected) 1 else 0,
-                            if (imageHeater.isSelected) 1 else 0
+                            address = editTextAddress.text.toString(),
+                            districtId = spinnerDistrict.selectedIndex,
+                            rating = rating.rating,
+                            priceStart = pickerPrice.getCurrentStartValue() * 1000000,
+                            priceEnd = pickerPrice.getCurrentEndValue() * 1000000,
+                            areaStart = pickerArea.getCurrentStartValue(),
+                            areaEnd = pickerArea.getCurrentEndValue(),
+                            wifi = if (imageWifi.isSelected) 1 else null,
+                            time = if (imageTime.isSelected) 1 else null,
+                            key = if (imageKey.isSelected) 1 else null,
+                            car = if (imageCar.isSelected) 1 else null,
+                            air = if (imageAir.isSelected) 1 else null,
+                            heater = if (imageHeater.isSelected) 1 else null
                         )
                 }
 
@@ -147,7 +147,7 @@ class FiltersFragment(context: Context, themeResId: Int) : Dialog(context, theme
     }
 
     private fun showFilter(query: String?) {
-        filterModel.address = query
+        //filterModel.address = query?:""
         show()
     }
 }

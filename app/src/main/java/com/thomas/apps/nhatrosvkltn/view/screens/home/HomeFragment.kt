@@ -72,7 +72,7 @@ class HomeFragment : Fragment() {
                 viewPager.setCurrentItem(1, true)
                 onFilterListener.onFilter(
                     FilterModel(
-                        district = 10
+                        districtId = 10
                     )
                 )
             }
@@ -80,7 +80,7 @@ class HomeFragment : Fragment() {
                 viewPager.setCurrentItem(1, true)
                 onFilterListener.onFilter(
                     FilterModel(
-                        district = 3
+                        districtId = 3
                     )
                 )
 
@@ -89,7 +89,7 @@ class HomeFragment : Fragment() {
                 viewPager.setCurrentItem(1, true)
                 onFilterListener.onFilter(
                     FilterModel(
-                        district = 13
+                        districtId = 13
                     )
                 )
             }
@@ -97,7 +97,7 @@ class HomeFragment : Fragment() {
                 viewPager.setCurrentItem(1, true)
                 onFilterListener.onFilter(
                     FilterModel(
-                        district = 1
+                        districtId = 1
                     )
                 )
             }
@@ -105,7 +105,7 @@ class HomeFragment : Fragment() {
                 viewPager.setCurrentItem(1, true)
                 onFilterListener.onFilter(
                     FilterModel(
-                        district = 17
+                        districtId = 17
                     )
                 )
             }
@@ -113,7 +113,7 @@ class HomeFragment : Fragment() {
                 viewPager.setCurrentItem(1, true)
                 onFilterListener.onFilter(
                     FilterModel(
-                        district = 7
+                        districtId = 7
                     )
                 )
             }

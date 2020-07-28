@@ -26,16 +26,15 @@ class SearchFragment : Fragment(), FiltersFragment.OnDismissListener,
 
     //private lateinit var viewModel: SharedViewModel
     private lateinit var mainViewModel: MainViewModel
-    private var viewModel: SearchViewModel? = null
+    private lateinit var viewModel: SearchViewModel
     private lateinit var binding: FragmentSearchBinding
-    private var filterModel =
-        FilterModel()
+    private var filterModel = FilterModel()
     private val recyclerAdapter by lazy { ApartmentAdapter() }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (viewModel == null)
-            viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
+
+        viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -67,12 +66,10 @@ class SearchFragment : Fragment(), FiltersFragment.OnDismissListener,
                     hideSoftKeyboard()
                     // search here
 
-                    //recyclerAdapter.filter.filter(editTextSearch.text.toString())
-                    //todo call api search
                     if (query.isNullOrEmpty())
-                        viewModel!!.setApartments(mainViewModel.apartments.value)
+                        viewModel.setApartments(mainViewModel.apartments.value)
                     else
-                        viewModel!!.search(query)
+                        viewModel.search(query)
                     return false
                 }
 
@@ -84,59 +81,44 @@ class SearchFragment : Fragment(), FiltersFragment.OnDismissListener,
 
             imageButtonFilter.setOnClickListener {
                 hideSoftKeyboard()
-                TOAST("Filter")
+                //TOAST("Filter")
                 filtersFragment.show()
-                imageButtonFilter.isEnabled = false
             }
 
             swipeRefreshLayout.setOnRefreshListener {
-                viewModel?.search(binding.searchView.query.toString())
-//                if (filterModel.isEmpty()) {
-//                    viewModel?.search(binding.searchView.query.toString())
-//                } else {
-//                    viewModel?.filter(filterModel)
-//                }
+                viewModel.search(binding.searchView.query.toString())
             }
         }
 
-        viewModel!!.apartments.observe(viewLifecycleOwner, Observer { apartments ->
+        viewModel.apartments.observe(viewLifecycleOwner, Observer { apartments ->
             recyclerAdapter.submitList(apartments)
         })
-        viewModel!!.isLoading.observe(viewLifecycleOwner, Observer {
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
             binding.swipeRefreshLayout.isRefreshing = it
         })
     }
 
     override fun onApplyButtonClick(filter: FilterModel) {
         super.onApplyButtonClick(filter)
-        //todo áp lọc
-        binding.imageButtonFilter.isEnabled = true
 
         filterModel = filter
 
-        viewModel!!.filter(filter)
+        viewModel.filter(filter)
         binding.searchView.setQuery(filter.address, false)
     }
 
     override fun onResetFilterButtonClick() {
         super.onResetFilterButtonClick()
-        binding.imageButtonFilter.isEnabled = true
 
-        filterModel =
-            FilterModel()
-        viewModel!!.search(binding.searchView.query.toString())
-    }
-
-    override fun onCancelButtonClick() {
-        super.onCancelButtonClick()
-        binding.imageButtonFilter.isEnabled = true
+        filterModel = FilterModel()
+        viewModel.search(binding.searchView.query.toString())
     }
 
     override fun onFilter(filterModel: FilterModel) {
         val scope = CoroutineScope(Job() + Dispatchers.Main)
         scope.launch {
             delay(500)
-            viewModel!!.filter(filterModel)
+            viewModel.filter(filterModel)
 
         }
     }
