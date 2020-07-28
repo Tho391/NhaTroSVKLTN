@@ -51,7 +51,7 @@ class FiltersFragment(context: Context, themeResId: Int) : Dialog(context, theme
     private fun init() {
         with(binding) {
             val districts: List<String> =
-                context.resources.getStringArray(R.array.districts).toList().drop(1)
+                context.resources.getStringArray(R.array.districts).toList()
             binding.spinnerDistrict.setItems(districts)
 
 
@@ -110,11 +110,6 @@ class FiltersFragment(context: Context, themeResId: Int) : Dialog(context, theme
 
             }
             )
-
-            pickerPrice.setCurrentStartValue(10)
-            pickerPrice.setCurrentEndValue(30)
-            pickerArea.setCurrentStartValue(10)
-            pickerArea.setCurrentEndValue(30)
 
             buttonCancel.setOnClickListener {
                 onDismissListener.onResetFilterButtonClick()
