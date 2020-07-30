@@ -108,6 +108,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         if (resultCode == Activity.RESULT_OK)
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
             if (requestCode == RC_SIGN_IN) {
