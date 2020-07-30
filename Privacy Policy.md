@@ -10,6 +10,8 @@ The terms used in this Privacy Policy have the same meanings as in our Terms and
 
 **Information Collection and Use**
 
+This app need to grant camera permission to use feature video call.
+
 For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information, including but not limited to Nguyễn Quang Thọ, Email: quangthonguyen391@gmail.com. The information that I request will be retained on your device and is not collected by me in any way.
 
 The app does use third party services that may collect information used to identify you.
