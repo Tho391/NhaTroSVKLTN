@@ -12,7 +12,6 @@ import com.thomas.apps.nhatrosvkltn.R
 import com.thomas.apps.nhatrosvkltn.databinding.ItemApartmentBinding
 import com.thomas.apps.nhatrosvkltn.model.Apartment
 import com.thomas.apps.nhatrosvkltn.utils.Constant
-import com.thomas.apps.nhatrosvkltn.utils.TOAST
 import com.thomas.apps.nhatrosvkltn.utils.launchActivity
 import com.thomas.apps.nhatrosvkltn.view.screens.editapartment.EditApartmentActivity
 
@@ -43,7 +42,7 @@ class EditApartmentAdapter : ListAdapter<Apartment, EditApartmentAdapter.ViewHol
                 }
 
                 constraintLayout.setOnClickListener {
-                    it.context.TOAST("apartment id ${item.id} clicked")
+                    //it.context.TOAST("apartment id ${item.id} clicked")
 
                     it.context.launchActivity<EditApartmentActivity> {
                         putExtra(Constant.INTENT_APARTMENT, item)

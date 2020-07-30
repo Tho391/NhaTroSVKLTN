@@ -25,21 +25,21 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.thomas.apps.nhatrosvkltn.databinding.ActivityMapBinding
+import com.thomas.apps.nhatrosvkltn.model.Apartment
 import com.thomas.apps.nhatrosvkltn.model.FilterModel
 import com.thomas.apps.nhatrosvkltn.utils.Constant.Companion.INTENT_APARTMENT_ID
 import com.thomas.apps.nhatrosvkltn.utils.TOAST
 import com.thomas.apps.nhatrosvkltn.utils.hideSoftKeyboard
 import com.thomas.apps.nhatrosvkltn.utils.launchActivity
-import com.thomas.apps.nhatrosvkltn.view.screens.MainViewModel
 import com.thomas.apps.nhatrosvkltn.view.screens.apartmentdetails.ApartmentDetailsActivity
 import com.thomas.apps.nhatrosvkltn.view.screens.filters.FiltersFragment
 
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback, FiltersFragment.OnDismissListener {
 
-
     private lateinit var viewModel: MapViewModel
-    private lateinit var mainViewModel: MainViewModel
+
+    //private lateinit var mainViewModel: MainViewModel
     private lateinit var binding: ActivityMapBinding
     private lateinit var filtersFragment: FiltersFragment
 
@@ -55,11 +55,9 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, FiltersFragment.OnD
         setContentView(binding.root)
 
         viewModel = ViewModelProvider(this).get(MapViewModel::class.java)
-        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-
+        //mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         init(savedInstanceState)
-
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -113,7 +111,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, FiltersFragment.OnD
 
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    TOAST("Searching...")
+                    TOAST("Đang tìm...")
                     hideSoftKeyboard()
                     // search here
 
@@ -131,55 +129,45 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, FiltersFragment.OnD
             })
 
             imageButtonFilter.setOnClickListener { filtersFragment.show() }
+
+            buttonLocation.setOnClickListener {
+                lastKnownLocation?.let {
+                    mMap?.animateCamera(
+                        CameraUpdateFactory.newLatLngZoom(
+                            LatLng(
+                                it.latitude,
+                                it.longitude
+                            ), DEFAULT_ZOOM
+                        )
+                    )
+                }
+            }
         }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        //mMap!!.setInfoWindowAdapter(CustomInfoWindowAdapter(this))
+        mMap!!.uiSettings.isMapToolbarEnabled = false
 
-        mMap!!.setOnMarkerClickListener { marker ->
-
-            mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.position, 16f))
-
-            //todo show bottom sheet
-            val apartment = viewModel.apartments.value?.find { it.id == marker.id.toInt() }
-
-            if (apartment != null) {
-                BottomSheetFragment(apartment).show(supportFragmentManager, "${apartment.title}")
-            }
-
-            true
-        }
+        mMap!!.setInfoWindowAdapter(CustomInfoWindowAdapter(this))
 
         mMap!!.setOnInfoWindowClickListener {
             launchActivity<ApartmentDetailsActivity> {
-                putExtra(INTENT_APARTMENT_ID, it.tag.toString())
+                putExtra(INTENT_APARTMENT_ID, (it.tag as Apartment).id)
             }
         }
 
 
-        mainViewModel.apartments.observe(this, Observer { apartments ->
+        viewModel.apartments.observe(this, Observer { apartments ->
             mMap?.clear()
             for (apartment in apartments) {
                 val marker = mMap?.addMarker(
                     MarkerOptions()
-                        .position(LatLng(apartment.latitude!!, apartment.longitude!!))
+                        .position(LatLng(apartment.latitude, apartment.longitude))
                         .title(apartment.title)
                 )
-                marker?.tag = apartment.id
-            }
-
-            mMap?.setOnMarkerClickListener { marker ->
-                apartments.forEach { a ->
-                    if (marker.position == LatLng(a.latitude!!, a.longitude!!)) {
-                        val bottomSheetFragment = BottomSheetFragment(a)
-                        bottomSheetFragment.show(supportFragmentManager, "bottomsheet")
-                    }
-
-                }
-                return@setOnMarkerClickListener false
+                marker?.tag = apartment
             }
         })
 
@@ -193,7 +181,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, FiltersFragment.OnD
         // Get the current location of the device and set the position of the map.
         getDeviceLocation()
 
-        mainViewModel.loadApartments()
+        viewModel.search("")
     }
 
     private fun getDeviceLocation() {
@@ -214,7 +202,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, FiltersFragment.OnD
                                     LatLng(
                                         lastKnownLocation!!.latitude,
                                         lastKnownLocation!!.longitude
-                                    ), DEFAULT_ZOOM.toFloat()
+                                    ), DEFAULT_ZOOM
                                 )
                             )
                         }
@@ -223,7 +211,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, FiltersFragment.OnD
                         Log.e(TAG, "Exception: %s", task.exception)
                         mMap?.moveCamera(
                             CameraUpdateFactory
-                                .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat())
+                                .newLatLngZoom(defaultLocation, DEFAULT_ZOOM)
                         )
                         mMap?.uiSettings?.isMyLocationButtonEnabled = false
                     }
@@ -251,6 +239,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, FiltersFragment.OnD
             == PackageManager.PERMISSION_GRANTED
         ) {
             locationPermissionGranted = true
+            mMap?.isMyLocationEnabled = true
+
         } else {
             ActivityCompat.requestPermissions(
                 this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -292,6 +282,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, FiltersFragment.OnD
         permissions: Array<String>,
         grantResults: IntArray
     ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         locationPermissionGranted = false
         when (requestCode) {
             PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
@@ -301,10 +292,11 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, FiltersFragment.OnD
                     grantResults[0] == PackageManager.PERMISSION_GRANTED
                 ) {
                     locationPermissionGranted = true
+                    updateLocationUI()
+
                 }
             }
         }
-        updateLocationUI()
     }
 
     /**
@@ -354,5 +346,5 @@ private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: Int = 11
 private const val KEY_CAMERA_POSITION = "camera_position"
 private const val KEY_LOCATION = "key_location"
 
-private const val DEFAULT_ZOOM = 15
+private const val DEFAULT_ZOOM = 15F
 private const val TAG = "google map"

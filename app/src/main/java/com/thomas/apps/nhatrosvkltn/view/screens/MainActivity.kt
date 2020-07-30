@@ -60,6 +60,8 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnFilterListener {
                 viewPager.setCurrentItem(position, true)
             }
             viewPagerFragmentAdapter = ViewPagerFragmentAdapter(this@MainActivity, fragmentList)
+
+            viewPager.offscreenPageLimit = 3
             viewPager.setPageTransformer(DepthPageTransformer())
             viewPager.adapter = viewPagerFragmentAdapter
             viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {

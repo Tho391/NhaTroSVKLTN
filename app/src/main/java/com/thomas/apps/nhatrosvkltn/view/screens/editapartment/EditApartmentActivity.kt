@@ -1,19 +1,26 @@
 package com.thomas.apps.nhatrosvkltn.view.screens.editapartment
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.thomas.apps.nhatrosvkltn.R
 import com.thomas.apps.nhatrosvkltn.databinding.ActivityEditApartmentBinding
 import com.thomas.apps.nhatrosvkltn.model.Apartment
 import com.thomas.apps.nhatrosvkltn.utils.Constant
+import com.thomas.apps.nhatrosvkltn.utils.TOAST
 import com.thomas.apps.nhatrosvkltn.utils.getUser
+import com.thomas.apps.nhatrosvkltn.utils.launchActivity
 import com.thomas.apps.nhatrosvkltn.view.adapter.ImageAdapter
+import com.thomas.apps.nhatrosvkltn.view.screens.picklocation.PickLocationActivity
 
 class EditApartmentActivity : AppCompatActivity() {
+    val PICK_LOCATION: Int = 1000
 
     private lateinit var viewModel: EditApartmentViewModel
     private lateinit var binding: ActivityEditApartmentBinding
@@ -21,6 +28,7 @@ class EditApartmentActivity : AppCompatActivity() {
     private var adapter = ImageAdapter()
     private var lat = 0.0
     private var lon = 0.0
+    private lateinit var currentApartment: Apartment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,13 +47,24 @@ class EditApartmentActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolBar.toolBar)
 
-
         val districts: List<String> = resources.getStringArray(R.array.districts).toList()
         binding.cardViewInfo.spinnerDistrict.setItems(districts)
 
-        val apartment = intent.getSerializableExtra(Constant.INTENT_APARTMENT) as Apartment
+        binding.cardViewInfo.buttonPickLocation.setOnClickListener {
+            launchActivity<PickLocationActivity>(PICK_LOCATION) {
+            }
+        }
 
-        updateUI(apartment)
+        currentApartment = intent.getSerializableExtra(Constant.INTENT_APARTMENT) as Apartment
+
+        lat = currentApartment.latitude
+        lon = currentApartment.longitude
+
+        updateUI(currentApartment)
+
+        viewModel.postSuccess.observe(this, Observer {
+            if (it) TOAST("Sửa thành công")
+        })
     }
 
     private fun updateUI(apartment: Apartment) {
@@ -93,7 +112,7 @@ class EditApartmentActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.action_pick_location -> {
                 val user = getUser(this)
-                if (user != null && !user.hasToken()) {
+                if (user != null && user.hasToken()) {
                     val apartment = getData()
 
                     viewModel.editApartment(user.getToken(), apartment)
@@ -105,6 +124,20 @@ class EditApartmentActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                PICK_LOCATION -> {
+                    if (data != null) {
+                        lat = data.getDoubleExtra("lat", 0.0)
+                        lon = data.getDoubleExtra("lon", 0.0)
+                    }
+                }
+            }
+        }
+    }
+
     private fun getData(): Apartment {
         return with(binding) {
             Apartment(
@@ -113,25 +146,25 @@ class EditApartmentActivity : AppCompatActivity() {
                 district = districts[cardViewInfo.spinnerDistrict.selectedIndex],
                 latitude = lat,
                 longitude = lon,
-                description = editTextDetailsContent.editableText.toString(),
-                ownerName = cardViewInfo.editTextName.editableText.toString(),
-                phone = cardViewInfo.editTextPhone.editableText.toString(),
-                price = cardViewInfo.editTextPrice.toString().toInt(),
-                electric = cardViewInfo.editTextElectric.toString().toInt(),
-                water = cardViewInfo.editTextWater.editableText.toString().toInt(),
-                area = cardViewInfo.editTextArea.editableText.toString().toInt(),
+                description = editTextDetailsContent.text.toString(),
+                ownerName = cardViewInfo.editTextName.text.toString(),
+                phone = cardViewInfo.editTextPhone.text.toString(),
+                price = cardViewInfo.editTextPrice.text.toString().toInt(),
+                electric = cardViewInfo.editTextElectric.text.toString().toInt(),
+                water = cardViewInfo.editTextWater.text.toString().toInt(),
+                area = cardViewInfo.editTextArea.text.toString().toInt(),
                 wifi = cardViewUtils.imageWifi.getState() == 1,
                 time = cardViewUtils.imageTime.getState() == 1,
                 key = cardViewUtils.imageKey.getState() == 1,
                 parking = cardViewUtils.imageCar.getState() == 1,
                 air = cardViewUtils.imageAir.getState() == 1,
                 heater = cardViewUtils.imageHeater.getState() == 1,
-                id = 0,
+                id = currentApartment.id,
                 images = null,
                 user = null,
                 districtId = cardViewInfo.spinnerDistrict.selectedIndex + 1,
-                rating = 0F,
-                createAt = ""
+                rating = currentApartment.rating,
+                createAt = currentApartment.createAt
             )
         }
     }

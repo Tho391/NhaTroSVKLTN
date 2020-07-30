@@ -3,6 +3,7 @@ package com.thomas.apps.nhatrosvkltn.view.screens.user
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.thomas.apps.nhatrosvkltn.R
@@ -11,6 +12,7 @@ import com.thomas.apps.nhatrosvkltn.model.User
 import com.thomas.apps.nhatrosvkltn.model.servermodel.Register
 import com.thomas.apps.nhatrosvkltn.utils.TOAST
 import com.thomas.apps.nhatrosvkltn.utils.getUser
+import com.thomas.apps.nhatrosvkltn.utils.saveUser
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -45,8 +47,9 @@ class UserActivity : AppCompatActivity() {
         }
         binding.buttonConfirm.setOnClickListener {
             val register = getData()
-            if (currentUser != null)
-                viewModel.editUser(currentUser!!.id!!, register)
+            currentUser?.let {
+                viewModel.editUser(it.getToken(), it.id, register)
+            }
         }
 
         with(binding) {
@@ -55,16 +58,34 @@ class UserActivity : AppCompatActivity() {
                 editTextName.setText(user.firstName, TextView.BufferType.EDITABLE)
 //                textViewDate.text = user.dateOfBirth
 
-                textViewDate.text = SimpleDateFormat(
-                    "yyyy-MM-dd",
-                    Locale.getDefault()
-                ).format(user.dateOfBirth)
+                textViewDate.text = user.dateOfBirth
                 editTextAddress.setText(user.address, TextView.BufferType.EDITABLE)
 
                 user.districtId.let { spinnerDistrict.selectedIndex = it - 1 }
                 editTextPhone.setText(user.phoneNumber, TextView.BufferType.EDITABLE)
             }
         }
+
+        viewModel.editSuccess.observe(this, Observer {
+            TOAST("Sửa thông tin thành công")
+
+            currentUser?.let { user ->
+                user.firstName = binding.editTextName.editableText.toString()
+                user.lastName = binding.editTextLastName.editableText.toString()
+                user.dateOfBirth = binding.textViewDate.text.toString()
+                user.address = binding.editTextAddress.editableText.toString()
+                user.districtId = binding.spinnerDistrict.selectedIndex + 1
+                user.phoneNumber = binding.editTextPhone.editableText.toString()
+
+                saveUser(this, user)
+                finish()
+            }
+
+
+        })
+        viewModel.isLoading.observe(this, Observer {
+
+        })
     }
 
     private fun getData(): Register {

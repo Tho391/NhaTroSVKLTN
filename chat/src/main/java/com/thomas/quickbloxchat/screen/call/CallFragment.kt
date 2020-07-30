@@ -20,7 +20,8 @@ import org.webrtc.RendererCommon
 import org.webrtc.SurfaceViewRenderer
 import java.util.*
 
-class CallFragment(val qbrtcSession: QBRTCSession? = null) : Fragment(), QBRTCSessionEventsCallback,
+class CallFragment(private val qbrtcSession: QBRTCSession? = null) : Fragment(),
+    QBRTCSessionEventsCallback,
     QBRTCClientVideoTracksCallbacks<QBRTCSession>,
     QBRTCClientAudioTracksCallback<QBRTCSession>, QBRTCClientSessionCallbacks,
     QBRTCSessionConnectionCallbacks {
@@ -81,13 +82,31 @@ class CallFragment(val qbrtcSession: QBRTCSession? = null) : Fragment(), QBRTCSe
 
             binding.buttonDecline.setOnClickListener {
                 //todo cancel call
+                currentSession?.rejectCall(userInfo)
+
+                requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
             }
 
             binding.buttonAccept.setOnClickListener {
                 //todo start call
+                currentSession?.acceptCall(userInfo)
+
+                //setUpSession(qbrtcSession)
+
+                hideStartingCall()
+                showVideo()
+            }
+
+            with(binding.callContainer) {
+                buttonEndCall.setOnClickListener {
+                    endCall()
+                }
             }
 
             configVideoCall()
+
+            showStartingCall()
+            hideVideo()
 
             if (isCall)
                 startCall()
@@ -95,6 +114,16 @@ class CallFragment(val qbrtcSession: QBRTCSession? = null) : Fragment(), QBRTCSe
                 receiveCall(qbrtcSession)
             }
         }
+
+    }
+
+    private fun endCall() {
+        val userInfo = HashMap<String, String>()
+        userInfo["key"] = "value"
+
+        currentSession?.hangUp(userInfo)
+
+        requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
 
     }
 
@@ -126,17 +155,18 @@ class CallFragment(val qbrtcSession: QBRTCSession? = null) : Fragment(), QBRTCSe
         }
 
         rtcClient.addSessionCallbacksListener(this)
+
         rtcClient.prepareToProcessCalls()
 
+    }
+
+    private fun startCall() {
         val qbConferenceType = QBRTCTypes.QBConferenceType.QB_CONFERENCE_TYPE_VIDEO
 
         currentSession = QBRTCClient.getInstance(requireContext())
             .createNewSessionWithOpponents(occupantIds, qbConferenceType)
 
         setUpSession(currentSession)
-    }
-
-    private fun startCall() {
         // Start call
         val userInfo = mapOf<String, String>()
         currentSession?.startCall(userInfo)
@@ -144,9 +174,14 @@ class CallFragment(val qbrtcSession: QBRTCSession? = null) : Fragment(), QBRTCSe
 
     private fun setUpSession(qbrtcSession: QBRTCSession?) {
         qbrtcSession?.let { session ->
+            session.removeVideoTrackCallbacksListener(this)
+            session.removeAudioTrackCallbacksListener(this)
+
             session.addVideoTrackCallbacksListener(this)
             session.addAudioTrackCallbacksListener(this)
+
             session.addSessionCallbacksListener(this)
+
         }
     }
 
@@ -183,6 +218,7 @@ class CallFragment(val qbrtcSession: QBRTCSession? = null) : Fragment(), QBRTCSe
         session: QBRTCSession?,
         qbrtcVideoTrack: QBRTCVideoTrack?
     ) {
+
         qbrtcVideoTrack?.let { fillVideoView(binding.localVideoView, it) }
         Log.i(TAG, "onLocalVideoTrackReceive" + session?.sessionID)
     }
@@ -217,12 +253,21 @@ class CallFragment(val qbrtcSession: QBRTCSession? = null) : Fragment(), QBRTCSe
     override fun onReceiveNewSession(qbrtcSession: QBRTCSession?) {
         Log.i(TAG, "onReceiveNewSession" + qbrtcSession?.sessionID)
 
-        //todo show incoming call
-        val userInfo = HashMap<String, String>()
-        userInfo["key"] = "value"
+//        Toast.makeText(
+//            requireContext(),
+//            "new session ${qbrtcSession?.sessionID}",
+//            Toast.LENGTH_SHORT
+//        ).show()
 
-        qbrtcSession?.acceptCall(userInfo)
-        setUpSession(qbrtcSession)
+//        val userInfo = HashMap<String, String>()
+//        userInfo["key"] = "value"
+//
+        qbrtcSession?.let {
+            userInfo = qbrtcSession.userInfo
+            currentSession = qbrtcSession
+        }
+        //qbrtcSession?.acceptCall(userInfo)
+        //setUpSession(qbrtcSession)
     }
 
     override fun onUserNoActions(qbrtcSession: QBRTCSession?, integer: Int?) {
@@ -235,6 +280,12 @@ class CallFragment(val qbrtcSession: QBRTCSession? = null) : Fragment(), QBRTCSe
 
     override fun onUserNotAnswer(qbrtcSession: QBRTCSession?, integer: Int?) {
         Log.i(TAG, "onUserNotAnswer" + qbrtcSession?.sessionID)
+
+//        Toast.makeText(
+//            requireContext(),
+//            "onUserNotAnswer ${qbrtcSession?.sessionID}",
+//            Toast.LENGTH_SHORT
+//        ).show()
     }
 
     override fun onCallRejectByUser(
@@ -243,6 +294,12 @@ class CallFragment(val qbrtcSession: QBRTCSession? = null) : Fragment(), QBRTCSe
         userInfo: Map<String, String>?
     ) {
         Log.i(TAG, "onCallRejectByUser" + qbrtcSession?.sessionID)
+
+//        Toast.makeText(
+//            requireContext(),
+//            "onCallRejectByUser ${qbrtcSession?.sessionID}",
+//            Toast.LENGTH_SHORT
+//        ).show()
     }
 
     override fun onCallAcceptByUser(
@@ -252,8 +309,19 @@ class CallFragment(val qbrtcSession: QBRTCSession? = null) : Fragment(), QBRTCSe
     ) {
         Log.i(TAG, "onCallAcceptByUser" + qbrtcSession?.sessionID)
 
+//        Toast.makeText(
+//            activity,
+//            "onCallAcceptByUser ${qbrtcSession?.sessionID}",
+//            Toast.LENGTH_SHORT
+//        ).show()
+
         userInfo?.let { this.userInfo = it }
-        setUpSession(qbrtcSession)
+
+        currentSession = qbrtcSession
+        //setUpSession(currentSession)
+
+        hideStartingCall()
+        showVideo()
     }
 
     override fun onReceiveHangUpFromUser(
@@ -265,11 +333,21 @@ class CallFragment(val qbrtcSession: QBRTCSession? = null) : Fragment(), QBRTCSe
 
         userInfo?.let { this.userInfo = userInfo }
         qbrtcSession?.hangUp(this.userInfo)
+
+
     }
 
     override fun onSessionClosed(qbrtcSession: QBRTCSession?) {
         Log.i(TAG, "onSessionClosed" + qbrtcSession?.sessionID)
         releaseResource()
+
+        //requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+//
+//        Toast.makeText(
+//            activity,
+//            "onSessionClosed ${qbrtcSession?.sessionID}",
+//            Toast.LENGTH_SHORT
+//        ).show()
     }
     //endregion
 
@@ -295,6 +373,8 @@ class CallFragment(val qbrtcSession: QBRTCSession? = null) : Fragment(), QBRTCSe
 
     override fun onConnectedToUser(session: QBRTCSession?, integer: Int?) {
         Log.i(TAG, "onConnectedToUser" + session?.sessionID)
+
+        setUpSession(session)
     }
 
     override fun onDisconnectedFromUser(session: QBRTCSession?, integer: Int?) {
@@ -306,6 +386,63 @@ class CallFragment(val qbrtcSession: QBRTCSession? = null) : Fragment(), QBRTCSe
     }
     //endregion
 
+    private fun showStartingCall() {
+        with(binding) {
+            imageViewAvatar.visibility = View.VISIBLE
+            buttonAccept.visibility = View.VISIBLE
+            buttonDecline.visibility = View.VISIBLE
+            textViewAccept.visibility = View.VISIBLE
+            textViewDecline.visibility = View.VISIBLE
+
+            buttonAccept.elevation = 1F
+            buttonDecline.elevation = 1F
+
+            buttonAccept.isEnabled = true
+            buttonDecline.isEnabled = true
+        }
+    }
+
+    private fun hideStartingCall() {
+        with(binding) {
+            imageViewAvatar.visibility = View.INVISIBLE
+            buttonAccept.visibility = View.INVISIBLE
+            buttonDecline.visibility = View.INVISIBLE
+            textViewAccept.visibility = View.INVISIBLE
+            textViewDecline.visibility = View.INVISIBLE
+
+            buttonAccept.elevation = 0F
+            buttonDecline.elevation = 0F
+
+            buttonAccept.isEnabled = false
+            buttonDecline.isEnabled = false
+        }
+    }
+
+    private fun showVideo() {
+        with(binding) {
+            imageViewArrange.visibility = View.VISIBLE
+            separate.visibility = View.VISIBLE
+            localVideoView.visibility = View.VISIBLE
+            remoteVideoView.visibility = View.VISIBLE
+            callContainer.root.visibility = View.VISIBLE
+
+            root.isEnabled = true
+            root.elevation = 2F
+        }
+    }
+
+    private fun hideVideo() {
+        with(binding) {
+            imageViewArrange.visibility = View.INVISIBLE
+            separate.visibility = View.INVISIBLE
+            localVideoView.visibility = View.INVISIBLE
+            remoteVideoView.visibility = View.INVISIBLE
+            callContainer.root.visibility = View.INVISIBLE
+
+            root.isEnabled = false
+            root.elevation = 0F
+        }
+    }
 
     companion object {
         fun newInstance(

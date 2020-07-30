@@ -37,6 +37,9 @@ class ChatActivity : AppCompatActivity(),
     private var currentSession: QBRTCSession? = null
     private var audioManager: AppRTCAudioManager? = null
     private var userInfo = mapOf<String, String>()
+
+    private var isCall = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChatBinding.inflate(layoutInflater)
@@ -128,6 +131,7 @@ class ChatActivity : AppCompatActivity(),
         return super.onSupportNavigateUp()
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_chat, menu)
         return true
@@ -143,12 +147,18 @@ class ChatActivity : AppCompatActivity(),
                 Toast.makeText(this, "Video call", Toast.LENGTH_SHORT).show()
                 //startCall()
 
+                //removeVideoCallListener()
+
                 launchFragmentCall(isCall = true)
 
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+
+    private fun removeVideoCallListener() {
+        rtcClient.removeSessionsCallbacksListener(this)
+    }
 
     private fun launchFragmentCall(
         isCall: Boolean,
@@ -166,17 +176,24 @@ class ChatActivity : AppCompatActivity(),
                     putBoolean("isCall", isCall)
                 }
                 val fragmentManager = supportFragmentManager
-                val fragmentTransaction = fragmentManager.beginTransaction()
 
-                fragmentTransaction.add(R.id.fragment_container, callFragment)
-                fragmentTransaction.commit()
+                fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, callFragment)
+                    .commit()
             }
         }
     }
 
     override fun onBackPressed() {
-        QBRTCClient.getInstance(this).destroy()
-        super.onBackPressed()
+        val fragmentManager = supportFragmentManager
+        //when fragment call is attach -> remove it and set call state = false
+        if (fragmentManager.fragments.size > 1) {
+            val trans = fragmentManager.beginTransaction()
+            trans.remove(fragmentManager.fragments.last())
+                .commit()
+            isCall = false
+        } else
+            super.onBackPressed()
     }
 
     private fun configVideoCall() {
@@ -204,11 +221,12 @@ class ChatActivity : AppCompatActivity(),
     }
 
     override fun onUserNotAnswer(qbrtcSession: QBRTCSession?, userId: Int?) {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
+
     }
 
     override fun onSessionStartClose(qbrtcSession: QBRTCSession?) {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
     }
 
     override fun onReceiveHangUpFromUser(
@@ -216,7 +234,7 @@ class ChatActivity : AppCompatActivity(),
         userId: Int?,
         userInfo: MutableMap<String, String>?
     ) {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
     }
 
     override fun onCallAcceptByUser(
@@ -224,22 +242,23 @@ class ChatActivity : AppCompatActivity(),
         userId: Int?,
         userInfo: MutableMap<String, String>?
     ) {
-        TODO("Not yet implemented")
+        //TODO("Not yet implemented")
     }
 
     override fun onReceiveNewSession(qbrtcSession: QBRTCSession?) {
-        launchFragmentCall(
-            isCall = true,
-            qbrtcSession = qbrtcSession
-        )
+        if (isCall == false) {
+            isCall = true
+            launchFragmentCall(isCall = true, qbrtcSession = qbrtcSession)
+        }
+
     }
 
     override fun onUserNoActions(qbrtcSession: QBRTCSession?, userId: Int?) {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
     }
 
     override fun onSessionClosed(qbrtcSession: QBRTCSession?) {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
     }
 
     override fun onCallRejectByUser(
@@ -247,7 +266,7 @@ class ChatActivity : AppCompatActivity(),
         userId: Int?,
         userInfo: MutableMap<String, String>?
     ) {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
     }
 }
 

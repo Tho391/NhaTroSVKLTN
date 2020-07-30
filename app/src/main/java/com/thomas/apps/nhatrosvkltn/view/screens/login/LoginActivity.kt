@@ -113,17 +113,14 @@ class LoginActivity : AppCompatActivity() {
             if (requestCode == RC_SIGN_IN) {
                 // The Task returned from this call is always completed, no need to attach
                 // a listener.
-                val task =
-                    GoogleSignIn.getSignedInAccountFromIntent(data)
+                val task = GoogleSignIn.getSignedInAccountFromIntent(data)
                 handleSignInResult(task)
             }
     }
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
-            val account =
-                completedTask.getResult(ApiException::class.java)
-
+            val account = completedTask.getResult(ApiException::class.java)
             if (account != null)
                 viewModel.loginWithGoogle(account)
             else TOAST("Lỗi. Hãy đăng nhập lại")

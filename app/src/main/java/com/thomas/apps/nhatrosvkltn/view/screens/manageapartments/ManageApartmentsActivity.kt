@@ -41,8 +41,8 @@ class ManageApartmentsActivity : AppCompatActivity() {
 
             swipeRefreshLayout.setOnRefreshListener {
                 if (currentUser != null)
-                    if (currentUser!!.hasToken() && currentUser!!.id != null) {
-                        currentUser!!.id?.let {
+                    if (currentUser!!.hasToken()) {
+                        currentUser!!.id.let {
                             viewModel.getUserApartments(
                                 currentUser!!.getToken(),
                                 it
@@ -60,18 +60,23 @@ class ManageApartmentsActivity : AppCompatActivity() {
                 adapter.submitList(it)
             })
 
-            swipeRefreshLayout.post {
-                if (currentUser != null)
-                    if (currentUser!!.hasToken() && currentUser!!.id != null) {
-                        currentUser!!.id?.let {
-                            viewModel.getUserApartments(
-                                currentUser!!.getToken(),
-                                it
-                            )
-                        }
 
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.swipeRefreshLayout.post {
+            if (currentUser != null)
+                if (currentUser!!.hasToken()) {
+                    currentUser!!.id.let {
+                        viewModel.getUserApartments(
+                            currentUser!!.getToken(),
+                            it
+                        )
                     }
-            }
+
+                }
         }
     }
 

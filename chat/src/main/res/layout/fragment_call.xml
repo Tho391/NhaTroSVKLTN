@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dark_gray"
     tools:context=".screen.call.CallFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,6 +15,7 @@
             android:id="@+id/local_video_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/separate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +41,7 @@
             android:layout_height="2dp"
             android:background="@android:color/darker_gray"
             android:elevation="@dimen/gu"
-            android:visibility="gone"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/imageView_arrange"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,6 +51,7 @@
             android:id="@+id/remote_video_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,6 +64,7 @@
             android:layout_marginBottom="@dimen/gu10"
             android:background="@drawable/circle_background"
             android:backgroundTint="@color/accept_call"
+            android:elevation="1dp"
             android:src="@drawable/ic_baseline_call_36"
             android:tint="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -74,6 +78,7 @@
             android:layout_marginBottom="@dimen/gu10"
             android:background="@drawable/circle_background"
             android:backgroundTint="@color/decline_call"
+            android:elevation="1dp"
             android:src="@drawable/ic_baseline_call_end_36"
             android:tint="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -123,6 +128,7 @@
             android:layout_margin="@dimen/gu4"
             android:text="Unknown"
             android:textColor="@android:color/white"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageView_avatar" />
@@ -133,7 +139,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/gu5"
-            android:visibility="gone"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

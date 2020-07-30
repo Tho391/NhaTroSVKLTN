@@ -343,6 +343,7 @@
                                 app:layout_constraintTop_toBottomOf="@id/textView_details" />
 
                             <EditText
+                                android:inputType="textShortMessage"
                                 android:id="@+id/edit_comment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -383,7 +384,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="@dimen/small"
-                                android:text="Đánh giá"
+                                android:text="@string/danh_gia"
                                 android:textColor="@android:color/black"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -446,7 +447,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             ads:adSize="BANNER"
-            ads:adUnitId="@string/ad_mod_test"
+            ads:adUnitId="@string/ad_mod_banner_id"
             ads:layout_constraintTop_toBottomOf="@id/toolBar" />
 
         <androidx.core.widget.ContentLoadingProgressBar

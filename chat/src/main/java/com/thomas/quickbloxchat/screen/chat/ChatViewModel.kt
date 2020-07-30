@@ -18,6 +18,15 @@ import com.quickblox.content.QBContent
 import com.quickblox.content.model.QBFile
 import com.quickblox.core.QBEntityCallback
 import com.quickblox.core.exception.QBResponseException
+import com.quickblox.videochat.webrtc.QBRTCAudioTrack
+import com.quickblox.videochat.webrtc.QBRTCClient
+import com.quickblox.videochat.webrtc.QBRTCSession
+import com.quickblox.videochat.webrtc.callbacks.QBRTCClientAudioTracksCallback
+import com.quickblox.videochat.webrtc.callbacks.QBRTCClientVideoTracksCallbacks
+import com.quickblox.videochat.webrtc.view.QBRTCSurfaceView
+import com.quickblox.videochat.webrtc.view.QBRTCVideoTrack
+import org.webrtc.RendererCommon
+import org.webrtc.SurfaceViewRenderer
 import java.io.File
 import java.util.*
 
@@ -103,7 +112,10 @@ class ChatViewModel : ViewModel() {
                 qbChatMessage: QBChatMessage?,
                 senderID: Int?
             ) {
-                _newQBChatMessage.postValue(qbChatMessage)
+                qbChatMessage?.let {
+                    _newQBChatMessage.postValue(it)
+                }
+
             }
 
             override fun processError(
@@ -215,7 +227,75 @@ class ChatViewModel : ViewModel() {
         })
     }
 
+    private var currentSession: QBRTCSession? = null
+    private lateinit var rtcClient: QBRTCClient
 
+    private fun endCall() {
+        val userInfo = HashMap<String, String>()
+        userInfo["key"] = "value"
+        currentSession?.hangUp(userInfo)
+    }
+
+    private fun receiveCall(qbrtcSession: QBRTCSession?) {
+        qbrtcSession?.let {
+            currentSession = it
+            setUpSession(currentSession)
+        }
+    }
+
+    private fun setUpSession(qbrtcSession: QBRTCSession?) {
+        qbrtcSession?.let { session ->
+            session.addVideoTrackCallbacksListener(object :
+                QBRTCClientVideoTracksCallbacks<QBRTCSession> {
+                override fun onLocalVideoTrackReceive(
+                    p0: QBRTCSession?,
+                    qbrtcVideoTrack: QBRTCVideoTrack?
+                ) {
+//                    qbrtcVideoTrack?.let { fillVideoView(localVideoView, it) }
+                }
+
+                override fun onRemoteVideoTrackReceive(
+                    p0: QBRTCSession?,
+                    p1: QBRTCVideoTrack?,
+                    p2: Int?
+                ) {
+                    //TODO("Not yet implemented")
+                }
+
+            })
+            session.addAudioTrackCallbacksListener(object :
+                QBRTCClientAudioTracksCallback<QBRTCSession> {
+                override fun onRemoteAudioTrackReceive(
+                    p0: QBRTCSession?,
+                    p1: QBRTCAudioTrack?,
+                    p2: Int?
+                ) {
+
+                }
+
+                override fun onLocalAudioTrackReceive(p0: QBRTCSession?, p1: QBRTCAudioTrack?) {
+
+                }
+
+            })
+        }
+    }
+
+    private fun fillVideoView(videoView: QBRTCSurfaceView?, videoTrack: QBRTCVideoTrack) {
+        // To remove renderer if Video Track already has another one
+        videoTrack.cleanUp()
+        if (videoView != null) {
+            videoTrack.addRenderer(videoView)
+            updateVideoView(videoView)
+        }
+    }
+
+    private fun updateVideoView(videoView: SurfaceViewRenderer) {
+        val scalingType = RendererCommon.ScalingType.SCALE_ASPECT_FILL
+        videoView.setScalingType(scalingType)
+        videoView.setMirror(false)
+        videoView.requestLayout()
+    }
 }
 
 private const val TAG = "ChatViewModel"

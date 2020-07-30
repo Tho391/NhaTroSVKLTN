@@ -44,7 +44,6 @@ Chỉ cần xách vali vào ở ngay.</string>
     <string name="dia_chi">Địa chỉ</string>
     <string name="quan">Quận</string>
     <string name="ten_duong">Tên đường</string>
-    <string name="danh_gia">Đánh giá</string>
     <string name="gia_trieu_dong">Giá (triệu đồng)</string>
     <string name="tien_ich">Tiện ích</string>
     <string name="ap_dung">Áp dụng</string>
@@ -60,7 +59,6 @@ Chỉ cần xách vali vào ở ngay.</string>
     <string name="chon_dia_chi">Chọn địa chỉ</string>
     <string name="gia_dien">Giá điện (VNĐ/KWh)</string>
     <string name="gia_nuoc">Giá nước (VNĐ/m<sup>3</sup>)</string>
-    <string name="chi_tiet">Chi tiết</string>
     <string name="quan_trung_tam">Quận trung tâm</string>
     <string name="gia_phong_">Giá phòng:</string>
     <string name="quan_7">Quận 7</string>
@@ -78,5 +76,8 @@ Chỉ cần xách vali vào ở ngay.</string>
     <string name="dang_nhap_lai">Lỗi, vui lòng đăng nhập lại</string>
     <string name="direction">Direction</string>
     <string name="thong_tin_ca_nhan">Thông tin cá nhân</string>
+    <string name="danh_gia">Đánh giá</string>
+    <string name="chi_tiet">Chi tiết</string>
+    <string name="hinh_anh_phong">Hình ảnh phòng</string>
 
 </resources>

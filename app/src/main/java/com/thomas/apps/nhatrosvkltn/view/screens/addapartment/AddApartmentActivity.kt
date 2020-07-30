@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -68,6 +70,20 @@ class AddApartmentActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.addItemDecoration(dividerItemDecoration)
         adapter.submitList(listImage)
+
+        viewModel.postSuccess.observe(this, Observer {
+            if (it) TOAST("Đăng thành công!")
+            onBackPressed()
+        })
+
+        viewModel.isPosting.observe(this, Observer {
+            binding.progressBar.visibility = if (it) View.VISIBLE else View.INVISIBLE
+        })
+    }
+
+    override fun onBackPressed() {
+        if (viewModel.isPosting.value == false)
+            super.onBackPressed()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -78,7 +94,7 @@ class AddApartmentActivity : AppCompatActivity() {
                     //todo get lat lng here
                     if (data != null) {
                         lat = data.getDoubleExtra("lat", 0.0)
-                        lng = data.getDoubleExtra("lng", 0.0)
+                        lng = data.getDoubleExtra("lon", 0.0)
                     }
                 }
                 CODE_PICK_IMAGE -> {
@@ -104,7 +120,7 @@ class AddApartmentActivity : AppCompatActivity() {
                                     }
                                 }
                             } catch (e: Exception) {
-                                Log.e(TAG, e.message)
+                                Log.e(TAG, e.message + "")
                                 TOAST("Lỗi, thử lại sau")
                             }
                         }

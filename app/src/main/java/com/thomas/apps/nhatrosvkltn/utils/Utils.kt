@@ -60,6 +60,14 @@ fun getUser(context: Context): User? {
     return user
 }
 
+fun saveUser(context: Context, user: User) {
+    val sharedPreferences = context.getSharedPreferences(
+        Constant.SHARE_PREFERENCES_KEY,
+        Context.MODE_PRIVATE
+    )
+    sharedPreferences.put(Constant.CURRENT_USER_KEY, Gson().toJson(user))
+}
+
 @Throws(IOException::class)
 fun stream2file(`in`: InputStream?, prefix: String, suffix: String? = null): File? {
     val tempFile: File = File.createTempFile(prefix, suffix)

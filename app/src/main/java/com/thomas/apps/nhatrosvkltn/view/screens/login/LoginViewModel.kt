@@ -1,23 +1,20 @@
 package com.thomas.apps.nhatrosvkltn.view.screens.login
 
 import android.app.Application
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.gson.Gson
 import com.thomas.apps.nhatrosvkltn.api.Repository
 import com.thomas.apps.nhatrosvkltn.model.User
-import com.thomas.apps.nhatrosvkltn.utils.Constant.Companion.CURRENT_USER_KEY
-import com.thomas.apps.nhatrosvkltn.utils.Constant.Companion.SHARE_PREFERENCES_KEY
-import com.thomas.apps.nhatrosvkltn.utils.put
+import com.thomas.apps.nhatrosvkltn.model.servermodel.Register
+import com.thomas.apps.nhatrosvkltn.utils.saveUser
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class LoginViewModel(val application: Application) : ViewModel() {
+class LoginViewModel(private val application: Application) : ViewModel() {
     private val repository = Repository()
     private val disposables = CompositeDisposable()
 
@@ -48,7 +45,7 @@ class LoginViewModel(val application: Application) : ViewModel() {
                         _toastMessage.postValue("Sai tên đăng nhập hoặc mật khẩu. Vui lòng kiểm tra lại")
                     } else {
                         val user: User = loginResponse.toUser()
-                        saveUser(user)
+                        saveUser(application, user)
                         _loginSuccess.postValue(true)
 
                     }
@@ -60,13 +57,6 @@ class LoginViewModel(val application: Application) : ViewModel() {
         )
     }
 
-    private fun saveUser(user: User) {
-        val sharedPreferences = application.getSharedPreferences(
-            SHARE_PREFERENCES_KEY,
-            Context.MODE_PRIVATE
-        )
-        sharedPreferences.put(CURRENT_USER_KEY, Gson().toJson(user))
-    }
 
     fun loginWithGoogle(account: GoogleSignInAccount) {
         val user = User(
@@ -79,13 +69,13 @@ class LoginViewModel(val application: Application) : ViewModel() {
             phoneNumber = "",
             avatar = account.photoUrl.toString(),
             email = account.email ?: "",
-            pass = "",
+            pass = account.idToken.toString(),
             lastName = "",
-            token = account.idToken ?: ""
+            token = ""
         )
         _isLogging.value = true
         disposables.add(
-            repository.loginWithGoogle(user)
+            repository.loginWithGoogle(Register.fromUser(user))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ loginResponse ->
@@ -94,9 +84,8 @@ class LoginViewModel(val application: Application) : ViewModel() {
                         _toastMessage.postValue("Lỗi kết nối. Vui lòng kiểm tra lại")
                     } else {
                         val userResponse: User = loginResponse.toUser()
-                        saveUser(userResponse)
+                        saveUser(application, userResponse)
                         _loginSuccess.postValue(true)
-
                     }
                 }, {
                     Log.e("lỗi", it?.message.toString())

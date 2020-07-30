@@ -29,6 +29,8 @@ class AddApartmentViewModel : ViewModel() {
     val isPosting: LiveData<Boolean>
         get() = _isPosting
 
+    val postSuccess = MutableLiveData<Boolean>()
+
     fun postApartment(token: String, userId: Int, files: List<File>, apartment: Apartment) {
         _isPosting.postValue(true)
 
@@ -50,7 +52,14 @@ class AddApartmentViewModel : ViewModel() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    _isPosting.postValue(false)
+                    if (!it.data.isNullOrEmpty()) {
+                        Log.e("lỗi", it.data)
+                        _isPosting.postValue(false)
+                        postSuccess.postValue(true)
+                    } else {
+                        _isPosting.postValue(false)
+                    }
+
                 }, {
                     Log.e("lỗi", it?.message.toString())
                     _isPosting.postValue(false)

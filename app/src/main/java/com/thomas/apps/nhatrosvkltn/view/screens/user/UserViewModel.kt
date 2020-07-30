@@ -19,10 +19,12 @@ class UserViewModel : ViewModel() {
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
-    fun editUser(userId: Int, register: Register) {
+    var editSuccess = MutableLiveData<Boolean>()
+
+    fun editUser(token: String, userId: Int, register: Register) {
         _isLoading.value = true
         disposables.add(
-            repository.editUser(userId, register)
+            repository.editUser(token, userId, register)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ it ->
@@ -30,6 +32,7 @@ class UserViewModel : ViewModel() {
                     Log.i(TAG, it.data + "")
 
                     _isLoading.postValue(false)
+                    editSuccess.postValue(true)
                 }, {
                     Log.e("lỗi", it?.message.toString())
                     _isLoading.postValue(false)

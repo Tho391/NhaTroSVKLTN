@@ -25,6 +25,8 @@ class EditApartmentViewModel : ViewModel() {
     val isPosting: LiveData<Boolean>
         get() = _isPosting
 
+    val postSuccess = MutableLiveData<Boolean>()
+
     fun editApartment(token: String, apartment: Apartment) {
         _isPosting.postValue(true)
         disposables.add(
@@ -34,6 +36,7 @@ class EditApartmentViewModel : ViewModel() {
                 .subscribe({ apartmentResponse ->
 
                     _isPosting.postValue(false)
+                    postSuccess.postValue(true)
                 }, {
                     Log.e("lỗi", it?.message.toString())
                     _isPosting.postValue(false)

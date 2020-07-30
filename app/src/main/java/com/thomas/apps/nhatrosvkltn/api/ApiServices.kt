@@ -18,7 +18,6 @@ import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.SEARCH
 import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.UP_APARTMENT
 import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.USER_APARTMENTS
 import com.thomas.apps.nhatrosvkltn.model.FilterModel
-import com.thomas.apps.nhatrosvkltn.model.User
 import com.thomas.apps.nhatrosvkltn.model.servermodel.*
 import io.reactivex.Observable
 import okhttp3.MultipartBody
@@ -31,7 +30,9 @@ import retrofit2.http.*
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import java.util.concurrent.TimeUnit
-import javax.net.ssl.*
+import javax.net.ssl.SSLContext
+import javax.net.ssl.TrustManager
+import javax.net.ssl.X509TrustManager
 
 
 interface ApiServices {
@@ -130,6 +131,7 @@ interface ApiServices {
 
     @POST(EDIT_USER)
     fun editUser(
+        @Header("authorization") token: String,
         @Path("id") userId: Int,
         @Body register: Register
     ): Observable<Register>
@@ -143,7 +145,7 @@ interface ApiServices {
     ): Observable<Register>
 
     @POST(LOGIN_GOOGLE)
-    fun loginWithGoogle(@Body user: User): Observable<LoginResponse>
+    fun loginWithGoogle(@Body register: Register): Observable<LoginResponse>
 
     @POST(RATING)
     fun sendRating(
@@ -161,6 +163,7 @@ interface ApiServices {
     @POST(EDIT_APARTMENT)
     fun editApartment(
         @Header("authorization") token: String,
+        @Path("id") apartmentId: Int,
         @Body apartmentResponse: ApartmentResponse
     ): Observable<ApartmentResponse>
 
@@ -216,26 +219,23 @@ interface ApiServices {
 
                 val builder = OkHttpClient.Builder()
                 builder.sslSocketFactory(sslSocketFactory, (trustAllCerts[0] as X509TrustManager))
-                builder.hostnameVerifier(object : HostnameVerifier {
-                    override fun verify(hostname: String?, session: SSLSession?): Boolean {
-                        return true
-                    }
+//                builder.hostnameVerifier(object : HostnameVerifier {
+//                    override fun verify(hostname: String?, session: SSLSession?): Boolean {
+//                        return true
+//                    }
+//
+//                })
 
-                })
 
-
-                val okHttpClient = builder.addInterceptor(logging)
+                return builder.addInterceptor(logging)
                     //todo remove time out
                     .connectTimeout(10 * 60, TimeUnit.SECONDS)
                     .writeTimeout(10 * 60, TimeUnit.SECONDS)
                     .readTimeout(30 * 60, TimeUnit.SECONDS)
 
                     .build()
-
-
-                return okHttpClient
             } catch (e: Exception) {
-                Log.e("lỗi retrofit", e.message)
+                Log.e("lỗi retrofit", e.message + "")
             }
             return null
         }

@@ -15,6 +15,7 @@ import coil.api.load
 import com.google.android.gms.ads.AdRequest
 import com.thomas.apps.nhatrosvkltn.R
 import com.thomas.apps.nhatrosvkltn.databinding.ActivityApartmentDetailsBinding
+import com.thomas.apps.nhatrosvkltn.model.User
 import com.thomas.apps.nhatrosvkltn.model.servermodel.CommentResponse
 import com.thomas.apps.nhatrosvkltn.utils.TOAST
 import com.thomas.apps.nhatrosvkltn.utils.getUser
@@ -35,7 +36,7 @@ class ApartmentDetailsActivity : AppCompatActivity() {
     private val commentAdapter by lazy { CommentAdapter() }
     private var currentTimeRating = System.currentTimeMillis()
     private var currentTimeComment = System.currentTimeMillis()
-
+    private lateinit var currentUser: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -237,17 +238,13 @@ class ApartmentDetailsActivity : AppCompatActivity() {
 //                }
 
                 val userId: Int? = getUser(this)?.id
-                when {
-                    userId != null -> {
-                        val user = userId % 2 + 1
-                        launchActivity<MainActivity> {
-                            putExtra("userId", user)
-                        }
+                if (userId != null) {
+                    val user = userId % 2 + 1
+                    launchActivity<MainActivity> {
+                        putExtra("userId", user)
                     }
-                    userId == null -> {
-                        TOAST("Đăng nhập để thực hiện chức năng này!")
-                    }
-
+                } else {
+                    TOAST("Đăng nhập để thực hiện chức năng này!")
                 }
             }
             R.id.action_direction -> {

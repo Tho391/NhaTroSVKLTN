@@ -1,7 +1,6 @@
 package com.thomas.apps.nhatrosvkltn.api
 
 import com.thomas.apps.nhatrosvkltn.model.FilterModel
-import com.thomas.apps.nhatrosvkltn.model.User
 import com.thomas.apps.nhatrosvkltn.model.servermodel.*
 import io.reactivex.Observable
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -95,7 +94,7 @@ class Repository {
             register.firstName?.toRequestBody(mediaType),
             register.dateOfBirth?.toRequestBody(mediaType),
             register.address?.toRequestBody(mediaType),
-            register.district.toString().toRequestBody(mediaType),
+            register.districtId.toString().toRequestBody(mediaType),
             register.city.toString().toRequestBody(mediaType),
             register.phone?.toRequestBody(mediaType),
             register.email?.toRequestBody(mediaType),
@@ -105,8 +104,8 @@ class Repository {
         )
     }
 
-    fun editUser(userId: Int, register: Register): Observable<Register> =
-        apiServices.editUser(userId, register)
+    fun editUser(token: String, userId: Int, register: Register) =
+        apiServices.editUser(token, userId, register)
 
     fun changePass(
         token: String,
@@ -116,14 +115,14 @@ class Repository {
         newPass: String
     ) = apiServices.changePass(token, userId, ChangePassModel(email, oldPass, newPass))
 
-    fun loginWithGoogle(user: User) = apiServices.loginWithGoogle(user)
+    fun loginWithGoogle(register: Register) = apiServices.loginWithGoogle(register)
     fun getImages(apartmentId: Int) = apiServices.getImages(apartmentId)
     fun sendRating(token: String, apartmentId: Int, commentResponse: CommentResponse) =
         apiServices.sendRating(token, apartmentId, commentResponse)
 
     fun getUserApartment(token: String, userId: Int) = apiServices.getUserApartment(token, userId)
     fun editApartment(token: String, apartmentResponse: ApartmentResponse) =
-        apiServices.editApartment(token, apartmentResponse)
+        apiServices.editApartment(token, apartmentResponse.idNhatro, apartmentResponse)
 
 }
 

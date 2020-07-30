@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
     private var user = TestData.user1
     private val pass = TestData.pass
-    private val receiverIds = if (user == TestData.user1) TestData.userId2 else TestData.userId1
+    private var receiverIds = if (user == TestData.user1) TestData.userId2 else TestData.userId1
     private var adapter = ChatDialogAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
                 user = TestData.user2
             }
         }
+        receiverIds = if (user == TestData.user1) TestData.userId2 else TestData.userId1
 
         with(binding) {
             setSupportActionBar(toolbar)

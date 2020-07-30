@@ -3,17 +3,17 @@ package com.thomas.apps.nhatrosvkltn.model
 import java.io.Serializable
 
 data class User(
-    val id: Int = 0,
+    var id: Int = 0,
     var firstName: String = "",
-    val dateOfBirth: String = "",
-    val address: String = "",
-    val districtId: Int = 1,
-    val cityId: Int = 1,
-    val phoneNumber: String = "",
-    val avatar: String = "",
-    val email: String = "",
-    val pass: String = "",
-    val lastName: String = "",
+    var dateOfBirth: String = "",
+    var address: String = "",
+    var districtId: Int = 1,
+    var cityId: Int = 1,
+    var phoneNumber: String = "",
+    var avatar: String = "",
+    var email: String = "",
+    var pass: String = "",
+    var lastName: String = "",
     private val token: String = ""
 ) : Serializable {
     fun getName(): String = "$lastName $firstName"
