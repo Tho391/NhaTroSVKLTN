@@ -213,7 +213,7 @@ class ChatActivity : AppCompatActivity(),
         QBRTCConfig.setDialingTimeInterval(dialingTimeInterval)
 
         audioManager = AppRTCAudioManager.create(this).apply {
-            defaultAudioDevice = AppRTCAudioManager.AudioDevice.SPEAKER_PHONE
+            this.androidAudioManager.isSpeakerphoneOn = true
         }
 
         rtcClient.addSessionCallbacksListener(this)

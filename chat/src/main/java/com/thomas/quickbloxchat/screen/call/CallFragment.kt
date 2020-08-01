@@ -12,7 +12,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.quickblox.chat.QBChatService
 import com.quickblox.videochat.webrtc.*
-import com.quickblox.videochat.webrtc.callbacks.*
+import com.quickblox.videochat.webrtc.callbacks.QBRTCClientAudioTracksCallback
+import com.quickblox.videochat.webrtc.callbacks.QBRTCClientSessionCallbacks
+import com.quickblox.videochat.webrtc.callbacks.QBRTCClientVideoTracksCallbacks
+import com.quickblox.videochat.webrtc.callbacks.QBRTCSessionConnectionCallbacks
 import com.quickblox.videochat.webrtc.view.QBRTCSurfaceView
 import com.quickblox.videochat.webrtc.view.QBRTCVideoTrack
 import com.thomas.quickbloxchat.databinding.FragmentCallBinding
@@ -21,7 +24,6 @@ import org.webrtc.SurfaceViewRenderer
 import java.util.*
 
 class CallFragment(private val qbrtcSession: QBRTCSession? = null) : Fragment(),
-    QBRTCSessionEventsCallback,
     QBRTCClientVideoTracksCallbacks<QBRTCSession>,
     QBRTCClientAudioTracksCallback<QBRTCSession>, QBRTCClientSessionCallbacks,
     QBRTCSessionConnectionCallbacks {
@@ -118,8 +120,6 @@ class CallFragment(private val qbrtcSession: QBRTCSession? = null) : Fragment(),
     }
 
     private fun endCall() {
-        val userInfo = HashMap<String, String>()
-        userInfo["key"] = "value"
 
         currentSession?.hangUp(userInfo)
 
@@ -151,7 +151,7 @@ class CallFragment(private val qbrtcSession: QBRTCSession? = null) : Fragment(),
         QBRTCConfig.setDialingTimeInterval(dialingTimeInterval)
 
         audioManager = AppRTCAudioManager.create(requireContext()).apply {
-            defaultAudioDevice = AppRTCAudioManager.AudioDevice.SPEAKER_PHONE
+            androidAudioManager.isSpeakerphoneOn = true
         }
 
         rtcClient.addSessionCallbacksListener(this)
@@ -168,20 +168,15 @@ class CallFragment(private val qbrtcSession: QBRTCSession? = null) : Fragment(),
 
         setUpSession(currentSession)
         // Start call
-        val userInfo = mapOf<String, String>()
         currentSession?.startCall(userInfo)
     }
 
     private fun setUpSession(qbrtcSession: QBRTCSession?) {
         qbrtcSession?.let { session ->
-            session.removeVideoTrackCallbacksListener(this)
-            session.removeAudioTrackCallbacksListener(this)
-
             session.addVideoTrackCallbacksListener(this)
             session.addAudioTrackCallbacksListener(this)
 
             session.addSessionCallbacksListener(this)
-
         }
     }
 
@@ -259,12 +254,11 @@ class CallFragment(private val qbrtcSession: QBRTCSession? = null) : Fragment(),
 //            Toast.LENGTH_SHORT
 //        ).show()
 
-//        val userInfo = HashMap<String, String>()
-//        userInfo["key"] = "value"
+
 //
         qbrtcSession?.let {
-            userInfo = qbrtcSession.userInfo
-            currentSession = qbrtcSession
+
+        currentSession = qbrtcSession
         }
         //qbrtcSession?.acceptCall(userInfo)
         //setUpSession(qbrtcSession)
@@ -315,8 +309,6 @@ class CallFragment(private val qbrtcSession: QBRTCSession? = null) : Fragment(),
 //            Toast.LENGTH_SHORT
 //        ).show()
 
-        userInfo?.let { this.userInfo = it }
-
         currentSession = qbrtcSession
         //setUpSession(currentSession)
 
@@ -331,7 +323,6 @@ class CallFragment(private val qbrtcSession: QBRTCSession? = null) : Fragment(),
     ) {
         Log.i(TAG, "onReceiveHangUpFromUser" + qbrtcSession?.sessionID)
 
-        userInfo?.let { this.userInfo = userInfo }
         qbrtcSession?.hangUp(this.userInfo)
 
 
