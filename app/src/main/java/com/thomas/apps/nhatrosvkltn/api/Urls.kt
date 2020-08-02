@@ -28,6 +28,8 @@ class Urls {
 
         const val UP_APARTMENT = "apartments/{userId}/user"
 
+        const val RECOMMEND = "apartments/{id}/recommend"
+
         const val TEST_URL = "https://my.api.mockaroo.com/"
         const val KEY_TEST = "2fbbbb10"
         const val COMMENTS_TEST = "comments"

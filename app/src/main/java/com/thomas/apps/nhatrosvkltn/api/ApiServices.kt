@@ -13,6 +13,7 @@ import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.IMAGES
 import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.LOGIN
 import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.LOGIN_GOOGLE
 import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.RATING
+import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.RECOMMEND
 import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.REGISTER
 import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.SEARCH
 import com.thomas.apps.nhatrosvkltn.api.Urls.Companion.UP_APARTMENT
@@ -166,6 +167,11 @@ interface ApiServices {
         @Path("id") apartmentId: Int,
         @Body apartmentResponse: ApartmentResponse
     ): Observable<ApartmentResponse>
+
+    @GET(RECOMMEND)
+    fun recommend(
+        @Path("id") cityId: Int
+    ): Observable<List<ApartmentResponse>>
 
     companion object {
         private val logging = HttpLoggingInterceptor().apply {

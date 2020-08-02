@@ -35,11 +35,15 @@ class ApartmentDetailsViewModel : ViewModel() {
     val comments: LiveData<List<Comment>>
         get() = _comments
 
+    private var _recommend = MutableLiveData<List<Apartment>>()
+
+    val recommend: LiveData<List<Apartment>>
+        get() = _recommend
+
     private val disposables = CompositeDisposable()
     private val repository = Repository()
 
     fun getApartment(apartmentId: Int) {
-        //TODO("call api get apartment from id")
 //        val apartment = listApartments.find { it.id == apartmentId }
 //        _apartment.value = apartment
         _isApartmentLoading.postValue(true)
@@ -110,6 +114,26 @@ class ApartmentDetailsViewModel : ViewModel() {
                     _isPosting.postValue(false)
                 })
         )
+    }
+
+    fun getRecommend(cityId: Int) {
+        disposables.add(
+            repository.recommend(cityId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ listApartment ->
+                    _recommend.postValue(listApartment.map { it.toApartment() })
+                    _isApartmentLoading.postValue(false)
+                }, {
+                    Log.e(TAG, it?.message.toString())
+                    _isApartmentLoading.postValue(false)
+                })
+        )
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposables.clear()
     }
 }
 

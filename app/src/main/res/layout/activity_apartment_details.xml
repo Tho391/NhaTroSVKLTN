@@ -343,7 +343,6 @@
                                 app:layout_constraintTop_toBottomOf="@id/textView_details" />
 
                             <EditText
-                                android:inputType="textShortMessage"
                                 android:id="@+id/edit_comment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -351,6 +350,7 @@
                                 android:drawableEnd="@drawable/send"
                                 android:hint="@string/binh_luan"
                                 android:imeOptions="actionSend"
+                                android:inputType="textShortMessage"
                                 android:paddingStart="10dp"
                                 android:paddingEnd="10dp"
                                 android:singleLine="true"
@@ -407,6 +407,44 @@
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardView_recommend"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/small"
+                        android:layout_marginTop="@dimen/small"
+                        android:elevation="10dp"
+                        app:cardBackgroundColor="@color/backGroundLightColor"
+                        app:cardCornerRadius="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cardView_rating">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/text_recommend"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Gợi ý"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerView_recommend"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/text_recommend" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                    <com.google.android.material.card.MaterialCardView
                         android:id="@+id/cardView_comments"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -419,7 +457,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/cardView_rating">
+                        app:layout_constraintTop_toBottomOf="@id/cardView_recommend">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerView_comments"

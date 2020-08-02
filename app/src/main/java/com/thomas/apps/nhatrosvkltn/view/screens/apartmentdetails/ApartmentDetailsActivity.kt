@@ -24,6 +24,7 @@ import com.thomas.apps.nhatrosvkltn.model.servermodel.CommentResponse
 import com.thomas.apps.nhatrosvkltn.utils.TOAST
 import com.thomas.apps.nhatrosvkltn.utils.getUser
 import com.thomas.apps.nhatrosvkltn.utils.launchActivity
+import com.thomas.apps.nhatrosvkltn.view.adapter.ApartmentAdapter
 import com.thomas.apps.nhatrosvkltn.view.adapter.CommentAdapter
 import com.thomas.apps.nhatrosvkltn.view.screens.listimage.ListImagesActivity
 import com.thomas.quickbloxchat.screen.main.MainActivity
@@ -38,6 +39,7 @@ class ApartmentDetailsActivity : AppCompatActivity() {
     private lateinit var viewModel: ApartmentDetailsViewModel
     private var apartmentId = -1
     private val commentAdapter by lazy { CommentAdapter() }
+    private val recommendAdapter by lazy { ApartmentAdapter() }
     private var currentTimeRating = System.currentTimeMillis()
     private var currentTimeComment = System.currentTimeMillis()
     private lateinit var currentUser: User
@@ -121,10 +123,12 @@ class ApartmentDetailsActivity : AppCompatActivity() {
             swipeRefreshLayout.setOnRefreshListener {
                 getApartment(apartmentId)
                 getComments(apartmentId)
+                getRecommend(apartmentId)
             }
             swipeRefreshLayout.post {
                 getApartment(apartmentId)
                 getComments(apartmentId)
+                getRecommend(apartmentId)
             }
 
             rating.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
@@ -144,6 +148,15 @@ class ApartmentDetailsActivity : AppCompatActivity() {
                     }
                 }
             }
+
+            recyclerViewRecommend.apply {
+                layoutManager = LinearLayoutManager(this@ApartmentDetailsActivity)
+                adapter = recommendAdapter
+            }
+
+            recyclerViewComments.adapter = commentAdapter
+            recyclerViewComments.layoutManager =
+                LinearLayoutManager(this@ApartmentDetailsActivity)
         }
 
         viewModel.apartment.observe(this, Observer { apartment ->
@@ -179,15 +192,15 @@ class ApartmentDetailsActivity : AppCompatActivity() {
 
                     }
                 }
-
-                recyclerViewComments.adapter = commentAdapter
-                recyclerViewComments.layoutManager =
-                    LinearLayoutManager(this@ApartmentDetailsActivity)
             }
         })
 
         viewModel.comments.observe(this, Observer { listComments ->
             commentAdapter.submitList(listComments)
+        })
+
+        viewModel.recommend.observe(this, Observer {
+            recommendAdapter.submitList(it)
         })
 
         viewModel.isApartmentLoading.observe(this, Observer {
@@ -204,6 +217,10 @@ class ApartmentDetailsActivity : AppCompatActivity() {
             if (it) viewModel.getComments(apartmentId)
         })
 
+    }
+
+    private fun getRecommend(cityId: Int) {
+        viewModel.getRecommend(cityId)
     }
 
     private fun getComments(apartmentId: Int) {
