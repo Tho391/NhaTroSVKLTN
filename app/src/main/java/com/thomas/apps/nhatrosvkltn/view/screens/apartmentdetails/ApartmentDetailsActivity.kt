@@ -1,13 +1,17 @@
 package com.thomas.apps.nhatrosvkltn.view.screens.apartmentdetails
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -98,9 +102,8 @@ class ApartmentDetailsActivity : AppCompatActivity() {
                             commentResponse
                         )
                         editComment.text.clear()
-                    }
-
-
+                    } else
+                        TOAST("Đăng nhập để thực hiện chức năng này")
                 }
                 false
             }
@@ -136,6 +139,8 @@ class ApartmentDetailsActivity : AppCompatActivity() {
                                 apartmentId,
                                 CommentResponse(vote = rating, userId = user.id)
                             )
+                        else
+                            TOAST("Đăng nhập để thực hiện chức năng này")
                     }
                 }
             }
@@ -221,31 +226,24 @@ class ApartmentDetailsActivity : AppCompatActivity() {
         //return super.onOptionsItemSelected(item)
         when (item.itemId) {
             R.id.action_call -> {
-//                TOAST("call to " + viewModel.apartment.value?.phone)
-//                val intent =
-//                    Intent(Intent.ACTION_CALL, Uri.parse("tel:" + viewModel.apartment.value?.phone))
-//                if (ActivityCompat.checkSelfPermission(
-//                        this,
-//                        Manifest.permission.CALL_PHONE
-//                    ) == PackageManager.PERMISSION_GRANTED
-//                ) {
-//                    startActivity(intent)
-//                } else {
-//                    ActivityCompat.requestPermissions(
-//                        this, arrayOf(Manifest.permission.CALL_PHONE),
-//                        PERMISSIONS_REQUEST_CALL
-//                    )
-//                }
+                val choice = listOf("Gọi điện", "Nhắn tin").toTypedArray()
+                AlertDialog.Builder(this)
+                    .setSingleChoiceItems(choice, 0, null)
+                    .setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+                        dialog.dismiss()
 
-                val userId: Int? = getUser(this)?.id
-                if (userId != null) {
-                    val user = userId % 2 + 1
-                    launchActivity<MainActivity> {
-                        putExtra("userId", user)
-                    }
-                } else {
-                    TOAST("Đăng nhập để thực hiện chức năng này!")
-                }
+                        val position = (dialog as AlertDialog).listView.checkedItemPosition
+
+                        when (position) {
+                            0 -> {
+                                call()
+                            }
+                            1 -> {
+                                launchCallActivity()
+                            }
+                        }
+                    }).setTitle("Liên lạc")
+                    .show()
             }
             R.id.action_direction -> {
                 TOAST("direction")
@@ -260,6 +258,36 @@ class ApartmentDetailsActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun call() {
+        TOAST("call to " + viewModel.apartment.value?.phone)
+        val intent =
+            Intent(Intent.ACTION_CALL, Uri.parse("tel:" + viewModel.apartment.value?.phone))
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CALL_PHONE
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            startActivity(intent)
+        } else {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.CALL_PHONE),
+                PERMISSIONS_REQUEST_CALL
+            )
+        }
+    }
+
+    private fun launchCallActivity() {
+        val userId: Int? = getUser(this)?.id
+        if (userId != null) {
+            val user = userId % 2 + 1
+            launchActivity<MainActivity> {
+                putExtra("userId", user)
+            }
+        } else {
+            TOAST("Đăng nhập để thực hiện chức năng này!")
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -280,6 +308,7 @@ class ApartmentDetailsActivity : AppCompatActivity() {
                 if (grantResults.isNotEmpty() &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED
                 ) {
+                    call()
                 }
             }
         }
