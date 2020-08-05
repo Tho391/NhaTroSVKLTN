@@ -33,7 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/gu1.5"
             android:padding="@dimen/gu0.5"
-            android:text="@{chatDialog.name}"
+            android:singleLine="true"
+            android:text="@{String.valueOf(chatDialog.name)}"
             app:layout_constraintEnd_toStartOf="@id/textView_date"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@id/imageView_photo"
@@ -47,10 +48,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/gu1.5"
             android:padding="@dimen/gu0.5"
+            android:singleLine="true"
             android:textAlignment="textEnd"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toEndOf="@id/textView_name"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView

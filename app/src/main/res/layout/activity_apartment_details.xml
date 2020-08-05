@@ -427,7 +427,9 @@
                                 android:id="@+id/text_recommend"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Gợi ý"
+                                style="@style/Headline6"
+                                android:padding="@dimen/small"
+                                android:text="@string/goi_y"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />

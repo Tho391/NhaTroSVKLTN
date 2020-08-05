@@ -27,7 +27,7 @@ import com.thomas.apps.nhatrosvkltn.utils.launchActivity
 import com.thomas.apps.nhatrosvkltn.view.adapter.ApartmentAdapter
 import com.thomas.apps.nhatrosvkltn.view.adapter.CommentAdapter
 import com.thomas.apps.nhatrosvkltn.view.screens.listimage.ListImagesActivity
-import com.thomas.quickbloxchat.screen.main.MainActivity
+import com.thomas.quickbloxchat.screen.main.ChatDialogsActivity
 import kotlinx.android.synthetic.main.activity_apartment_details.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -299,7 +299,7 @@ class ApartmentDetailsActivity : AppCompatActivity() {
         val userId: Int? = getUser(this)?.id
         if (userId != null) {
             val user = userId % 2 + 1
-            launchActivity<MainActivity> {
+            launchActivity<ChatDialogsActivity> {
                 putExtra("userId", user)
             }
         } else {

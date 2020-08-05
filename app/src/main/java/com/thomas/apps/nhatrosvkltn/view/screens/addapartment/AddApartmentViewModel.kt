@@ -29,7 +29,7 @@ class AddApartmentViewModel : ViewModel() {
     val isPosting: LiveData<Boolean>
         get() = _isPosting
 
-    val postSuccess = MutableLiveData<Boolean>()
+    val postSuccess = MutableLiveData<Boolean>().apply { value = false }
 
     fun postApartment(token: String, userId: Int, files: List<File>, apartment: Apartment) {
         _isPosting.postValue(true)

@@ -28,7 +28,7 @@
         <activity android:name="com.thomas.quickbloxchat.screen.call.CallActivity" />
         <activity android:name="com.thomas.quickbloxchat.screen.contact.ContactActivity" />
         <activity android:name="com.thomas.quickbloxchat.screen.chat.ChatActivity" />
-        <activity android:name="com.thomas.quickbloxchat.screen.main.MainActivity" />
+        <activity android:name="com.thomas.quickbloxchat.screen.main.ChatDialogsActivity" />
     </application>
 
 </manifest>

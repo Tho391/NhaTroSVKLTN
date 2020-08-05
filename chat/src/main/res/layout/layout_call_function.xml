@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textView_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/gu"
+        android:text="00:00"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardView_mute"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/gu2.5"
+        android:layout_marginVertical="@dimen/gu2"
+        android:background="@drawable/circle_background"
+        android:backgroundTint="@color/button_light_background"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@id/cardView_cam_off"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_time">
+
+        <ImageView
+            android:id="@+id/button_mute"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_baseline_mic_off_36"
+            android:tint="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardView_cam_off"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/gu2.5"
+
+        android:layout_marginVertical="@dimen/gu2"
+        android:background="@drawable/circle_background"
+        android:backgroundTint="@color/button_light_background"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@id/cardView_end_call"
+        app:layout_constraintStart_toEndOf="@id/cardView_mute"
+        app:layout_constraintTop_toBottomOf="@id/textView_time">
+
+        <ImageView
+            android:id="@+id/button_cam_off"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_baseline_videocam_off_36"
+            android:tint="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardView_end_call"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/gu2.5"
+
+        android:layout_marginVertical="@dimen/gu2"
+        android:background="@drawable/circle_background"
+        android:backgroundTint="@android:color/holo_red_light"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@id/cardView_share_screen"
+        app:layout_constraintStart_toEndOf="@id/cardView_cam_off"
+        app:layout_constraintTop_toBottomOf="@id/textView_time">
+
+        <ImageView
+            android:id="@+id/button_end_call"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_baseline_call_end_36"
+            android:tint="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardView_share_screen"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/gu2.5"
+
+        android:layout_marginVertical="@dimen/gu2"
+        android:background="@drawable/circle_background"
+        android:backgroundTint="@color/button_light_background"
+        android:visibility="gone"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@id/cardView_swap_cam"
+        app:layout_constraintStart_toEndOf="@id/cardView_end_call"
+        app:layout_constraintTop_toBottomOf="@id/textView_time">
+
+        <ImageView
+            android:id="@+id/button_share_screen"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_baseline_mobile_screen_share_36"
+            android:tint="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardView_swap_cam"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/gu2.5"
+        android:layout_marginVertical="@dimen/gu2"
+        android:background="@drawable/circle_background"
+        android:backgroundTint="@color/button_light_background"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cardView_share_screen"
+        app:layout_constraintTop_toBottomOf="@id/textView_time">
+
+        <ImageView
+            android:id="@+id/button_swap_cam"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_baseline_switch_camera_36"
+            android:tint="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView_mute"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/gu"
+        android:text="@string/mute"
+        android:textColor="@android:color/white"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/cardView_mute"
+        app:layout_constraintStart_toStartOf="@id/cardView_mute"
+        app:layout_constraintTop_toBottomOf="@id/cardView_mute" />
+
+    <TextView
+        android:id="@+id/textView_camera_off"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/gu"
+        android:text="@string/off_cam"
+        android:textColor="@android:color/white"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/cardView_cam_off"
+        app:layout_constraintStart_toStartOf="@id/cardView_cam_off"
+        app:layout_constraintTop_toBottomOf="@id/cardView_cam_off" />
+
+    <TextView
+        android:id="@+id/textView_end_call"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_margin="@dimen/gu"
+        android:text="@string/end_call"
+        android:textColor="@android:color/white"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/cardView_end_call"
+        app:layout_constraintStart_toStartOf="@id/cardView_end_call"
+        app:layout_constraintTop_toBottomOf="@id/cardView_end_call" />
+
+    <TextView
+        android:id="@+id/textView_share_screen"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/gu"
+        android:text="@string/share_screen"
+
+        android:textColor="@android:color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/cardView_share_screen"
+        app:layout_constraintStart_toStartOf="@id/cardView_share_screen"
+        app:layout_constraintTop_toBottomOf="@id/cardView_share_screen" />
+
+    <TextView
+        android:id="@+id/textView_swap_camera"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/gu"
+        android:text="@string/swap_cam"
+        android:textColor="@android:color/white"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/cardView_swap_cam"
+        app:layout_constraintStart_toStartOf="@id/cardView_swap_cam"
+        app:layout_constraintTop_toBottomOf="@id/cardView_swap_cam" />
+</androidx.constraintlayout.widget.ConstraintLayout>

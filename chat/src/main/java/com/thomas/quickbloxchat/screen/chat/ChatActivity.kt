@@ -1,6 +1,8 @@
 package com.thomas.quickbloxchat.screen.chat
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -18,7 +20,6 @@ import com.quickblox.videochat.webrtc.QBRTCClient
 import com.quickblox.videochat.webrtc.QBRTCConfig
 import com.quickblox.videochat.webrtc.QBRTCSession
 import com.quickblox.videochat.webrtc.callbacks.QBRTCClientSessionCallbacks
-import com.quickblox.videochat.webrtc.callbacks.QBRTCSessionEventsCallback
 import com.thomas.quickbloxchat.R
 import com.thomas.quickbloxchat.databinding.ActivityChatBinding
 import com.thomas.quickbloxchat.screen.call.CallFragment
@@ -26,8 +27,8 @@ import com.thomas.quickbloxchat.utils.Utils
 import org.apache.commons.io.FileUtils
 import java.io.File
 
-class ChatActivity : AppCompatActivity(),
-    QBRTCSessionEventsCallback, QBRTCClientSessionCallbacks {
+class ChatActivity : AppCompatActivity() {
+    private val CODE_PICK_IMAGE: Int = 1001
     private lateinit var viewModel: ChatViewModel
     private lateinit var binding: ActivityChatBinding
     private lateinit var qbMessagesAdapter: QBMessagesAdapter<QBChatMessage>
@@ -38,7 +39,7 @@ class ChatActivity : AppCompatActivity(),
     private var audioManager: AppRTCAudioManager? = null
     private var userInfo = mapOf<String, String>()
 
-    private var isCall = false
+    private var isCalling = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,6 +83,14 @@ class ChatActivity : AppCompatActivity(),
             }
 
             buttonCamera.setOnClickListener {
+                val intent = Intent().apply {
+                    action = Intent.ACTION_GET_CONTENT
+                    type = "image/*"
+                }
+
+//                startActivityForResult(intent, CODE_PICK_IMAGE)
+
+                //kotlin-ktx
                 registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
                     Toast.makeText(this@ChatActivity, "$it", Toast.LENGTH_SHORT)
                         .show()
@@ -121,6 +130,25 @@ class ChatActivity : AppCompatActivity(),
         }
     }
 
+
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        when (requestCode) {
+//            CODE_PICK_IMAGE -> {
+//                data?.data?.let { uri ->
+//                    val fileName = Utils.queryName(contentResolver, uri)
+//                    fileName?.let {
+//                        val tempFile =
+//                            File.createTempFile(it.split(".")[0], "." + it.split(".")[1])
+//                        val inputStream = contentResolver.openInputStream(uri)
+//                        FileUtils.copyToFile(inputStream, tempFile)
+//                        viewModel.uploadImage(tempFile, tempFile.name)
+//                    }
+//                }
+//            }
+//        }
+//    }
+
     private fun updateRecyclerViewAndClearTextOnTextView() {
         binding.editTextMessage.text.clear()
         binding.recyclerView.smoothScrollToPosition(qbMessagesAdapter.itemCount + 1)
@@ -130,7 +158,6 @@ class ChatActivity : AppCompatActivity(),
         onBackPressed()
         return super.onSupportNavigateUp()
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_chat, menu)
@@ -145,20 +172,16 @@ class ChatActivity : AppCompatActivity(),
             }
             R.id.action_video_call -> {
                 Toast.makeText(this, "Video call", Toast.LENGTH_SHORT).show()
-                //startCall()
-
-                //removeVideoCallListener()
-
-                launchFragmentCall(isCall = true)
-
+                if (supportFragmentManager.fragments.size > 1) {
+                    isCalling = true
+                } else {
+                    isCalling = false
+                    launchFragmentCall(isCall = true)
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
-
-    private fun removeVideoCallListener() {
-        rtcClient.removeSessionsCallbacksListener(this)
-    }
 
     private fun launchFragmentCall(
         isCall: Boolean,
@@ -169,31 +192,37 @@ class ChatActivity : AppCompatActivity(),
                 Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
             }
             occupantIds != null -> {
+                val callFragment = if (isCall) {
+                    CallFragment(null)
+                    //CallFragment.newInstance(occupantIds!!, session)
+                } else
+                    CallFragment(qbrtcSession)
+                //CallFragment.newInstance(occupantIds!!, qbrtcSession)
 
-                val callFragment = CallFragment.newInstance(occupantIds!!, qbrtcSession)
                 callFragment.arguments = Bundle().apply {
                     putIntegerArrayList("occupantIds", occupantIds)
                     putBoolean("isCall", isCall)
                 }
-                val fragmentManager = supportFragmentManager
 
-                fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, callFragment)
-                    .commit()
+                val fragmentManager = supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
+
+                fragmentTransaction.replace(R.id.fragment_container, callFragment)
+                fragmentTransaction.commit()
             }
         }
     }
 
     override fun onBackPressed() {
         val fragmentManager = supportFragmentManager
-        //when fragment call is attach -> remove it and set call state = false
         if (fragmentManager.fragments.size > 1) {
-            val trans = fragmentManager.beginTransaction()
-            trans.remove(fragmentManager.fragments.last())
-                .commit()
-            isCall = false
-        } else
+            isCalling = false
+            fragmentManager.beginTransaction().remove(fragmentManager.fragments.last()).commit()
+        } else {
+            QBRTCClient.getInstance(this).destroy()
+
             super.onBackPressed()
+        }
     }
 
     private fun configVideoCall() {
@@ -213,60 +242,62 @@ class ChatActivity : AppCompatActivity(),
         QBRTCConfig.setDialingTimeInterval(dialingTimeInterval)
 
         audioManager = AppRTCAudioManager.create(this).apply {
-            this.androidAudioManager.isSpeakerphoneOn = true
+            androidAudioManager.isSpeakerphoneOn = true
         }
 
-        rtcClient.addSessionCallbacksListener(this)
+        rtcClient.addSessionCallbacksListener(object : QBRTCClientSessionCallbacks {
+            override fun onUserNotAnswer(qbrtcSession: QBRTCSession?, userId: Int?) {
+
+            }
+
+            override fun onSessionStartClose(qbrtcSession: QBRTCSession?) {
+
+            }
+
+            override fun onReceiveHangUpFromUser(
+                qbrtcSession: QBRTCSession?,
+                userId: Int?,
+                userInfo: MutableMap<String, String>?
+            ) {
+
+            }
+
+            override fun onCallAcceptByUser(
+                qbrtcSession: QBRTCSession?,
+                userId: Int?,
+                userInfo: MutableMap<String, String>?
+            ) {
+
+            }
+
+            override fun onReceiveNewSession(qbrtcSession: QBRTCSession?) {
+                val fragmentManager = supportFragmentManager
+                if (fragmentManager.fragments.size <= 1) {
+                    isCalling = false
+                    Log.i(TAG, "onReceiveNewSession: ${qbrtcSession?.sessionID}")
+                    launchFragmentCall(isCall = false, qbrtcSession = qbrtcSession)
+                } else
+                    isCalling = true
+            }
+
+            override fun onUserNoActions(qbrtcSession: QBRTCSession?, userId: Int?) {
+
+            }
+
+            override fun onSessionClosed(qbrtcSession: QBRTCSession?) {
+
+            }
+
+            override fun onCallRejectByUser(
+                qbrtcSession: QBRTCSession?,
+                userId: Int?,
+                userInfo: MutableMap<String, String>?
+            ) {
+
+            }
+        })
+
         rtcClient.prepareToProcessCalls()
-    }
-
-    override fun onUserNotAnswer(qbrtcSession: QBRTCSession?, userId: Int?) {
-//        TODO("Not yet implemented")
-
-    }
-
-    override fun onSessionStartClose(qbrtcSession: QBRTCSession?) {
-//        TODO("Not yet implemented")
-    }
-
-    override fun onReceiveHangUpFromUser(
-        qbrtcSession: QBRTCSession?,
-        userId: Int?,
-        userInfo: MutableMap<String, String>?
-    ) {
-//        TODO("Not yet implemented")
-    }
-
-    override fun onCallAcceptByUser(
-        qbrtcSession: QBRTCSession?,
-        userId: Int?,
-        userInfo: MutableMap<String, String>?
-    ) {
-        //TODO("Not yet implemented")
-    }
-
-    override fun onReceiveNewSession(qbrtcSession: QBRTCSession?) {
-        if (isCall == false) {
-            isCall = true
-            launchFragmentCall(isCall = true, qbrtcSession = qbrtcSession)
-        }
-
-    }
-
-    override fun onUserNoActions(qbrtcSession: QBRTCSession?, userId: Int?) {
-//        TODO("Not yet implemented")
-    }
-
-    override fun onSessionClosed(qbrtcSession: QBRTCSession?) {
-//        TODO("Not yet implemented")
-    }
-
-    override fun onCallRejectByUser(
-        qbrtcSession: QBRTCSession?,
-        userId: Int?,
-        userInfo: MutableMap<String, String>?
-    ) {
-//        TODO("Not yet implemented")
     }
 }
 

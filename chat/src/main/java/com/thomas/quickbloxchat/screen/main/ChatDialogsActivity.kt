@@ -20,7 +20,7 @@ import com.thomas.quickbloxchat.utils.TestData
 import org.jivesoftware.smack.SmackException
 import org.jivesoftware.smack.XMPPException
 
-class MainActivity : AppCompatActivity() {
+class ChatDialogsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityChatDialogsBinding
     private lateinit var viewModel: MainViewModel
@@ -71,10 +71,20 @@ class MainActivity : AppCompatActivity() {
                 supportActionBar!!.setDisplayShowHomeEnabled(true)
             }
 
-            recyclerView.apply {
-                layoutManager = LinearLayoutManager(this@MainActivity)
-                adapter = this@MainActivity.adapter
+//            recyclerViewDialog.apply {
+//                layoutManager = LinearLayoutManager(this@ChatDialogsActivity)
+//                adapter = this@ChatDialogsActivity.adapter
+//            }
+
+            recycler1.apply {
+                layoutManager = LinearLayoutManager(this@ChatDialogsActivity)
+                adapter = this@ChatDialogsActivity.adapter
             }
+
+//            recyclerView.apply {
+//                layoutManager = LinearLayoutManager(this@ChatDialogsActivity)
+//                adapter = this@ChatDialogsActivity.adapter
+//            }
 
             swipeContainer.setOnRefreshListener {
                 viewModel.getListDialog()
