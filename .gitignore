@@ -137,3 +137,4 @@ fabric.properties
 /app/src/main/res/values/api_key.xml
 /app/credentials.json
 /chat/src/main/res/values/api_key.xml
+/app/release/output-metadata.json
