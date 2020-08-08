@@ -31,7 +31,11 @@ class ApartmentAdapter : ListAdapter<Apartment, ApartmentAdapter.ViewHolder>(Apa
             // TODO: Bind the data with View
             with(binding) {
                 textViewTitle.text = item.title
-                textViewAddress.text = item.address
+
+                val districts: List<String> =
+                    binding.root.context.resources.getStringArray(R.array.districts).toList()
+
+                textViewAddress.text = item.address + ", " + districts[item.districtId]
 
                 textViewRating.text = item.rating.toString()
 

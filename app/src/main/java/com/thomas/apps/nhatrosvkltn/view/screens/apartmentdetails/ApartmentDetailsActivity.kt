@@ -104,8 +104,9 @@ class ApartmentDetailsActivity : AppCompatActivity() {
                             commentResponse
                         )
                         editComment.text.clear()
-                    } else
-                        TOAST("Đăng nhập để thực hiện chức năng này")
+                    }
+                    //else
+                    //  TOAST("Đăng nhập để thực hiện chức năng này")
                 }
                 false
             }

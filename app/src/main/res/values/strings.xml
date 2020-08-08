@@ -78,7 +78,7 @@ Chỉ cần xách vali vào ở ngay.</string>
     <string name="thong_tin_ca_nhan">Thông tin cá nhân</string>
     <string name="danh_gia">Đánh giá</string>
     <string name="chi_tiet">Chi tiết</string>
-    <string name="hinh_anh_phong">Hình ảnh phòng</string>
+    <string name="hinh_anh_phong">Thêm ảnh phòng (Tối đa 5 hình)</string>
     <string name="goi_y">Gợi ý</string>
 
 </resources>

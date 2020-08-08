@@ -146,6 +146,13 @@ class Repository {
             image = file
         )
     }
+
+    fun postApartment2(
+        token: String,
+        userId: Int,
+        apartmentResponse: ApartmentResponse
+    ) = apiServices.postApartment2(token, userId, apartmentResponse)
+
 }
 
 

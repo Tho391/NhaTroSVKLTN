@@ -98,7 +98,7 @@ class AddApartmentActivity : AppCompatActivity() {
                     }
                 }
                 CODE_PICK_IMAGE -> {
-                    if (listImage.size < 5) {
+                    if (listImage.size <= 5) {
                         if (data != null) {
                             //val imageUri = getRealPathFromURI(this, data.data!!)
                             val uri = data.dataString
@@ -151,7 +151,13 @@ class AddApartmentActivity : AppCompatActivity() {
                         //todo request user login
                     } else {
                         val files = listImage.mapNotNull { it.file }
-                        viewModel.postApartment(user.getToken(), user.id, files, apartment)
+                        viewModel.postApartment2(
+                            token = user.getToken(),
+                            userId = user.id,
+                            files = files,
+                            apartment = apartment,
+                            key = resources.getString(R.string.imgbb_key)
+                        )
                     }
                 }
                 true

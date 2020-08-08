@@ -2,6 +2,7 @@ package com.thomas.apps.nhatrosvkltn.model
 
 import com.thomas.apps.nhatrosvkltn.model.servermodel.ApartmentResponse
 import java.io.Serializable
+import java.text.SimpleDateFormat
 import java.util.*
 
 data class Apartment(
@@ -64,7 +65,7 @@ data class Apartment(
         description,
         ownerName,
         phone,
-        Date().toString(),
+        SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()),
         price.toInt(),
         electric,
         water,

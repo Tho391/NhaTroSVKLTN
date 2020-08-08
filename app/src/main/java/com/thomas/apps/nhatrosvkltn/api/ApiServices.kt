@@ -100,11 +100,11 @@ interface ApiServices {
     ): Observable<ApartmentResponse>
 
     @POST(UP_APARTMENT)
-    fun postApartment(
+    fun postApartment2(
         @Header("authorization") token: String,
         @Path("userId") userId: Int,
         @Body apartmentResponse: ApartmentResponse
-    )
+    ): Observable<ApartmentResponse>
 
     //todo add apartment id as query
     @GET(COMMENTS)

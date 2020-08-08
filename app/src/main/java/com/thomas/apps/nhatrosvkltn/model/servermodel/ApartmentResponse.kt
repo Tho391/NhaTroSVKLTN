@@ -124,4 +124,27 @@ data class ApartmentResponse(
             idQuan
         )
     }
+
+    fun addImage(url: String) {
+        if (url1.isNullOrEmpty()) {
+            url1 = url
+            return
+        }
+        if (url2.isNullOrEmpty()) {
+            url2 = url
+            return
+        }
+        if (url3.isNullOrEmpty()) {
+            url3 = url
+            return
+        }
+        if (url4.isNullOrEmpty()) {
+            url4 = url
+            return
+        }
+        if (url5.isNullOrEmpty()) {
+            url5 = url
+            return
+        }
+    }
 }
