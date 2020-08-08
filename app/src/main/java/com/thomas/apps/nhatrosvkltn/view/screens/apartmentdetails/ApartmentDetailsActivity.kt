@@ -2,7 +2,6 @@ package com.thomas.apps.nhatrosvkltn.view.screens.apartmentdetails
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -22,6 +21,7 @@ import com.thomas.apps.nhatrosvkltn.databinding.ActivityApartmentDetailsBinding
 import com.thomas.apps.nhatrosvkltn.model.User
 import com.thomas.apps.nhatrosvkltn.model.servermodel.CommentResponse
 import com.thomas.apps.nhatrosvkltn.utils.TOAST
+import com.thomas.apps.nhatrosvkltn.utils.convertPrice
 import com.thomas.apps.nhatrosvkltn.utils.getUser
 import com.thomas.apps.nhatrosvkltn.utils.launchActivity
 import com.thomas.apps.nhatrosvkltn.view.adapter.ApartmentAdapter
@@ -68,7 +68,7 @@ class ApartmentDetailsActivity : AppCompatActivity() {
         viewModel.onDestroy()
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint("ClickableViewAccessibility", "SetTextI18n")
     private fun init() {
         binding.progressBar.hide()
         setSupportActionBar(binding.toolBar.toolBar)
@@ -79,13 +79,13 @@ class ApartmentDetailsActivity : AppCompatActivity() {
 
 
             editComment.setOnTouchListener { _, event ->
-                val DRAWABLE_LEFT = 0
-                val DRAWABLE_TOP = 1
-                val DRAWABLE_RIGHT = 2
-                val DRAWABLE_BOTTOM = 3
+                //val DRAWABLE_LEFT = 0
+                //val DRAWABLE_TOP = 1
+                val drawableRight = 2
+                //val DRAWABLE_BOTTOM = 3
 
                 if (event!!.rawX >=
-                    (editComment.right - editComment.compoundDrawables[DRAWABLE_RIGHT].bounds.width())
+                    (editComment.right - editComment.compoundDrawables[drawableRight].bounds.width())
                 ) {
                     val user = getUser(this@ApartmentDetailsActivity)
                     if (user != null && user.hasToken()
@@ -169,10 +169,16 @@ class ApartmentDetailsActivity : AppCompatActivity() {
                 textViewPhone.text = apartment.phone
                 textViewRating.text = apartment.rating.toString()
                 //rating.rating = apartment.rating
-                textViewPrice.text = apartment.price.toString()
-                textViewElectric.text = apartment.electric.toString()
-                textViewWater.text = apartment.water.toString()
-                textViewArea.text = apartment.area.toString()
+
+//                textViewPrice.text = apartment.price.toString()
+//                textViewElectric.text = apartment.electric.toString()
+//                textViewWater.text = apartment.water.toString()
+
+                textViewPrice.text = convertPrice(apartment.price.toString()) + " VNĐ"
+                textViewElectric.text = convertPrice(apartment.electric.toString()) + " VNĐ"
+                textViewWater.text = convertPrice(apartment.water.toString()) + " VNĐ"
+
+                textViewArea.text = apartment.area.toString() + " m²"
                 textViewDetailsContent.text = apartment.description
 
                 with(cardViewUtils) {
@@ -246,12 +252,10 @@ class ApartmentDetailsActivity : AppCompatActivity() {
                 val choice = listOf("Gọi điện", "Nhắn tin").toTypedArray()
                 AlertDialog.Builder(this)
                     .setSingleChoiceItems(choice, 0, null)
-                    .setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+                    .setPositiveButton("OK") { dialog, _ ->
                         dialog.dismiss()
 
-                        val position = (dialog as AlertDialog).listView.checkedItemPosition
-
-                        when (position) {
+                        when ((dialog as AlertDialog).listView.checkedItemPosition) {
                             0 -> {
                                 call()
                             }
@@ -259,7 +263,7 @@ class ApartmentDetailsActivity : AppCompatActivity() {
                                 launchCallActivity()
                             }
                         }
-                    }).setTitle("Liên lạc")
+                    }.setTitle("Liên lạc")
                     .show()
             }
             R.id.action_direction -> {

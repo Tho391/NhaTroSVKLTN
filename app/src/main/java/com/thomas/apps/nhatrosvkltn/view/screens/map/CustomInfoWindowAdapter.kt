@@ -9,9 +9,10 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 import com.thomas.apps.nhatrosvkltn.R
 import com.thomas.apps.nhatrosvkltn.model.Apartment
+import com.thomas.apps.nhatrosvkltn.utils.convertPrice
 
 class CustomInfoWindowAdapter(val context: Context) : GoogleMap.InfoWindowAdapter {
-    @SuppressLint("InflateParams")
+    @SuppressLint("InflateParams", "SetTextI18n")
     override fun getInfoContents(p0: Marker?): View {
         val v = LayoutInflater.from(context).inflate(R.layout.item_info_window_marker, null)
 
@@ -23,11 +24,11 @@ class CustomInfoWindowAdapter(val context: Context) : GoogleMap.InfoWindowAdapte
 
         textViewTitle.text = apartment.title
         textViewAddress.text = apartment.address
-        textViewPrice.text = apartment.price.toString()
+        textViewPrice.text = convertPrice(apartment.price.toString()) + " VNĐ"
         return v
     }
 
-    @SuppressLint("InflateParams")
+    @SuppressLint("InflateParams", "SetTextI18n")
     override fun getInfoWindow(p0: Marker?): View {
         val v = LayoutInflater.from(context).inflate(R.layout.item_info_window_marker, null)
 
@@ -39,7 +40,7 @@ class CustomInfoWindowAdapter(val context: Context) : GoogleMap.InfoWindowAdapte
 
         textViewTitle.text = apartment.title
         textViewAddress.text = apartment.address
-        textViewPrice.text = apartment.price.toString()
+        textViewPrice.text = convertPrice(apartment.price.toString()) + " VNĐ"
         return v
     }
 

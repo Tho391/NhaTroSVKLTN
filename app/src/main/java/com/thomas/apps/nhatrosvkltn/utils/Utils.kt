@@ -22,9 +22,9 @@ fun getToken(context: Context): String {
     return sharePreferences.get("token", "")
 }
 
-fun isValidEmail(email: String): Boolean {
-    return true
-}
+//fun isValidEmail(email: String): Boolean {
+//    return true
+//}
 
 fun getRealPathFromURI(context: Context, contentURI: Uri): String? {
     val result: String?
@@ -95,4 +95,8 @@ fun getFileName(context: Context, uri: Uri): String? {
         }
     }
     return result
+}
+
+fun convertPrice(price: String): String {
+    return "%,d".format(price.toInt())
 }

@@ -1,12 +1,11 @@
 package com.thomas.apps.nhatrosvkltn
 
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
-
+import androidx.test.platform.app.InstrumentationRegistry
+import com.thomas.apps.nhatrosvkltn.utils.convertPrice
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -20,5 +19,10 @@ class ExampleInstrumentedTest {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("com.thomas.apps.nhatrosvkltn", appContext.packageName)
+    }
+
+    @Test
+    fun convertPrice_isCorrect() {
+        assertEquals("3,000,000", convertPrice("3000000"))
     }
 }

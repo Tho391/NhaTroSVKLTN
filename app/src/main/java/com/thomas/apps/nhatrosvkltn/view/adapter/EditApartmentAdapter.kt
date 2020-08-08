@@ -1,5 +1,6 @@
 package com.thomas.apps.nhatrosvkltn.view.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -12,6 +13,7 @@ import com.thomas.apps.nhatrosvkltn.R
 import com.thomas.apps.nhatrosvkltn.databinding.ItemApartmentBinding
 import com.thomas.apps.nhatrosvkltn.model.Apartment
 import com.thomas.apps.nhatrosvkltn.utils.Constant
+import com.thomas.apps.nhatrosvkltn.utils.convertPrice
 import com.thomas.apps.nhatrosvkltn.utils.launchActivity
 import com.thomas.apps.nhatrosvkltn.view.screens.editapartment.EditApartmentActivity
 
@@ -26,6 +28,7 @@ class EditApartmentAdapter : ListAdapter<Apartment, EditApartmentAdapter.ViewHol
     class ViewHolder private constructor(private val binding: ItemApartmentBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        @SuppressLint("SetTextI18n")
         fun bind(item: Apartment) {
             // TODO: Bind the data with View
             with(binding) {
@@ -33,7 +36,9 @@ class EditApartmentAdapter : ListAdapter<Apartment, EditApartmentAdapter.ViewHol
                 textViewAddress.text = item.address
 
                 textViewRating.text = item.rating.toString()
-                textViewPrice.text = item.price.toString()
+
+                textViewPrice.text = convertPrice(item.price.toString()) + " VNĐ"
+
                 imageViewApartment.load(item.images?.first()?.url) {
                     placeholder(R.drawable.image_load)
                     crossfade(true)
