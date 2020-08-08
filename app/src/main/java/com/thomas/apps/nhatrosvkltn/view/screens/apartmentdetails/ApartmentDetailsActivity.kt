@@ -91,19 +91,21 @@ class ApartmentDetailsActivity : AppCompatActivity() {
                     if (user != null && user.hasToken()
                         && editComment.text.toString().isNotEmpty()
                     ) {
-                        val commentResponse = CommentResponse(
-                            idNhatro = this@ApartmentDetailsActivity.apartmentId,
-                            userId = user.id,
-                            content = editComment.text.toString(),
-                            date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(
-                                Date()
+                        user.id?.let {
+                            val commentResponse = CommentResponse(
+                                idNhatro = this@ApartmentDetailsActivity.apartmentId,
+                                userId = it,
+                                content = editComment.text.toString(),
+                                date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(
+                                    Date()
+                                )
                             )
-                        )
-                        viewModel.sendComment(
-                            user.getToken(),
-                            commentResponse
-                        )
-                        editComment.text.clear()
+                            viewModel.sendComment(
+                                user.getToken(),
+                                commentResponse
+                            )
+                            editComment.text.clear()
+                        }
                     }
                     //else
                     //  TOAST("Đăng nhập để thực hiện chức năng này")
@@ -139,11 +141,13 @@ class ApartmentDetailsActivity : AppCompatActivity() {
                     if (fromUser) {
                         val user = getUser(this@ApartmentDetailsActivity)
                         if (user != null && user.hasToken() && apartmentId != -1)
-                            viewModel.rating(
-                                user.getToken(),
-                                apartmentId,
-                                CommentResponse(vote = rating, userId = user.id)
-                            )
+                            user.id?.let {
+                                viewModel.rating(
+                                    user.getToken(),
+                                    apartmentId,
+                                    CommentResponse(vote = rating, userId = it)
+                                )
+                            }
                         else
                             TOAST("Đăng nhập để thực hiện chức năng này")
                     }

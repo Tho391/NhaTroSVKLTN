@@ -86,6 +86,7 @@ class AddApartmentActivity : AppCompatActivity() {
             super.onBackPressed()
     }
 
+    @Suppress("DEPRECATION")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
@@ -151,13 +152,16 @@ class AddApartmentActivity : AppCompatActivity() {
                         //todo request user login
                     } else {
                         val files = listImage.mapNotNull { it.file }
-                        viewModel.postApartment2(
-                            token = user.getToken(),
-                            userId = user.id,
-                            files = files,
-                            apartment = apartment,
-                            key = resources.getString(R.string.imgbb_key)
-                        )
+                        user.id?.let {
+                            viewModel.postApartment2(
+                                token = user.getToken(),
+                                userId = it,
+                                files = files,
+                                apartment = apartment,
+                                key = resources.getString(R.string.imgbb_key)
+                            )
+                        }
+
                     }
                 }
                 true

@@ -47,8 +47,11 @@ class UserActivity : AppCompatActivity() {
         }
         binding.buttonConfirm.setOnClickListener {
             val register = getData()
-            currentUser?.let {
-                viewModel.editUser(it.getToken(), it.id, register)
+            currentUser?.let { user ->
+                user.id?.let {
+                    viewModel.editUser(user.getToken(), it, register)
+
+                }
             }
         }
 
@@ -61,7 +64,7 @@ class UserActivity : AppCompatActivity() {
                 textViewDate.text = user.dateOfBirth
                 editTextAddress.setText(user.address, TextView.BufferType.EDITABLE)
 
-                user.districtId.let { spinnerDistrict.selectedIndex = it - 1 }
+                user.districtId?.let { spinnerDistrict.selectedIndex = it - 1 }
                 editTextPhone.setText(user.phoneNumber, TextView.BufferType.EDITABLE)
             }
         }

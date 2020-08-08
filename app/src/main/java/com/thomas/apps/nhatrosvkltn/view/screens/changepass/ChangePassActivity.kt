@@ -46,7 +46,7 @@ class ChangePassActivity : AppCompatActivity() {
                         viewModel.changePass(
                             currentUser.getToken(),
                             currentUser.id!!,
-                            currentUser.email,
+                            currentUser.email!!,
                             oldPass,
                             newPass
                         )

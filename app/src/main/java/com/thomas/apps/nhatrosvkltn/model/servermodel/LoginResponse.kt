@@ -67,17 +67,17 @@ data class LoginResponse(
         fun from(user: User): LoginResponse {
             return LoginResponse(
                 token = user.getShortToken(),
-                id = user.id,
-                username = user.email,
-                password = user.pass,
-                lastName = user.lastName,
-                firstName = user.firstName,
-                dateOfBirth = user.dateOfBirth,
-                address = user.address,
-                districtId = user.districtId,
-                cityId = user.cityId,
-                phoneNumber = user.phoneNumber,
-                photo = user.avatar,
+                id = user.id ?: 0,
+                username = user.email ?: "",
+                password = user.pass ?: "",
+                lastName = user.lastName ?: "",
+                firstName = user.firstName ?: "",
+                dateOfBirth = user.dateOfBirth ?: "",
+                address = user.address ?: "",
+                districtId = user.districtId ?: 1,
+                cityId = user.cityId ?: 1,
+                phoneNumber = user.phoneNumber ?: "",
+                photo = user.avatar ?: "",
                 data = null
             )
         }
