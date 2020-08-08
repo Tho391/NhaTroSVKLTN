@@ -85,7 +85,16 @@ data class ApartmentResponse(
     @Expose
     val key: Int = 0,
 
-    @SerializedName("data") val data: String? = null
+
+    @SerializedName("data") val data: String? = null,
+
+    @SerializedName("url1") var url1: String? = null,
+    @SerializedName("url2") var url2: String? = null,
+    @SerializedName("url3") var url3: String? = null,
+    @SerializedName("url4") var url4: String? = null,
+    @SerializedName("url5") var url5: String? = null
+
+
 ) {
     fun toApartment(): Apartment {
         return Apartment(
@@ -93,7 +102,7 @@ data class ApartmentResponse(
             title,
             diachi,
             "",
-            vote.toFloat(),
+            vote,
             localX,
             localY,
             mota,

@@ -1,6 +1,7 @@
 package com.thomas.apps.nhatrosvkltn.api
 
 import com.thomas.apps.nhatrosvkltn.model.FilterModel
+import com.thomas.apps.nhatrosvkltn.model.imgbb.ImgbbResponse
 import com.thomas.apps.nhatrosvkltn.model.servermodel.*
 import io.reactivex.Observable
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -13,6 +14,9 @@ class Repository {
     companion object {
         val apiServices by lazy {
             ApiServices.create()
+        }
+        val uploadImageService by lazy {
+            UploadImageService.create()
         }
     }
 
@@ -85,6 +89,9 @@ class Repository {
         return apiServices.login(LoginResponse(username = email, password = pass))
     }
 
+    /**
+     * register with server store image
+     */
     fun register(
         register: Register,
         file: MultipartBody.Part?
@@ -103,6 +110,11 @@ class Repository {
             file
         )
     }
+
+    /**
+     * register with server store url
+     */
+    fun register2(register: Register) = apiServices.register2(register)
 
     fun editUser(token: String, userId: Int, register: Register) =
         apiServices.editUser(token, userId, register)
@@ -127,6 +139,13 @@ class Repository {
     //todo hiện tại mới làm hcm id = 1
     fun recommend(cityId: Int) = apiServices.recommend(1)
 
+    fun uploadImage(key: String, file: MultipartBody.Part): Observable<ImgbbResponse> {
+        val mediaType = "text/plain".toMediaTypeOrNull()
+        return uploadImageService.uploadImage(
+            key = key.toRequestBody(mediaType),
+            image = file
+        )
+    }
 }
 
 

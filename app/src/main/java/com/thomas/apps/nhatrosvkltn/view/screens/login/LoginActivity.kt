@@ -15,7 +15,6 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.thomas.apps.nhatrosvkltn.databinding.ActivityLoginBinding
 import com.thomas.apps.nhatrosvkltn.utils.TOAST
-import com.thomas.apps.nhatrosvkltn.utils.isValidEmail
 import com.thomas.apps.nhatrosvkltn.utils.launchActivity
 import com.thomas.apps.nhatrosvkltn.view.screens.forgetpass.ForgetPassActivity
 import com.thomas.apps.nhatrosvkltn.view.screens.register.RegisterActivity
@@ -96,9 +95,10 @@ class LoginActivity : AppCompatActivity() {
     private fun login() {
         val email = binding.editTextEmail.text.toString()
         val pass = binding.editTextPass.text.toString()
-        if (isValidEmail(email)) {
-            viewModel.login(email, pass)
-        }
+
+        //todo validate email
+        viewModel.login(email, pass)
+
     }
 
     private fun loginWithGoogle() {

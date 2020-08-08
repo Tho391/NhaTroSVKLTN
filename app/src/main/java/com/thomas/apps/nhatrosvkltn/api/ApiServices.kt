@@ -65,6 +65,9 @@ interface ApiServices {
         @Body apartment: ApartmentResponse
     ): Observable<ApartmentResponse>
 
+    /**
+     * Post apartment when server store image
+     */
     @Multipart
     @POST(UP_APARTMENT)
     fun postApartment(
@@ -95,6 +98,13 @@ interface ApiServices {
         @Part("Maylanh") air: RequestBody?,
         @Part("Giuxe") parking: RequestBody?
     ): Observable<ApartmentResponse>
+
+    @POST(UP_APARTMENT)
+    fun postApartment(
+        @Header("authorization") token: String,
+        @Path("userId") userId: Int,
+        @Body apartmentResponse: ApartmentResponse
+    )
 
     //todo add apartment id as query
     @GET(COMMENTS)
@@ -129,6 +139,8 @@ interface ApiServices {
         @Part image: MultipartBody.Part?
     ): Observable<Register>
 
+    @POST(REGISTER)
+    fun register2(@Body register: Register): Observable<Register>
 
     @POST(EDIT_USER)
     fun editUser(
@@ -172,6 +184,7 @@ interface ApiServices {
     fun recommend(
         @Path("id") cityId: Int
     ): Observable<List<ApartmentResponse>>
+
 
     companion object {
         private val logging = HttpLoggingInterceptor().apply {

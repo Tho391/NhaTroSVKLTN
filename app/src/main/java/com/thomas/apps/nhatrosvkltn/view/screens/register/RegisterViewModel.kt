@@ -34,20 +34,23 @@ class RegisterViewModel : ViewModel() {
     val finish: LiveData<Boolean>
         get() = _finish
 
+    /**
+     * register with server store image
+     */
     fun register(register: Register, file: File?) {
         _isPosting.value = true
         _message.postValue("Đang đăng kí...")
-        var upfile: MultipartBody.Part? = null
+        var upFile: MultipartBody.Part? = null
         if (file != null) {
 
             val requestFile: RequestBody =
                 file.asRequestBody("application/octet-stream".toMediaTypeOrNull())
-            upfile = MultipartBody.Part.createFormData("fileavatar", file.name, requestFile)
+            upFile = MultipartBody.Part.createFormData("fileavatar", file.name, requestFile)
 
         }
 
         disposables.add(
-            repository.register(register, upfile)
+            repository.register(register, upFile)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ it ->
@@ -69,6 +72,58 @@ class RegisterViewModel : ViewModel() {
 
                 })
         )
+    }
+
+    /**
+     * register with image store in imgbb
+     */
+    fun register2(register: Register, file: File?, key: String) {
+        _isPosting.value = true
+        _message.postValue("Đang đăng kí...")
+        var upfile: MultipartBody.Part? = null
+        if (file != null) {
+            val requestFile: RequestBody =
+                file.asRequestBody("application/octet-stream".toMediaTypeOrNull())
+            upfile = MultipartBody.Part.createFormData("image", file.name, requestFile)
+
+            upfile.let { part ->
+                disposables.add(
+                    repository.uploadImage(key, part)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                            {
+                                if (it.success) {
+                                    val url = it.data.url
+                                    register.photoUrl = url
+                                    repository.register2(register)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe({ register ->
+                                            Log.i(TAG, register.data + "")
+
+                                            if (register.data == "Da Dang Ky") {
+                                                _message.postValue("Email đã đăng kí")
+                                            } else {
+                                                _message.postValue("Đăng kí thành công.")
+                                                _finish.postValue(true)
+                                            }
+                                            _isPosting.postValue(false)
+                                        },
+                                            {
+                                                _isPosting.postValue(false)
+                                                _message.postValue("Đăng kí thất bại. Vui lòng thử lại.")
+                                            })
+                                }
+                            }, {
+                                _isPosting.postValue(false)
+                                _message.postValue("Đăng kí thất bại. Vui lòng thử lại.")
+                            }
+                        )
+                )
+            }
+        }
+
     }
 
     override fun onCleared() {

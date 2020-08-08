@@ -10,11 +10,12 @@ data class Register(
     @SerializedName("NgaySinh") @Expose val dateOfBirth: String? = null,
     @SerializedName("DiaChi") @Expose val address: String? = null,
     @SerializedName("idQuan") @Expose val districtId: Int? = 0,
-    @SerializedName("ThanhPho") @Expose val city: Int = 1,
+    @SerializedName("idThanhPho") @Expose val city: Int = 1,
     @SerializedName("Sdt") @Expose val phone: String? = null,
     @SerializedName("email") @Expose val email: String? = null,
     @SerializedName("pass") @Expose val pass: String? = null,
-    @SerializedName("data") @Expose val data: String? = null
+    @SerializedName("data") @Expose val data: String? = null,
+    @SerializedName("urlfile") @Expose var photoUrl: String? = null
 ) {
     companion object {
         fun fromUser(user: User) = Register(
@@ -27,7 +28,8 @@ data class Register(
             phone = user.phoneNumber,
             email = user.email,
             pass = user.pass,
-            data = null
+            data = null,
+            photoUrl = user.avatar
         )
     }
 }

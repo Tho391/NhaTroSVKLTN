@@ -6,7 +6,10 @@ class Urls {
         //        const val BASE_URL = "https://quanlynhatro01.herokuapp.com/"
 //        const val BASE_URL = "http://192.168.2.104:3000/"
 
-        const val BASE_URL = "http://thomas-nguyen.educationhost.cloud/"
+        const val IMGBB_URL = "https://api.imgbb.com/1/"
+
+        //        const val BASE_URL = "http://thomas-nguyen.educationhost.cloud/"
+        const val BASE_URL = "https://quanlynhatro02.herokuapp.com/"
 
         //                const val BASE_URL = "http://ae07b2710f6e.ngrok.io/"
         const val APARTMENTS = "apartments"

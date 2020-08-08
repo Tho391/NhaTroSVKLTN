@@ -47,7 +47,10 @@ class RegisterActivity : AppCompatActivity() {
             //dang ky thanh cong, quay ve man hinh dang nhap
             val register = getInfo()
             if (register != null) {
-                viewModel.register(register, avatarFile)
+                //viewModel.register(register, avatarFile)
+
+                //change to up image to imgbb
+                viewModel.register2(register, avatarFile, resources.getString(R.string.imgbb_key))
             }
         }
         binding.imageViewAvatar.setOnClickListener {
