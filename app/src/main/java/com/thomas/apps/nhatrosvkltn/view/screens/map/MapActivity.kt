@@ -148,13 +148,13 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, FiltersFragment.OnD
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        mMap?.uiSettings?.isMapToolbarEnabled = false
+        googleMap.uiSettings.isMapToolbarEnabled = false
 
-        mMap?.uiSettings?.isMyLocationButtonEnabled = false
+        googleMap.uiSettings.isMyLocationButtonEnabled = false
 
-        mMap?.setInfoWindowAdapter(CustomInfoWindowAdapter(this))
+        googleMap.setInfoWindowAdapter(CustomInfoWindowAdapter(this))
 
-        mMap?.setOnInfoWindowClickListener {
+        googleMap.setOnInfoWindowClickListener {
             launchActivity<ApartmentDetailsActivity> {
                 putExtra(INTENT_APARTMENT_ID, (it.tag as Apartment).id)
             }

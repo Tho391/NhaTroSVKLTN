@@ -69,7 +69,7 @@ class LoginViewModel(private val application: Application) : ViewModel() {
             phoneNumber = "",
             avatar = account.photoUrl.toString(),
             email = account.email ?: "",
-            pass = account.idToken.toString(),
+            pass = account.id.toString(),
             lastName = "",
             token = ""
         )
