@@ -46,7 +46,6 @@ interface ApiServicesTest {
         @Query("key") key: String = KEY_TEST
     ): Observable<Apartment>
 
-    //todo add apartment id as query
     @GET(COMMENTS_TEST)
     fun getComments(
 //        apartmentId: Int,
@@ -67,7 +66,6 @@ interface ApiServicesTest {
             val retrofit = Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                //todo change to base_url
                 .baseUrl(TEST_URL)
                 .client(client)
                 .build()

@@ -155,7 +155,6 @@ class CallFragment(private val qbrtcSession: QBRTCSession? = null) : Fragment(),
     }
 
     private fun shareScreen() {
-        //todo request perms to share screen
     }
 
     private fun offCam(offCam: Boolean) {
@@ -189,11 +188,9 @@ class CallFragment(private val qbrtcSession: QBRTCSession? = null) : Fragment(),
             currentSession?.mediaStreamManager?.videoCapturer as QBRTCCameraVideoCapturer
         videoCapture.switchCamera(object : CameraVideoCapturer.CameraSwitchHandler {
             override fun onCameraSwitchDone(p0: Boolean) {
-                //TODO("Not yet implemented")
             }
 
             override fun onCameraSwitchError(p0: String?) {
-                //TODO("Not yet implemented")
             }
         })
     }

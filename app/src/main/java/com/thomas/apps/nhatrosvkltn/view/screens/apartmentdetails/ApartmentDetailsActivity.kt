@@ -196,7 +196,6 @@ class ApartmentDetailsActivity : AppCompatActivity() {
                 }
 
                 binding.imageViewApartment.setOnClickListener {
-                    //todo pass images object to image activity
                     launchActivity<ListImagesActivity> {
 //                        putExtra("id", apartment.id)
                         putExtra("apartmentId", apartment.id)
@@ -239,7 +238,6 @@ class ApartmentDetailsActivity : AppCompatActivity() {
     }
 
     private fun getApartment(apartmentId: Int) {
-        //TODO("Not yet implemented")
         viewModel.getApartment(apartmentId)
     }
 

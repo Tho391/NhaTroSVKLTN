@@ -116,7 +116,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, FiltersFragment.OnD
                     // search here
 
                     //recyclerAdapter.filter.filter(editTextSearch.text.toString())
-                    //todo call api search
                     if (query != null)
                         viewModel.search(query)
                     return false

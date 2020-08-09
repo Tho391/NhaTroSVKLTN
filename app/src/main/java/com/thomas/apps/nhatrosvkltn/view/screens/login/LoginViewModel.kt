@@ -88,10 +88,12 @@ class LoginViewModel(private val application: Application) : ViewModel() {
                         _loginSuccess.postValue(true)
                     }
                 }, {
-                    Log.e("lỗi", it?.message.toString())
+                    Log.e(TAG, it?.message.toString())
                     _isLogging.postValue(false)
                     _toastMessage.postValue("Lỗi kết nối. Vui lòng kiểm tra lại")
                 })
         )
     }
 }
+
+private const val TAG = "LoginViewModel"

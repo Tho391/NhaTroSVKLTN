@@ -46,6 +46,5 @@ class CallActivity : AppCompatActivity() {
     }
 
     private fun endCall() {
-        //todo end call
     }
 }

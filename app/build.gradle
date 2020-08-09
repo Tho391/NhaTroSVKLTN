@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 
 ext.versionMajor = 1
 ext.versionMinor = 2
-ext.versionPatch = 2
+ext.versionPatch = 3
 ext.minimumSdkVersion = 23
 
 android {

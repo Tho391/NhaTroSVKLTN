@@ -21,7 +21,6 @@ class ImageAdapter : ListAdapter<Image, ImageAdapter.ViewHolder>(ImageDC()) {
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Image) {
-            // TODO: Bind the data with View
             with(binding) {
                 imageViewImage.load(item.url) {
                     placeholder(R.drawable.image_load)

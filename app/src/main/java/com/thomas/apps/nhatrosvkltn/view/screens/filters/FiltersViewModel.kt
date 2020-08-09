@@ -2,6 +2,4 @@ package com.thomas.apps.nhatrosvkltn.view.screens.filters
 
 import androidx.lifecycle.ViewModel
 
-class FiltersViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
-}
+class FiltersViewModel : ViewModel()

@@ -106,7 +106,6 @@ interface ApiServices {
         @Body apartmentResponse: ApartmentResponse
     ): Observable<ApartmentResponse>
 
-    //todo add apartment id as query
     @GET(COMMENTS)
     fun getComments(
         @Path("id") apartmentId: Int

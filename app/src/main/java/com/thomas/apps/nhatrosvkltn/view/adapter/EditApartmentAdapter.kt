@@ -30,7 +30,6 @@ class EditApartmentAdapter : ListAdapter<Apartment, EditApartmentAdapter.ViewHol
 
         @SuppressLint("SetTextI18n")
         fun bind(item: Apartment) {
-            // TODO: Bind the data with View
             with(binding) {
                 textViewTitle.text = item.title
                 textViewAddress.text = item.address
@@ -79,7 +78,6 @@ class EditApartmentAdapter : ListAdapter<Apartment, EditApartmentAdapter.ViewHol
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
-                //TODO("Not yet implemented")
 
                 val filterResults = FilterResults()
                 filterResults.values = currentList

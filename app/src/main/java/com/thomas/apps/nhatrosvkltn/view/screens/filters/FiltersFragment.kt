@@ -35,7 +35,6 @@ class FiltersFragment(context: Context, themeResId: Int) : Dialog(context, theme
 //        super.onActivityCreated(savedInstanceState)
 ////        viewModel = ViewModelProviders.of(this).get(FiltersViewModel::class.java)
 //        viewModel = ViewModelProvider(this).get(FiltersViewModel::class.java)
-//        // TODO: Use the ViewModel
 //        init()
 //    }
 

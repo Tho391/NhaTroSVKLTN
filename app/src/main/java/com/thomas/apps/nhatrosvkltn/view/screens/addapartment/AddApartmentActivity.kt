@@ -92,7 +92,6 @@ class AddApartmentActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 PICK_LOCATION -> {
-                    //todo get lat lng here
                     if (data != null) {
                         lat = data.getDoubleExtra("lat", 0.0)
                         lng = data.getDoubleExtra("lon", 0.0)
@@ -144,7 +143,6 @@ class AddApartmentActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_pick_location -> {
-                //todo post apartment here
                 val apartment = getData()
                 val user = getUser(this)
                 if (user != null) {

@@ -33,7 +33,6 @@ interface UploadImageService {
             val retrofit = Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                //todo change to base_url
                 .baseUrl(Urls.IMGBB_URL)
                 .client(client)
                 .build()

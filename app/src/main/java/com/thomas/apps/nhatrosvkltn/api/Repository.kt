@@ -136,7 +136,7 @@ class Repository {
     fun editApartment(token: String, apartmentResponse: ApartmentResponse) =
         apiServices.editApartment(token, apartmentResponse.idNhatro, apartmentResponse)
 
-    //todo hiện tại mới làm hcm id = 1
+    // hiện tại mới làm hcm id = 1
     fun recommend(cityId: Int) = apiServices.recommend(1)
 
     fun uploadImage(key: String, file: MultipartBody.Part): Observable<ImgbbResponse> {

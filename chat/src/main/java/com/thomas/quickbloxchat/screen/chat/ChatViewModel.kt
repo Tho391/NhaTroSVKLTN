@@ -259,7 +259,6 @@ class ChatViewModel : ViewModel() {
                     p1: QBRTCVideoTrack?,
                     p2: Int?
                 ) {
-                    //TODO("Not yet implemented")
                 }
 
             })

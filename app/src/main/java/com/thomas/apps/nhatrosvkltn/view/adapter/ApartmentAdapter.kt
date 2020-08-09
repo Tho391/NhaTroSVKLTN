@@ -28,7 +28,6 @@ class ApartmentAdapter : ListAdapter<Apartment, ApartmentAdapter.ViewHolder>(Apa
 
         @SuppressLint("SetTextI18n")
         fun bind(item: Apartment) {
-            // TODO: Bind the data with View
             with(binding) {
                 textViewTitle.text = item.title
 

@@ -7,7 +7,6 @@ import com.thomas.apps.nhatrosvkltn.model.Apartment
 
 class HomeViewModel : ViewModel() {
 
-    // TODO: Implement the ViewModel
     private var _apartments = MutableLiveData<List<Apartment>>()
 
     val apartments: LiveData<List<Apartment>>

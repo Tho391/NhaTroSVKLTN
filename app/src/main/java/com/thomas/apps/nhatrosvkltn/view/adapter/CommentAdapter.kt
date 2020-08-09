@@ -23,7 +23,6 @@ class CommentAdapter : ListAdapter<Comment, CommentAdapter.ViewHolder>(CommentDC
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Comment) {
-            // TODO: Bind the data with View
             with(binding) {
                 imageViewAvatar.load(item.user?.avatar) {
                     placeholder(R.drawable.image_load)

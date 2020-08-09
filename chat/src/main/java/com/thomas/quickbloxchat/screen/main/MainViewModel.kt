@@ -96,11 +96,9 @@ class MainViewModel : ViewModel() {
             }
 
             override fun entriesUpdated(p0: MutableCollection<Int>?) {
-                //todo update entries
             }
 
             override fun entriesAdded(p0: MutableCollection<Int>?) {
-                //todo add entries
             }
 
         })
