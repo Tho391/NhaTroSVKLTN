@@ -1,0 +1,45 @@
+# Nhà trọ sinh viên
+
+Nhà Trọ Sinh Viên là ứng dụng thông minh giúp bạn thuê phòng/ nhà trọ dễ dàng hơn.
+
+# Tính năng
+
+  - Tìm và lọc nhà trọ.
+  - Đăng trọ.
+  - Bình luận, đánh giá bài viết.
+  - Xem nhà trọ trên bản đồ.
+  - Chat, video call với chủ trọ
+
+### Công nghệ sử dụng
+
+Ứng dụng này sử dụng một số thư viện:
+
+* [Rubber Picker](https://github.com/Chrisvin/RubberPicker)
+* [Bubble Navigation](https://github.com/gauravk95/bubble-navigation)
+* [Material Spinner](https://github.com/jaredrummler/MaterialSpinner)
+* [Coil](https://github.com/coil-kt/coil)
+* [Retrofit](https://square.github.io/retrofit/)
+* [Dexter](https://github.com/Karumi/Dexter)
+* [RxJava](https://github.com/ReactiveX/RxJava)
+* [Gson](https://github.com/google/gson)
+* [Quickblox](https://docs.quickblox.com/docs)
+
+### Installation
+
+Nhà trọ sinh viên tương thích với hệ điều hành android 6 trở lên
+
+Tải về bản mới nhất ở đây. [Tải về](https://github.com/Tho391/NhaTroSVKLTN/releases)
+
+### Todos
+
+ - Write MORE Tests
+ - Add Night Mode
+ - Enchance video call.
+
+License
+----
+
+MIT
+
+**Free Software, Hell Yeah!**
+
