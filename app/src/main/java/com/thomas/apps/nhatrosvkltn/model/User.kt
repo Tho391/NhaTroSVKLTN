@@ -20,6 +20,6 @@ data class User(
 
     fun getToken(): String = "bearer $token"
 
-    fun hasToken(): Boolean = token.isNullOrEmpty()
+    fun hasToken(): Boolean = !token.isNullOrEmpty()
     fun getShortToken(): String = token ?: ""
 }

@@ -108,7 +108,7 @@ class ApartmentDetailsActivity : AppCompatActivity() {
                         }
                     }
                     //else
-                    //  TOAST("Đăng nhập để thực hiện chức năng này")
+                    //TOAST("Đăng nhập để thực hiện chức năng này")
                 }
                 false
             }

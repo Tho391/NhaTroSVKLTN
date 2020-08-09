@@ -100,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/small"
                         android:numStars="5"
-                        android:rating="0"
+                        android:rating="5"
                         android:theme="@style/RatingBar"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
