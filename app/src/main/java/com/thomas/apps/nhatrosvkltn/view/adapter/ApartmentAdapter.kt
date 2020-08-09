@@ -1,6 +1,7 @@
 package com.thomas.apps.nhatrosvkltn.view.adapter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -20,8 +21,17 @@ class ApartmentAdapter : ListAdapter<Apartment, ApartmentAdapter.ViewHolder>(Apa
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder.from(parent)
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = getItem(position)
+        holder.itemView.setOnClickListener {
+            Log.i(TAG, "apartment id ${item.id} clicked")
+            it.context.launchActivity<ApartmentDetailsActivity> {
+                putExtra(INTENT_APARTMENT_ID, item.id)
+            }
+        }
         holder.bind(getItem(position))
+    }
+
 
     class ViewHolder private constructor(private val binding: ItemApartmentBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -49,13 +59,21 @@ class ApartmentAdapter : ListAdapter<Apartment, ApartmentAdapter.ViewHolder>(Apa
                     error(R.drawable.image_broken)
                 }
 
-                root.setOnClickListener {
-                    //root.context.TOAST("apartment id ${item.id} clicked")
+//                root.setOnClickListener {
+//                    Log.i(TAG, "apartment id ${item.id} clicked")
+//                    //root.context.TOAST("apartment id ${item.id} clicked")
+//                    root.context.launchActivity<ApartmentDetailsActivity> {
+//                        putExtra(INTENT_APARTMENT_ID, item.id)
+//                    }
+//                }
 
-                    root.context.launchActivity<ApartmentDetailsActivity> {
-                        putExtra(INTENT_APARTMENT_ID, item.id)
-                    }
-                }
+//                constraintLayout.setOnClickListener {
+//                    Log.i(TAG, "apartment id ${item.id} clicked")
+//                    //root.context.TOAST("apartment id ${item.id} clicked")
+//                    root.context.launchActivity<ApartmentDetailsActivity> {
+//                        putExtra(INTENT_APARTMENT_ID, item.id)
+//                    }
+//                }
             }
         }
 
@@ -79,3 +97,5 @@ class ApartmentAdapter : ListAdapter<Apartment, ApartmentAdapter.ViewHolder>(Apa
         }
     }
 }
+
+private const val TAG = "ApartmentAdapter"

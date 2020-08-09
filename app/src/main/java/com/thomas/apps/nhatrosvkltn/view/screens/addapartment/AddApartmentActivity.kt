@@ -82,8 +82,8 @@ class AddApartmentActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (viewModel.isPosting.value == false)
-            super.onBackPressed()
+        //if (viewModel.isPosting.value == false)
+        //   super.onBackPressed()
     }
 
     @Suppress("DEPRECATION")

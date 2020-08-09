@@ -48,6 +48,7 @@
                 android:background="@drawable/edit_text_background"
                 android:hint="@string/ten_duong"
                 android:padding="15dp"
+                android:singleLine="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

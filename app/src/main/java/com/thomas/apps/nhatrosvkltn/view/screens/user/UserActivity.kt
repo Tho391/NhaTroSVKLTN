@@ -64,7 +64,10 @@ class UserActivity : AppCompatActivity() {
                 textViewDate.text = user.dateOfBirth
                 editTextAddress.setText(user.address, TextView.BufferType.EDITABLE)
 
-                user.districtId?.let { spinnerDistrict.selectedIndex = it - 1 }
+                user.districtId?.let {
+                    if (it > 0)
+                        spinnerDistrict.selectedIndex = it - 1
+                }
                 editTextPhone.setText(user.phoneNumber, TextView.BufferType.EDITABLE)
             }
         }

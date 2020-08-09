@@ -42,6 +42,7 @@ class CallFragment(private val qbrtcSession: QBRTCSession? = null) : Fragment(),
     private var isAudioEnable = true
     private var isCameraEnable = true
 
+    val userInfo = mutableMapOf<String, String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -119,7 +120,7 @@ class CallFragment(private val qbrtcSession: QBRTCSession? = null) : Fragment(),
 
             with(binding.containerStartingCall) {
                 cardViewDecline.setOnClickListener {
-                    currentSession?.let { it.rejectCall(it.userInfo) }
+                    currentSession?.rejectCall(userInfo)
 //
 //                    requireActivity().supportFragmentManager.beginTransaction()
 //                        .remove(this@CallFragment).commit()
@@ -130,7 +131,7 @@ class CallFragment(private val qbrtcSession: QBRTCSession? = null) : Fragment(),
 
                 cardViewAccept.setOnClickListener {
 
-                    currentSession?.let { it.acceptCall(it.userInfo) }
+                    currentSession?.acceptCall(userInfo)
 
                     setUpSession(currentSession)
 
@@ -195,24 +196,24 @@ class CallFragment(private val qbrtcSession: QBRTCSession? = null) : Fragment(),
         })
     }
 
-    private fun muteAudio(isMute: Boolean) {
+    private fun muteAudio(isAudioEnable: Boolean) {
         val qbMediaStreamManager = currentSession?.mediaStreamManager
 
         qbMediaStreamManager?.let {
-            it.isAudioEnabled = isMute
+            it.isAudioEnabled = isAudioEnable
 
-            Log.i(TAG, "isMute = $isMute | manager = ${it.isAudioEnabled}")
+            Log.i(TAG, "isAudioEnable = $isAudioEnable | manager = ${it.isAudioEnabled}")
 
             binding.containerCall.containerCallFunction.cardViewMute.backgroundTintList =
                 when {
                     Build.VERSION.SDK_INT >= 23 -> {
-                        if (!isMute)
+                        if (!isAudioEnable)
                             resources.getColorStateList(R.color.button_disable_background, null)
                         else
                             resources.getColorStateList(R.color.button_light_background, null)
                     }
                     else -> {
-                        if (!isMute)
+                        if (!isAudioEnable)
                             resources.getColorStateList(R.color.button_disable_background)
                         else
                             resources.getColorStateList(R.color.button_light_background)
@@ -296,16 +297,15 @@ class CallFragment(private val qbrtcSession: QBRTCSession? = null) : Fragment(),
         // Start call
         val user = QBChatService.getInstance().user
 
+        //val userInfo = mutableMapOf<String, String>()
 
-        val userInfo = mutableMapOf<String, String>()
-
-        userInfo["name"] = user.login
+        //userInfo["name"] = user.login
 
         currentSession?.startCall(userInfo)
     }
 
     private fun endCall() {
-        currentSession?.let { it.hangUp(it.userInfo) }
+        currentSession?.hangUp(userInfo)
 
         viewModel.stopTimer()
 
@@ -403,9 +403,9 @@ class CallFragment(private val qbrtcSession: QBRTCSession? = null) : Fragment(),
         Log.i(TAG, "onReceiveNewSession" + qbrtcSession?.sessionID)
         currentSession = qbrtcSession
 
-        qbrtcSession?.let {
-            binding.containerStartingCall.textViewName.text = it.userInfo["name"]
-        }
+//        qbrtcSession?.let {
+//            binding.containerStartingCall.textViewName.text = it.userInfo["name"]
+//        }
     }
 
     override fun onUserNoActions(qbrtcSession: QBRTCSession?, integer: Int?) {
