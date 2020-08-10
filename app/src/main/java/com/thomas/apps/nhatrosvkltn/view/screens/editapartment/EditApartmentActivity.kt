@@ -64,6 +64,7 @@ class EditApartmentActivity : AppCompatActivity() {
 
         viewModel.postSuccess.observe(this, Observer {
             if (it) TOAST("Sửa thành công")
+            finish()
         })
     }
 

@@ -72,18 +72,16 @@ class AddApartmentActivity : AppCompatActivity() {
         adapter.submitList(listImage)
 
         viewModel.postSuccess.observe(this, Observer {
-            if (it) TOAST("Đăng thành công!")
-            onBackPressed()
+            if (it) {
+                TOAST("Đăng thành công!")
+                finish()
+
+            }
         })
 
         viewModel.isPosting.observe(this, Observer {
             binding.progressBar.visibility = if (it) View.VISIBLE else View.INVISIBLE
         })
-    }
-
-    override fun onBackPressed() {
-        //if (viewModel.isPosting.value == false)
-        //   super.onBackPressed()
     }
 
     @Suppress("DEPRECATION")
@@ -132,7 +130,7 @@ class AddApartmentActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
-        return true
+        return false
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

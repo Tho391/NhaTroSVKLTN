@@ -50,12 +50,6 @@ class SearchFragment : Fragment(), FiltersFragment.OnDismissListener,
     }
 
     private fun init() {
-        val filtersFragment = FiltersFragment(
-            requireContext(),
-            android.R.style.Theme_Material_Light_DialogWhenLarge_NoActionBar
-        )
-        filtersFragment.onDismissListener = this
-
         with(binding) {
             recyclerView.adapter = recyclerAdapter
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -82,6 +76,11 @@ class SearchFragment : Fragment(), FiltersFragment.OnDismissListener,
             imageButtonFilter.setOnClickListener {
                 hideSoftKeyboard()
                 //TOAST("Filter")
+                val filtersFragment = FiltersFragment(
+                    requireContext(),
+                    android.R.style.Theme_Material_Light_DialogWhenLarge_NoActionBar
+                )
+                filtersFragment.onDismissListener = this@SearchFragment
                 filtersFragment.show()
             }
 

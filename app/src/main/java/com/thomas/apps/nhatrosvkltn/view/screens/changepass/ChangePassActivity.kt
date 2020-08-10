@@ -57,7 +57,10 @@ class ChangePassActivity : AppCompatActivity() {
                 this@ChangePassActivity,
                 Observer { if (it) progressBar.show() else progressBar.hide() })
 
-            viewModel.message.observe(this@ChangePassActivity, Observer { TOAST(it) })
+            viewModel.message.observe(this@ChangePassActivity, Observer {
+                TOAST(it)
+                finish()
+            })
         }
 
     }

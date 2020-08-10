@@ -76,26 +76,29 @@ class ProfileFragment : Fragment() {
 
             textViewLogin.setOnClickListener { requireContext().launchActivity<LoginActivity> { } }
             textViewAdd.setOnClickListener {
-                if (isLogin)
-                    requireContext().launchActivity<AddApartmentActivity> { }
-                else TOAST("Đăng nhập để thực hiện chức năng này")
+                if (user != null) {
+                    context?.launchActivity<AddApartmentActivity> {}
+
+//                    val intent = Intent(context,AddApartmentActivity::class.java)
+
+                } else TOAST("Đăng nhập để thực hiện chức năng này")
             }
             textViewManage.setOnClickListener {
-                if (isLogin)
+                if (user != null)
                     requireContext().launchActivity<ManageApartmentsActivity> { }
                 else TOAST("Đăng nhập để thực hiện chức năng này")
             }
             textViewChangePass.setOnClickListener {
-                if (isLogin)
+                if (user != null)
                     requireContext().launchActivity<ChangePassActivity> { }
                 else TOAST("Đăng nhập để thực hiện chức năng này")
             }
             textViewLogout.setOnClickListener {
-                if (isLogin)
+                if (user != null)
                     logOut()
             }
             textViewInfo.setOnClickListener {
-                if (isLogin && user != null)
+                if (user != null)
                     requireContext().launchActivity<UserActivity> {
                         putExtra("id", user!!.id)
                     }

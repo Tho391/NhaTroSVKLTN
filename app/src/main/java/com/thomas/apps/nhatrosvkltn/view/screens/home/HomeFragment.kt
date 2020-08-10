@@ -1,7 +1,9 @@
 package com.thomas.apps.nhatrosvkltn.view.screens.home
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,14 +13,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import coil.api.load
-import com.google.gson.Gson
 import com.thomas.apps.nhatrosvkltn.R
 import com.thomas.apps.nhatrosvkltn.databinding.FragmentHomeBinding
 import com.thomas.apps.nhatrosvkltn.model.FilterModel
-import com.thomas.apps.nhatrosvkltn.model.User
-import com.thomas.apps.nhatrosvkltn.utils.Constant.Companion.CURRENT_USER_KEY
-import com.thomas.apps.nhatrosvkltn.utils.Constant.Companion.SHARE_PREFERENCES_KEY
-import com.thomas.apps.nhatrosvkltn.utils.get
+import com.thomas.apps.nhatrosvkltn.utils.getUser
 import com.thomas.apps.nhatrosvkltn.utils.launchActivity
 import com.thomas.apps.nhatrosvkltn.view.adapter.ApartmentAdapter
 import com.thomas.apps.nhatrosvkltn.view.screens.MainActivity
@@ -152,16 +150,20 @@ class HomeFragment : Fragment() {
             }
 
             imageButtonAddApartment.setOnClickListener {
-                val sharedPreferences = requireContext().getSharedPreferences(
-                    SHARE_PREFERENCES_KEY,
-                    Context.MODE_PRIVATE
-                )
-                val json: String = sharedPreferences.get(CURRENT_USER_KEY, "")
-                val user = Gson().fromJson<User>(json, User::class.java)
-                if (user != null)
-                    requireContext().launchActivity<AddApartmentActivity> { }
-                else
-                    requireContext().launchActivity<LoginActivity> { }
+                val user = getUser(requireContext())
+                if (user != null) {
+//                    context?.launchActivity<AddApartmentActivity> { }
+//                    val intent = Intent(context,AddApartmentActivity::class.java)
+//                    startActivity(intent)
+                    Handler().post {
+                        context?.launchActivity<AddApartmentActivity> { }
+                    }
+                } else {
+//                    context?.launchActivity<LoginActivity> { }
+
+                    val intent = Intent(context, LoginActivity::class.java)
+                    startActivity(intent)
+                }
             }
 
         }
