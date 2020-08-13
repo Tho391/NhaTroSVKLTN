@@ -55,6 +55,8 @@ class ApartmentDetailsViewModel : ViewModel() {
                 .subscribe({
                     _apartment.postValue(it.toApartment())
                     _isApartmentLoading.postValue(false)
+
+                    getRecommend(it.idNhatro, it.idQuan)
                 }, {
                     Log.e(TAG, it?.message.toString())
                     _isApartmentLoading.postValue(false)
@@ -116,9 +118,9 @@ class ApartmentDetailsViewModel : ViewModel() {
         )
     }
 
-    fun getRecommend(cityId: Int) {
+    fun getRecommend(idNhatro: Int, idQuan: Int) {
         disposables.add(
-            repository.recommend(cityId)
+            repository.recommend(idNhatro, idQuan)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ listApartment ->

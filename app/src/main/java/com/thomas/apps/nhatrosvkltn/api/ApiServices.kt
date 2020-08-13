@@ -181,7 +181,8 @@ interface ApiServices {
 
     @GET(RECOMMEND)
     fun recommend(
-        @Path("id") cityId: Int
+        @Path("idNhaTro") idNhaTro: Int,
+        @Path("idQuan") idQuan: Int
     ): Observable<List<ApartmentResponse>>
 
 

@@ -136,8 +136,7 @@ class Repository {
     fun editApartment(token: String, apartmentResponse: ApartmentResponse) =
         apiServices.editApartment(token, apartmentResponse.idNhatro, apartmentResponse)
 
-    // hiện tại mới làm hcm id = 1
-    fun recommend(cityId: Int) = apiServices.recommend(1)
+    fun recommend(idNhaTro: Int, idQuan: Int) = apiServices.recommend(idNhaTro, idQuan)
 
     fun uploadImage(key: String, file: MultipartBody.Part): Observable<ImgbbResponse> {
         val mediaType = "text/plain".toMediaTypeOrNull()

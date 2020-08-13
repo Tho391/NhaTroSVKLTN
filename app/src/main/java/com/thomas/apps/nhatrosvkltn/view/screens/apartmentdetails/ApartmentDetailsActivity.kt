@@ -126,12 +126,12 @@ class ApartmentDetailsActivity : AppCompatActivity() {
             swipeRefreshLayout.setOnRefreshListener {
                 getApartment(apartmentId)
                 getComments(apartmentId)
-                getRecommend(apartmentId)
+                //getRecommend(apartmentId)
             }
             swipeRefreshLayout.post {
                 getApartment(apartmentId)
                 getComments(apartmentId)
-                getRecommend(apartmentId)
+                //getRecommend(apartmentId)
             }
 
             rating.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
@@ -229,9 +229,9 @@ class ApartmentDetailsActivity : AppCompatActivity() {
 
     }
 
-    private fun getRecommend(cityId: Int) {
-        viewModel.getRecommend(cityId)
-    }
+//    private fun getRecommend(cityId: Int) {
+//        viewModel.getRecommend(cityId)
+//    }
 
     private fun getComments(apartmentId: Int) {
         viewModel.getComments(apartmentId)

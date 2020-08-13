@@ -38,6 +38,16 @@
                     android:background="@color/backGroundColor"
                     tools:context=".view.screens.apartmentdetails.ApartmentDetailsActivity">
 
+                    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/adView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        ads:adSize="BANNER"
+                        ads:adUnitId="@string/ad_mod_test"
+                        ads:layout_constraintEnd_toEndOf="parent"
+                        ads:layout_constraintStart_toStartOf="parent"
+                        ads:layout_constraintTop_toTopOf="parent" />
+
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/cardView_image"
                         android:layout_width="match_parent"
@@ -47,7 +57,7 @@
                         app:cardCornerRadius="@dimen/medium_radius"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toBottomOf="@id/adView">
 
                         <ImageView
                             android:id="@+id/imageView_apartment"
@@ -425,9 +435,9 @@
 
                             <TextView
                                 android:id="@+id/text_recommend"
+                                style="@style/Headline6"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                style="@style/Headline6"
                                 android:padding="@dimen/small"
                                 android:text="@string/goi_y"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -482,13 +492,6 @@
             </androidx.core.widget.NestedScrollView>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/adView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            ads:adSize="BANNER"
-            ads:adUnitId="@string/ad_mod_banner_id"
-            ads:layout_constraintTop_toBottomOf="@id/toolBar" />
 
         <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/progressBar"
